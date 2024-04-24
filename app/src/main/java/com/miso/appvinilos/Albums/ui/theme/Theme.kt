@@ -1,4 +1,4 @@
-package com.example.appvinilos.ui.theme
+package com.miso.appvinilos.Albums.ui.theme
 
 import android.app.Activity
 import android.os.Build
