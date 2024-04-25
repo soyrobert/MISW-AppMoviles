@@ -15,7 +15,10 @@ private val retrofit = Retrofit.Builder()
 
 interface NetworkServiceAdapterAlbums {
     @GET("albums")
-    fun getAlbums(): Call<List<Album>>
+    suspend fun getAlbums(): List<Album>
+
+    @GET("albums/{albumId}")
+    suspend fun getAlbum(@Path("albumId") albumId: Int): Album
 }
 
 object AlbumsApi {
