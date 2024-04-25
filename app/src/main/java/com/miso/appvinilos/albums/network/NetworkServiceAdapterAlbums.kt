@@ -1,12 +1,12 @@
 package com.miso.appvinilos.albums.network
+import com.miso.appvinilos.albums.model.Album
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
 
 private const val BASE_URL =
-    "http://localhost:3000/"
-//    "http://34.27.239.238:3000/"
+      "http://34.27.239.238:3000/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
@@ -15,9 +15,7 @@ private val retrofit = Retrofit.Builder()
 
 interface NetworkServiceAdapterAlbums {
     @GET("albums")
-    fun getProperties():
-            Call<String>
-
+    fun getAlbums(): Call<String>
 }
 
 object AlbumsApi {
