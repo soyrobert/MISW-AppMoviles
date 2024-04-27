@@ -5,6 +5,7 @@ import org.junit.Test
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -59,8 +60,19 @@ class catalogoAlbumTest {
     }
 
     @Test
-    fun funciona_scroll_catalogo_albums(){
+    fun funciona_scroll_catalogo_albums_abajo(){
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
         composeTestRule.onNodeWithText("Album7").assertIsDisplayed()
+    }
+
+    @Test
+    fun funciona_scroll_catalogo_albums_abajo_luego_arriba(){
+        composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
+        composeTestRule.onNodeWithText("Album7").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Album1").assertIsNotDisplayed()
+
+        composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(0)
+        composeTestRule.onNodeWithText("Album1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Album7").assertIsNotDisplayed()
     }
 }
