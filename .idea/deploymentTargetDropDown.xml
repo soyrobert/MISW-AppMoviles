@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="MyComposeTest">
+        <State />
+      </entry>
       <entry key="Tests in 'com.miso.appvinilos'">
         <State />
       </entry>
@@ -9,6 +12,9 @@
         <State />
       </entry>
       <entry key="catalogoAlbumTest">
+        <State />
+      </entry>
+      <entry key="funciona_scroll()">
         <State />
       </entry>
     </value>

@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 
@@ -22,6 +24,7 @@ fun AlbumList(viewModel: AlbumViewModel) {
             items(albums) { album ->
                 AlbumItem(album)
             }
-        }
+        },
+        modifier= Modifier.testTag("AlbumList")
     )
 }
