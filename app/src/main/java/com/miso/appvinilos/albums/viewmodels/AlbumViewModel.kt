@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
+import android.util.Log;
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
     private val albumRepository = AlbumRepository()
@@ -21,9 +22,12 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         viewModelScope.launch {
             try {
                 val albums = albumRepository.getAlbums()
+                //Log.d("fetchAlbums", "fetchAlbums: $albums")
+                Log.d("AlbumViewModel", "Fetched albums: ${albums.joinToString { it.name }}")
                 _albums.value = albums
             } catch (e: Exception) {
                 // Handle error
+                Log.e("fetchAlbumsError", "Error fetching album details", e)
                 e.printStackTrace()
             }
         }
@@ -34,6 +38,7 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         viewModelScope.launch {
             try {
                 val result = albumRepository.getAlbum(albumId)
+                Log.d("fetchAlbum", "fetchAlbum: $result")
                 _album.value = result
             } catch (e: Exception) {
                 // Handle error

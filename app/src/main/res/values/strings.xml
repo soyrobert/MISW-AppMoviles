@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">appVinilos</string>
+    <string name="albums">Álbumes</string>
+    <string name="artists">Artistas</string>
+    <string name="collectors">Coleccionistas</string>
+    <string name="home">Inicio</string>
 </resources>
