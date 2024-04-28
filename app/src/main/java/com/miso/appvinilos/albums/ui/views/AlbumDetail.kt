@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -39,7 +40,7 @@ import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController) {
+fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
     val viewModel: AlbumViewModel = viewModel()
 
     val albumInicial = Album(0, albumId.toString(), "cover", "releaseDate","descr","genre","recordlab")
@@ -58,12 +59,27 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController) {
 
     val album2 by viewModel.album.observeAsState(initial = albumInicial)
 
+    if(albumsTest.isNotEmpty()){
+        val albumTest = albumsTest[albumId-1]
+        AlbumBasicDetail(albumTest, navigationController)
+    }
+    else{
+        AlbumBasicDetail(album2, navigationController)
+    }
+
+
+
+}
+
+@Composable
+fun AlbumBasicDetail(album:Album, navigationController: NavHostController){
     Column {
         Header(navigationController)
-        AlbumDetail(album2)
-        AlbumDescription(album2)
+        AlbumDetail(album)
+        AlbumDescription(album)
     }
 }
+
 
 
 @Composable
@@ -90,7 +106,7 @@ fun TopBar(navigationController: NavHostController) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { navigationController.navigate("AlbumListScreen")}) {
+        IconButton(onClick = { navigationController.navigate("AlbumListScreen")},modifier=Modifier.testTag("backButton")){
             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Atrás")
         }
 

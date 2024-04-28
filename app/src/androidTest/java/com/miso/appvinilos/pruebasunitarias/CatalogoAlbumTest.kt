@@ -1,4 +1,4 @@
-package com.miso.appvinilos
+package com.miso.appvinilos.pruebasunitarias
 
 import org.junit.Test
 

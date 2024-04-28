@@ -2,19 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="MyComposeTest">
+      <entry key="E2ETest_casouso1">
         <State />
       </entry>
-      <entry key="Tests in 'com.miso.appvinilos'">
+      <entry key="E2ETests">
+        <State />
+      </entry>
+      <entry key="Tests in 'com.miso.appvinilos.e2e'">
+        <State />
+      </entry>
+      <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
         <State />
       </entry>
       <entry key="app">
         <State />
       </entry>
-      <entry key="catalogoAlbumTest">
-        <State />
-      </entry>
-      <entry key="funciona_scroll()">
+      <entry key="test_caso_uso_2()">
         <State />
       </entry>
     </value>

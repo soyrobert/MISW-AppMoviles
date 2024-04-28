@@ -110,11 +110,21 @@ fun AlbumScreen(viewModel: AlbumViewModel) {
 
 
 @Composable
-fun AlbumListScreen(navigationController: NavHostController) {
+fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
     val viewModel: AlbumViewModel = viewModel()
-    LaunchedEffect(key1 = true) {
-        viewModel.fetchAlbums()
+
+    if (albumsTest.isNotEmpty()) {
+        LaunchedEffect(key1 = true) {
+            viewModel.fetchAlbums(albumsTest)
+        }
     }
+    else {
+        LaunchedEffect(key1 = true) {
+            viewModel.fetchAlbums()
+        }
+    }
+
+
     Log.d("AlbumListScreen", "Loading albums")
     AlbumList(viewModel,navigationController)
 }
