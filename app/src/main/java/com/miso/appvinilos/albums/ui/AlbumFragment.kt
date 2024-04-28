@@ -22,7 +22,7 @@ class AlbumFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 AppVinilosTheme {
-                    AlbumList(viewModel)
+                    //AlbumList(viewModel, navigationController)
                 }
             }
         }
