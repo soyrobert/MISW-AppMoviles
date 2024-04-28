@@ -1,5 +1,6 @@
 package com.miso.appvinilos.albums.ui.views
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,11 +21,15 @@ import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun AlbumItem(album: Album) {
+
     Column(
         modifier = Modifier
             .padding(8.dp)
             .width(176.dp)
             .clipToBounds()
+            .clickable( // Add clickable modifier
+                onClick = {  } // Use album ID for navigation
+            )
     ) {
         GlideImage(
             imageModel = { album.cover },

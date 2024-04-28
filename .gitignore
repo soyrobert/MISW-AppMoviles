@@ -16,6 +16,7 @@ local.properties
 
 # Directorios IntelliJ IDEA
 .idea/
+.idea/deploymentTargetDropDown.xml
 .gradle/
 .externalNativeBuild/
 .cxx/
