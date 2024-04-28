@@ -1,12 +1,11 @@
 package com.miso.appvinilos.albums.network
 import com.miso.appvinilos.albums.model.Album
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL =
-      "http://34.27.239.238:3000/"
+private const val PORT = "3000"
+private const val BASE_URL = "http://34.27.239.238:$PORT/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())

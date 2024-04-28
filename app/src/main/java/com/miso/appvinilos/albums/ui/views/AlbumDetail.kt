@@ -9,10 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -31,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.albums.model.Album
@@ -42,44 +40,23 @@ import com.skydoves.landscapist.glide.GlideImage
 fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
 
-    val albumInicial = Album(0, albumId.toString(), "cover", "releaseDate","descr","genre","recordlab")
-    //var album: Album = albumInicial
+    val initialAlbum = Album(0, albumId.toString(), "cover", "releaseDate",
+        "descr","genre","record lab")
 
-    //val albumObserver = Observer<Album> { newAlbum ->
-    //    album = newAlbum
-   // }
-
-    //viewModel.album.observe(this, albumObserver)
-    //viewModel.fetchAlbum(albumId)
     LaunchedEffect(key1 = true) {
         viewModel.fetchAlbum(albumId)
     }
 
 
-    val album2 by viewModel.album.observeAsState(initial = albumInicial)
+    val albumToShow by viewModel.album.observeAsState(initial = initialAlbum)
 
     Column {
         Header(navigationController)
-        AlbumDetail(album2)
-        AlbumDescription(album2)
+        AlbumDetail(albumToShow)
+        AlbumDescription(albumToShow)
     }
 }
 
-
-@Composable
-fun BackArrow() {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            imageVector = Icons.Filled.ArrowBack,
-            contentDescription = "Navigate Back",
-            // modifier = Modifier.clickable(onClick = onClick) // Make the icon clickable
-            modifier = Modifier.size(50.dp), // S
-        )
-    }
-}
 
 @Composable
 fun TopBar(navigationController: NavHostController) {
@@ -91,7 +68,7 @@ fun TopBar(navigationController: NavHostController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = { navigationController.navigate("AlbumListScreen")}) {
-            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Atrás")
+            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
         }
 
         Title()
@@ -135,7 +112,6 @@ fun Header(navigationController: NavHostController) {
 
 @Composable
 fun AlbumPhotoScreen(cover: String) {
-    // val albumPhoto = painterResource(id = R.drawable.album_web)
     Box(
         modifier = Modifier
             .fillMaxWidth(0.80f)
@@ -144,13 +120,6 @@ fun AlbumPhotoScreen(cover: String) {
             )
             .padding(1.dp)
     ) {
-        /** Image(
-            painter = albumPhoto,
-            contentDescription = "Havana",
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)
-        ) */
         GlideImage(
             imageModel = { cover },
 
@@ -162,18 +131,6 @@ fun AlbumPhotoScreen(cover: String) {
     }
 }
 
-
-@Composable
-fun AlbumFooterTitleScreen(album: Album) {
-    Text(
-        text = album.name,
-        style = TextStyle(
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            fontSize = 18.sp
-        )
-    )
-}
 
 @Composable
 fun AlbumBasicDescription(album: Album){
