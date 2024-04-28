@@ -27,9 +27,6 @@ fun AlbumItem(album: Album) {
             .padding(8.dp)
             .width(176.dp)
             .clipToBounds()
-            .clickable( // Add clickable modifier
-                onClick = {  } // Use album ID for navigation
-            )
     ) {
         GlideImage(
             imageModel = { album.cover },

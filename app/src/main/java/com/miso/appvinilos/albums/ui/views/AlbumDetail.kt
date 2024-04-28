@@ -18,6 +18,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,15 +31,37 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Observer
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.miso.appvinilos.albums.model.Album
+import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun AlbumCompleteDetail(album: Album) {
+fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController) {
+    val viewModel: AlbumViewModel = viewModel()
+
+    val albumInicial = Album(0, albumId.toString(), "cover", "releaseDate","descr","genre","recordlab")
+    //var album: Album = albumInicial
+
+    //val albumObserver = Observer<Album> { newAlbum ->
+    //    album = newAlbum
+   // }
+
+    //viewModel.album.observe(this, albumObserver)
+    //viewModel.fetchAlbum(albumId)
+    LaunchedEffect(key1 = true) {
+        viewModel.fetchAlbum(albumId)
+    }
+
+
+    val album2 by viewModel.album.observeAsState(initial = albumInicial)
+
     Column {
-        Header()
-        AlbumDetail(album)
-        AlbumDescription(album)
+        Header(navigationController)
+        AlbumDetail(album2)
+        AlbumDescription(album2)
     }
 }
 
@@ -57,7 +82,7 @@ fun BackArrow() {
 }
 
 @Composable
-fun TopBar() {
+fun TopBar(navigationController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,7 +90,7 @@ fun TopBar() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { /* Navegar atrás */ }) {
+        IconButton(onClick = { navigationController.navigate("AlbumListScreen")}) {
             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Atrás")
         }
 
@@ -92,7 +117,7 @@ fun Title() {
 
 
 @Composable
-fun Header() {
+fun Header(navigationController: NavHostController) {
     Surface(
         color = Color.White,
         modifier = Modifier
@@ -102,7 +127,7 @@ fun Header() {
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            TopBar()
+            TopBar(navigationController)
         }
     }
 }

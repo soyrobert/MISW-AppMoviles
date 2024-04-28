@@ -21,10 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.miso.appvinilos.albums.model.Album
 import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
+import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
 import com.miso.appvinilos.albums.ui.views.AlbumList
 import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 
@@ -34,8 +37,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            
             AppVinilosTheme {
-                AlbumListScreen()
+                val navigationController= rememberNavController()
+                NavHost(navController = navigationController, startDestination = "AlbumListScreen"){
+                    composable("AlbumListScreen"){ AlbumListScreen(navigationController)}
+                    composable("AlbumCompleteDetail/{albumId}"){ backStackEntry ->
+                        var albumId=backStackEntry.arguments?.getString("albumId")
+                        //var albumEjemplo = Album(1, "Album de ejemplo", "cover", "releaseDate","descr","genre","recordlab")
+                        var albumIdInt= albumId?.toInt()?:0
+                        AlbumCompleteDetail(albumIdInt,navigationController)
+                    }
+                }
+                
             }
         }
     }
@@ -65,7 +79,7 @@ fun MainScreen() {
     ) { innerPadding ->
         NavHost(navController, startDestination = "home", Modifier.padding(innerPadding)) {
             composable("home") { MainScreen() }
-            composable("albumList") { AlbumListScreen() }
+            //composable("albumList") { AlbumListScreen(navigationController) }
         }
     }
 }
@@ -96,11 +110,11 @@ fun AlbumScreen(viewModel: AlbumViewModel) {
 
 
 @Composable
-fun AlbumListScreen() {
+fun AlbumListScreen(navigationController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
     LaunchedEffect(key1 = true) {
         viewModel.fetchAlbums()
     }
     Log.d("AlbumListScreen", "Loading albums")
-    AlbumList(viewModel)
+    AlbumList(viewModel,navigationController)
 }
