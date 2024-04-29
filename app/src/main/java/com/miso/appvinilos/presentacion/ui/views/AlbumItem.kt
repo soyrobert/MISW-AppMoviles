@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.miso.appvinilos.albums.model.Album
+import com.miso.appvinilos.data.model.Album
 import com.skydoves.landscapist.glide.GlideImage
 
 

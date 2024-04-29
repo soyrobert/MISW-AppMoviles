@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.miso.appvinilos.albums.model.Album
+import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -65,7 +65,7 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,al
 }
 
 @Composable
-fun AlbumBasicDetail(album:Album, navigationController: NavHostController){
+fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
     Column {
         Header(navigationController)
         AlbumDetail(album)

@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.albums.model.Album
+import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
 import com.miso.appvinilos.albums.ui.views.AlbumList

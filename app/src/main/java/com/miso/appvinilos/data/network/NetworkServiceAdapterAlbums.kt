@@ -1,5 +1,5 @@
-package com.miso.appvinilos.albums.network
-import com.miso.appvinilos.albums.model.Album
+package com.miso.appvinilos.data.network
+import com.miso.appvinilos.data.model.Album
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
