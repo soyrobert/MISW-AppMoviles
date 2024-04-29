@@ -1,4 +1,4 @@
-package com.miso.appvinilos.albums.model
+package com.miso.appvinilos.data.model
 
 data class Album (
     val id:Int,

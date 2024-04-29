@@ -2,22 +2,23 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="E2ETest_casouso1">
-        <State />
-      </entry>
-      <entry key="E2ETests">
-        <State />
-      </entry>
-      <entry key="Tests in 'com.miso.appvinilos.e2e'">
-        <State />
-      </entry>
       <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\USUARIO\.android\avd\Pixel_3_API_VanillaIceCream.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-29T02:31:15.908209200Z" />
+        </State>
       </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="test_caso_uso_2()">
         <State />
       </entry>
     </value>

@@ -1,6 +1,6 @@
 package com.miso.appvinilos.albums.viewmodels
-import com.miso.appvinilos.albums.model.Album
-import com.miso.appvinilos.albums.repositories.AlbumRepository
+import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.data.repositories.AlbumRepository
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.lifecycle.LiveData
