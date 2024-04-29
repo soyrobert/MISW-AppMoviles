@@ -6,7 +6,7 @@ import androidx.lifecycle.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
-import android.util.Log;
+import android.util.Log
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
     private val albumRepository = AlbumRepository()
@@ -18,13 +18,18 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     val album: LiveData<Album>
         get() = _album
 
-    fun fetchAlbums() {
+    fun fetchAlbums(albumsTest:List<Album> = emptyList()){
         viewModelScope.launch {
             try {
-                val albums = albumRepository.getAlbums()
-                //Log.d("fetchAlbums", "fetchAlbums: $albums")
-                Log.d("AlbumViewModel", "Fetched albums: ${albums.joinToString { it.name }}")
-                _albums.value = albums
+                if(albumsTest.isEmpty()){
+                    val albums = albumRepository.getAlbums()
+                    Log.d("AlbumViewModel", "Fetched albums: ${albums.joinToString { it.name }}")
+                    _albums.value = albums}
+                else{
+                    Log.d("AlbumViewModel", "Fetched test albums: ${albumsTest.joinToString { it.name }}")
+                    _albums.value = albumsTest
+                }
+
             } catch (e: Exception) {
                 // Handle error
                 Log.e("fetchAlbumsError", "Error fetching album details", e)
@@ -33,13 +38,13 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         }
     }
 
+
     fun fetchAlbum(albumId: Int) {
-        // Launch a coroutine in the IO context
         viewModelScope.launch {
             try {
-                val result = albumRepository.getAlbum(albumId)
-                Log.d("fetchAlbum", "fetchAlbum: $result")
-                _album.value = result
+                val foundAlbum = albumRepository.getAlbum(albumId)
+                Log.d("fetchAlbum", "fetchAlbum: $foundAlbum")
+                _album.value = foundAlbum
             } catch (e: Exception) {
                 // Handle error
                 e.printStackTrace()
