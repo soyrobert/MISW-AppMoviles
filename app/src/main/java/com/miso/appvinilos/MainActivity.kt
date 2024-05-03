@@ -44,6 +44,7 @@ import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
 import com.miso.appvinilos.albums.ui.views.AlbumList
 import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,7 +164,7 @@ fun Navigations(navController: NavHostController) {
                 AlbumCompleteDetail(albumIdInt, navController)
         }
         composable(NavigationItem.Artist.route) {
-            ArtistScreen(navController)
+            ArtistListScreen(navController)
         }
         composable(NavigationItem.Collector.route) {
             CollectorScreen(navController)
@@ -185,10 +186,7 @@ fun CenterText(text: String) {
     }
 }
 
-@Composable
-fun ArtistScreen(navigationController: NavHostController) {
-    CenterText(text = "Artist")
-}
+
 
 @Composable
 fun CollectorScreen(navigationController: NavHostController) {
