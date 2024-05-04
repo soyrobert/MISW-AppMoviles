@@ -60,7 +60,7 @@ fun ArtistList(viewModel: ArtistViewModel, navigationController: NavHostControll
             items(artists) { artist ->
 
                 Box(modifier=Modifier.fillMaxSize().clickable {
-                    //TODO NAVIGATION
+                    navigationController.navigate("ArtistCompleteDetail/" + artist.id)
                 }){
                     ArtistItem(artist)
                 }
