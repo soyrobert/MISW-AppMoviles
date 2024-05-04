@@ -46,8 +46,10 @@ import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 import com.miso.appvinilos.collectors.ui.views.CollectorList
 import com.miso.appvinilos.collectors.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,7 +169,13 @@ fun Navigations(navController: NavHostController) {
                 AlbumCompleteDetail(albumIdInt, navController)
         }
         composable(NavigationItem.Artist.route) {
-            ArtistListScreen(navController)
+            ArtistListScreen(navController)}
+            composable("ArtistCompleteDetail/{artistId}"){ backStackEntry ->
+
+                val artistId=backStackEntry.arguments?.getString("artistId")
+                val artistIdInt= artistId?.toInt()?:0
+
+                ArtistCompleteDetail(artistIdInt, navController)
         }
         composable(NavigationItem.Collector.route) {
             CollectorListScreen(navController)
