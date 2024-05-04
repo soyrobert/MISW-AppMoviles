@@ -43,8 +43,11 @@ import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
 import com.miso.appvinilos.albums.ui.views.AlbumList
 import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
+import com.miso.appvinilos.collectors.ui.views.CollectorList
+import com.miso.appvinilos.collectors.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
+import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
 
 
@@ -175,7 +178,7 @@ fun Navigations(navController: NavHostController) {
                 ArtistCompleteDetail(artistIdInt, navController)
         }
         composable(NavigationItem.Collector.route) {
-            CollectorScreen(navController)
+            CollectorListScreen(navController)
         }
         composable(NavigationItem.Home.route) {
             HomeScreen(navController)
@@ -225,4 +228,25 @@ fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Albu
 
     Log.d("AlbumListScreen", "Loading albums")
     AlbumList(viewModel,navigationController)
+}
+
+@Composable
+fun CollectorListScreen(navigationController: NavHostController,collectorsTest:List<Collector> = emptyList()) {
+
+    val viewModel: CollectorViewModel = viewModel()
+
+    if (collectorsTest.isNotEmpty()) {
+        LaunchedEffect(key1 = true) {
+            viewModel.fetchCollectors(collectorsTest)
+        }
+    }
+    else {
+        LaunchedEffect(key1 = true) {
+            viewModel.fetchCollectors()
+        }
+    }
+
+
+
+    CollectorList(viewModel,navigationController)
 }
