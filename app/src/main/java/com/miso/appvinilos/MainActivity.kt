@@ -117,7 +117,7 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationItem.Home
     )
     var selectedItem by remember { mutableIntStateOf(0) }
-    var currentRoute by remember { mutableStateOf(NavigationItem.Albums.route) }
+    var currentRoute by remember { mutableStateOf(NavigationItem.Home.route) }
 
     items.forEachIndexed { index, navigationItem ->
         if (navigationItem.route == currentRoute) {
@@ -158,7 +158,7 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun Navigations(navController: NavHostController) {
-    NavHost(navController, startDestination = NavigationItem.Albums.route) {
+    NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Albums.route) {
             AlbumListScreen(navController)}
             composable("AlbumCompleteDetail/{albumId}"){ backStackEntry ->
