@@ -93,7 +93,7 @@ fun TopBar(navigationController: NavHostController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconButton(onClick = { navigationController.navigate("Artist")},modifier= Modifier.testTag("backButton")) {
+        IconButton(onClick = { navigationController.popBackStack()},modifier= Modifier.testTag("backButton")) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
         }
         Title()
