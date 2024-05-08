@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -101,10 +102,10 @@ fun MainScreen(
 }
 
 sealed class NavigationItem(var route: String, val title: String, val icon: Int) {
-    object Albums : NavigationItem("Albums", "Albums", R.drawable.ic_album)
-    object Artist : NavigationItem("Artist", "Artist", R.drawable.ic_artist)
-    object Collector : NavigationItem("Collector", "Collector", R.drawable.ic_collector)
-    object Home : NavigationItem("Home", "Home", R.drawable.ic_home)
+    object Albums : NavigationItem("Albums", "IconoAlbums", R.drawable.ic_album)
+    object Artist : NavigationItem("Artist", "IconoArtist", R.drawable.ic_artist)
+    object Collector : NavigationItem("Collector", "IconoCollector", R.drawable.ic_collector)
+    object Home : NavigationItem("Home", "IconoHome", R.drawable.ic_home)
 }
 
 
@@ -129,6 +130,7 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 alwaysShowLabel = true,
+                modifier = Modifier.testTag(item.title),
                 icon = {
                     val imagePainter = painterResource(id = item.icon)
                     Image(

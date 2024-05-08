@@ -3,6 +3,10 @@ package com.miso.appvinilos.e2e
 import org.junit.Test
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -13,9 +17,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.miso.appvinilos.AlbumListScreen
+import com.miso.appvinilos.MainScreen
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
+import com.miso.appvinilos.data.model.Artist
 import org.junit.Before
 import org.junit.Rule
 
@@ -30,6 +36,17 @@ class E2ETests {
     val albumTest8= Album(id = 8, name="Album8", cover="cover8", releaseDate="2021-01-08", description="description8", genre="genre8", recordLabel="recordLabel8")
     val albumsTest = listOf(albumTest1, albumTest2, albumTest3, albumTest4, albumTest5, albumTest6, albumTest7, albumTest8)
 
+    val artistTest1= Artist(id = 1, name = "Artist1", image = "image1",description = "description1", birthDate = "birthDate1")
+    val artistTest2= Artist(id = 2, name = "Artist2", image = "image2",description = "description2", birthDate = "birthDate2")
+    val artistTest3= Artist(id = 3, name = "Artist3", image = "image3",description = "description3", birthDate = "birthDate3")
+    val artistTest4= Artist(id = 4, name = "Artist4", image = "image4",description = "description4", birthDate = "birthDate4")
+    val artistTest5= Artist(id = 5, name = "Artist5", image = "image5",description = "description5", birthDate = "birthDate5")
+    val artistTest6= Artist(id = 6, name = "Artist6", image = "image6",description = "description6", birthDate = "birthDate6")
+    val artistTest7= Artist(id = 7, name = "Artist7", image = "image7",description = "description7", birthDate = "birthDate7")
+    val artistTest8= Artist(id = 8, name = "Artist8", image = "image8",description = "description8", birthDate = "birthDate8")
+    val artistsTest = listOf(artistTest1, artistTest2, artistTest3, artistTest4, artistTest5, artistTest6, artistTest7, artistTest8)
+
+
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
@@ -39,14 +56,13 @@ class E2ETests {
         composeTestRule.setContent {
             //TODO se debe hacer refactor dado que es el mismo codigo en MainActivity
             AppVinilosTheme {
-                val navigationController= rememberNavController()
-                NavHost(navController = navigationController, startDestination = "AlbumListScreen"){
-                    composable("AlbumListScreen"){ AlbumListScreen(navigationController,albumsTest) }
-                    composable("AlbumCompleteDetail/{albumId}"){ backStackEntry ->
-                        var albumId=backStackEntry.arguments?.getString("albumId")
-                        //var albumEjemplo = Album(1, "Album de ejemplo", "cover", "releaseDate","descr","genre","recordlab")
-                        var albumIdInt= albumId?.toInt()?:0
-                        AlbumCompleteDetail(albumIdInt,navigationController,albumsTest)
+                val navController = rememberNavController()
+                AppVinilosTheme {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        MainScreen(navController = navController)
                     }
                 }
 
@@ -58,6 +74,7 @@ class E2ETests {
 
     @Test
     fun test_caso_uso_1(){
+        composeTestRule.onNodeWithTag("IconoAlbums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(albumTest1.name).performClick()
         composeTestRule.onNodeWithText("Álbum").assertIsDisplayed()

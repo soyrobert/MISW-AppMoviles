@@ -5,24 +5,8 @@
       <entry key="ArtistListTest">
         <State />
       </entry>
-      <entry key="ListArtistsTest">
+      <entry key="E2ETests">
         <State />
-      </entry>
-      <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\USUARIO\.android\avd\Pixel_3_API_VanillaIceCream.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-29T02:31:15.908209200Z" />
-        </State>
       </entry>
       <entry key="app">
         <State />
@@ -30,7 +14,10 @@
       <entry key="catalogoAlbumTest">
         <State />
       </entry>
-      <entry key="funciona_scroll_catalogo_albums_abajo()">
+      <entry key="detalleAlbumTest">
+        <State />
+      </entry>
+      <entry key="test_caso_uso_1()">
         <State />
       </entry>
     </value>
