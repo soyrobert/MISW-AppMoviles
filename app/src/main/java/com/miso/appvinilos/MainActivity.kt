@@ -137,7 +137,8 @@ fun BottomNavigationBar(navController: NavController) {
                     )
                 },
                 label = { Text(item.title) },
-                selected = selectedItem == index,
+                //selected = selectedItem == index,
+                selected = false,
                 onClick = {
                     selectedItem = index
                     currentRoute = item.route
