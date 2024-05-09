@@ -47,6 +47,7 @@ import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
 import com.miso.appvinilos.collectors.ui.views.CollectorList
 import com.miso.appvinilos.collectors.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
@@ -74,6 +75,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(
     navController: NavHostController,
     albumsTest: List<Album> = emptyList(),
+    artistsTest: List<Artist> = emptyList()
 ) {
     Scaffold(
         bottomBar = {
@@ -97,7 +99,7 @@ fun MainScreen(
                 )
             )
         ) {
-            Navigations(navController = navController,albumsTest = albumsTest)
+            Navigations(navController = navController,albumsTest = albumsTest,artistsTest = artistsTest)
         }
     }
 }
@@ -162,7 +164,8 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun Navigations(navController: NavHostController,
-                albumsTest: List<Album> = emptyList()
+                albumsTest: List<Album> = emptyList(),
+                artistsTest: List<Artist> = emptyList()
                 ) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Albums.route) {
@@ -175,13 +178,13 @@ fun Navigations(navController: NavHostController,
                 AlbumCompleteDetail(albumIdInt, navController,albumsTest=albumsTest)
         }
         composable(NavigationItem.Artist.route) {
-            ArtistListScreen(navController)}
+            ArtistListScreen(navController,artistTest=artistsTest)}
             composable("ArtistCompleteDetail/{artistId}"){ backStackEntry ->
 
                 val artistId=backStackEntry.arguments?.getString("artistId")
                 val artistIdInt= artistId?.toInt()?:0
 
-                ArtistCompleteDetail(artistIdInt, navController)
+                ArtistCompleteDetail(artistIdInt, navController,artistTest=artistsTest)
         }
         composable(NavigationItem.Collector.route) {
             CollectorListScreen(navController)

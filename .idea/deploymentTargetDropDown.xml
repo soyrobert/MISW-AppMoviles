@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ArtistListTest">
-        <State />
-      </entry>
       <entry key="E2ETests">
         <State />
       </entry>
@@ -24,10 +21,13 @@
           <timeTargetWasSelectedWithDropDown value="2024-05-08T23:32:06.550724500Z" />
         </State>
       </entry>
-      <entry key="catalogoAlbumTest">
+      <entry key="detalleAlbumTest">
         <State />
       </entry>
-      <entry key="detalleAlbumTest">
+      <entry key="test_3_consulta_artista_1()">
+        <State />
+      </entry>
+      <entry key="test_4_uso_scroll_artista()">
         <State />
       </entry>
       <entry key="test_caso_uso_1()">
