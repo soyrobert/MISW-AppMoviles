@@ -72,7 +72,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    albumsTest: List<Album> = emptyList(),
 ) {
     Scaffold(
         bottomBar = {
@@ -96,16 +97,16 @@ fun MainScreen(
                 )
             )
         ) {
-            Navigations(navController = navController)
+            Navigations(navController = navController,albumsTest = albumsTest)
         }
     }
 }
 
 sealed class NavigationItem(var route: String, val title: String, val icon: Int) {
-    object Albums : NavigationItem("Albums", "IconoAlbums", R.drawable.ic_album)
-    object Artist : NavigationItem("Artist", "IconoArtist", R.drawable.ic_artist)
-    object Collector : NavigationItem("Collector", "IconoCollector", R.drawable.ic_collector)
-    object Home : NavigationItem("Home", "IconoHome", R.drawable.ic_home)
+    object Albums : NavigationItem("Albums", "Albums", R.drawable.ic_album)
+    object Artist : NavigationItem("Artist", "Artist", R.drawable.ic_artist)
+    object Collector : NavigationItem("Collector", "Collector", R.drawable.ic_collector)
+    object Home : NavigationItem("Home", "Home", R.drawable.ic_home)
 }
 
 
@@ -160,16 +161,18 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 @Composable
-fun Navigations(navController: NavHostController) {
+fun Navigations(navController: NavHostController,
+                albumsTest: List<Album> = emptyList()
+                ) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Albums.route) {
-            AlbumListScreen(navController)}
+            AlbumListScreen(navController,albumsTest=albumsTest)}
             composable("AlbumCompleteDetail/{albumId}"){ backStackEntry ->
 
                 val albumId=backStackEntry.arguments?.getString("albumId")
                 val albumIdInt= albumId?.toInt()?:0
 
-                AlbumCompleteDetail(albumIdInt, navController)
+                AlbumCompleteDetail(albumIdInt, navController,albumsTest=albumsTest)
         }
         composable(NavigationItem.Artist.route) {
             ArtistListScreen(navController)}

@@ -62,7 +62,7 @@ class E2ETests {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        MainScreen(navController = navController)
+                        MainScreen(navController = navController, albumsTest = albumsTest)
                     }
                 }
 
@@ -74,7 +74,7 @@ class E2ETests {
 
     @Test
     fun test_caso_uso_1(){
-        composeTestRule.onNodeWithTag("IconoAlbums").performClick()
+        composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(albumTest1.name).performClick()
         composeTestRule.onNodeWithText("Álbum").assertIsDisplayed()
@@ -84,6 +84,7 @@ class E2ETests {
     }
     @Test
     fun test_caso_uso_2(){
+        composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
         composeTestRule.onNodeWithText(albumTest8.name).performClick()
