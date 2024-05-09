@@ -382,5 +382,20 @@ class E2ETests {
 
     }
 
+    @Test
+    fun test_9_revision_stack_desde_artista(){
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+
+        //al hacer el back en el dispositivo se debe retornar al home
+        Espresso.pressBack()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+
+    }
+
 
 }
