@@ -15,14 +15,10 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.AlbumListScreen
 import com.miso.appvinilos.MainScreen
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
-import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.Comment
