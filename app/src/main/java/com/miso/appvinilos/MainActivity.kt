@@ -75,7 +75,8 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(
     navController: NavHostController,
     albumsTest: List<Album> = emptyList(),
-    artistsTest: List<Artist> = emptyList()
+    artistsTest: List<Artist> = emptyList(),
+    collectorsTest: List<Collector> = emptyList()
 ) {
     Scaffold(
         bottomBar = {
@@ -99,7 +100,10 @@ fun MainScreen(
                 )
             )
         ) {
-            Navigations(navController = navController,albumsTest = albumsTest,artistsTest = artistsTest)
+            Navigations(navController = navController,
+                        albumsTest = albumsTest,
+                        artistsTest = artistsTest,
+                        collectorsTest = collectorsTest)
         }
     }
 }
@@ -165,7 +169,8 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun Navigations(navController: NavHostController,
                 albumsTest: List<Album> = emptyList(),
-                artistsTest: List<Artist> = emptyList()
+                artistsTest: List<Artist> = emptyList(),
+                collectorsTest: List<Collector> = emptyList()
                 ) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Albums.route) {
@@ -187,7 +192,7 @@ fun Navigations(navController: NavHostController,
                 ArtistCompleteDetail(artistIdInt, navController,artistTest=artistsTest)
         }
         composable(NavigationItem.Collector.route) {
-            CollectorListScreen(navController)
+            CollectorListScreen(navController,collectorsTest=collectorsTest)
         }
         composable(NavigationItem.Home.route) {
             HomeScreen(navController)

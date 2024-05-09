@@ -22,6 +22,8 @@ import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
 import com.miso.appvinilos.data.model.Artist
+import com.miso.appvinilos.data.model.Collector
+import com.miso.appvinilos.data.model.Comment
 import org.junit.Before
 import org.junit.Rule
 
@@ -176,6 +178,68 @@ class E2ETests {
         artistTest8
     )
 
+    val commentsTest = listOf(
+        Comment(id = 1, content = "Great collection!"),
+        Comment(id = 2, content = "Impressive variety of albums.")
+    )
+
+    val collectorsTest = listOf(
+        Collector(
+            id = 1,
+            name = "Noemi Murillo",
+            telephone = "123456789",
+            email = "noemi@example.com",
+            comments = commentsTest,
+            favoritePerformers = artistsTest,
+            collectorAlbums = albumsTest
+        ),
+        Collector(
+            id = 2,
+            name = "Francisco Bustamante",
+            telephone = "987654321",
+            email = "francisco@example.com",
+            comments = commentsTest,
+            favoritePerformers = artistsTest,
+            collectorAlbums = albumsTest
+        ),
+        Collector(
+            id = 2,
+            name = "Francisco Javier",
+            telephone = "987654321",
+            email = "francisco@example.com",
+            comments = commentsTest,
+            favoritePerformers = artistsTest,
+            collectorAlbums = albumsTest
+        ),
+        Collector(
+            id = 2,
+            name = "Javier Bustamante",
+            telephone = "987654321",
+            email = "francisco@example.com",
+            comments = commentsTest,
+            favoritePerformers = artistsTest,
+            collectorAlbums = albumsTest
+        ),
+        Collector(
+            id = 2,
+            name = "Murillo Francisco Javier",
+            telephone = "987654321",
+            email = "francisco@example.com",
+            comments = commentsTest,
+            favoritePerformers = artistsTest,
+            collectorAlbums = albumsTest
+        ),
+        Collector(
+            id = 2,
+            name = "Francisco Murillo Bustamante",
+            telephone = "987654321",
+            email = "francisco@example.com",
+            comments = commentsTest,
+            favoritePerformers = artistsTest,
+            collectorAlbums = albumsTest
+        )
+    )
+
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -193,7 +257,8 @@ class E2ETests {
                     ) {
                         MainScreen(navController = navController,
                             albumsTest = albumsTest,
-                            artistsTest = artistsTest)
+                            artistsTest = artistsTest,
+                            collectorsTest = collectorsTest)
                     }
                 }
 
@@ -249,6 +314,12 @@ class E2ETests {
         composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
     }
 
+    @Test
+    fun test_5_ver_coleccionistas() {
+        composeTestRule.onNodeWithText("Collector").performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(collectorsTest[1].name).assertIsDisplayed()
+    }
 
 
 }
