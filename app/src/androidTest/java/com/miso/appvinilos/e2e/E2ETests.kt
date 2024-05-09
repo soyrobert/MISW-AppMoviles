@@ -28,6 +28,7 @@ import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.Comment
 import org.junit.Before
 import org.junit.Rule
+import androidx.test.espresso.Espresso
 
 class E2ETests {
     val albumTest1 = Album(
@@ -364,6 +365,21 @@ class E2ETests {
 
         composeTestRule.onNodeWithText("Home").performClick()
         composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+    }
+
+    @Test
+    fun test_8_revision_stack_desde_album(){
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(albumTest1.name).performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+
+        //al hacer el back en el dispositivo se debe retornar al home
+        Espresso.pressBack()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+
     }
 
 
