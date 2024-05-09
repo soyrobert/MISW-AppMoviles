@@ -27,10 +27,10 @@
       <entry key="funciona_scroll_catalogo_albums_abajo_luego_arriba()">
         <State />
       </entry>
-      <entry key="test_4_uso_scroll_artista()">
+      <entry key="pantalla_artista_detalle_muestra_artista()">
         <State />
       </entry>
-      <entry key="test_5_ver_coleccionistas()">
+      <entry key="test_6_uso_album_uso_artista()">
         <State />
       </entry>
     </value>

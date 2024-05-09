@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -203,7 +205,7 @@ class E2ETests {
             collectorAlbums = albumsTest
         ),
         Collector(
-            id = 2,
+            id = 3,
             name = "Francisco Javier",
             telephone = "987654321",
             email = "francisco@example.com",
@@ -212,7 +214,7 @@ class E2ETests {
             collectorAlbums = albumsTest
         ),
         Collector(
-            id = 2,
+            id = 4,
             name = "Javier Bustamante",
             telephone = "987654321",
             email = "francisco@example.com",
@@ -221,7 +223,7 @@ class E2ETests {
             collectorAlbums = albumsTest
         ),
         Collector(
-            id = 2,
+            id = 5,
             name = "Murillo Francisco Javier",
             telephone = "987654321",
             email = "francisco@example.com",
@@ -230,7 +232,7 @@ class E2ETests {
             collectorAlbums = albumsTest
         ),
         Collector(
-            id = 2,
+            id = 6,
             name = "Francisco Murillo Bustamante",
             telephone = "987654321",
             email = "francisco@example.com",
@@ -319,6 +321,49 @@ class E2ETests {
         composeTestRule.onNodeWithText("Collector").performClick()
         composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
         composeTestRule.onNodeWithText(collectorsTest[1].name).assertIsDisplayed()
+    }
+
+    @Test
+    fun test_6_uso_album_uso_artista() {
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(albumTest1.name).performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Home").performClick()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+    }
+
+    @Test
+    fun test_7_uso_completo_app() {
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(albumTest1.name).performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Collector").performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(collectorsTest[1].name).assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText("Collector").performClick()
+
+        composeTestRule.onNodeWithText("Home").performClick()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
     }
 
 
