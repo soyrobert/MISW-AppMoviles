@@ -2,7 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
+      <entry key="Tests in 'com.miso.appvinilos'">
+        <State />
+      </entry>
+      <entry key="app">
         <State>
           <targetSelectedWithDropDown>
             <Target>
@@ -10,15 +13,24 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\USUARIO\.android\avd\Pixel_3_API_VanillaIceCream.avd" />
+                  <value value="C:\Users\dagam\.android\avd\Pixel_6_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-29T02:31:15.908209200Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-08T23:32:06.550724500Z" />
         </State>
       </entry>
-      <entry key="app">
+      <entry key="test_6_uso_album_uso_artista()">
+        <State />
+      </entry>
+      <entry key="test_7_uso_completo_app()">
+        <State />
+      </entry>
+      <entry key="test_8_revision_stack_desde_album()">
+        <State />
+      </entry>
+      <entry key="test_8_revision_stack_desde_artista()">
         <State />
       </entry>
     </value>

@@ -18,16 +18,16 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
     val artist: LiveData<Artist>
         get() = _artist
 
-    fun fetchArtists(artistTest:List<Artist> = emptyList()){
+    fun fetchArtists(artistsTest:List<Artist> = emptyList()){
         viewModelScope.launch {
             try {
-                if(artistTest.isEmpty()){
+                if(artistsTest.isEmpty()){
                     val artists = artistRepository.getArtists()
                     Log.d("ArtistViewModel", "Fetched artists: ${artists.joinToString { it.name }}")
                     _artists.value = artists}
                 else{
-                    Log.d("ArtistViewModel", "Fetched test artists: ${artistTest.joinToString { it.name }}")
-                    _artists.value = artistTest
+                    Log.d("ArtistViewModel", "Fetched test artists: ${artistsTest.joinToString { it.name }}")
+                    _artists.value = artistsTest
                 }
 
             } catch (e: Exception) {

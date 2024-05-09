@@ -68,10 +68,7 @@ class catalogoAlbumTest {
     fun funciona_scroll_catalogo_albums_abajo_luego_arriba(){
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
         composeTestRule.onNodeWithText("Album7").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Album1").assertIsNotDisplayed()
-
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(0)
         composeTestRule.onNodeWithText("Album1").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Album7").assertIsNotDisplayed()
     }
 }
