@@ -73,7 +73,7 @@ class E2ETests {
     }
 
     @Test
-    fun test_caso_uso_1(){
+    fun test_1_consulta_album_1(){
         composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(albumTest1.name).performClick()
@@ -83,7 +83,7 @@ class E2ETests {
         composeTestRule.onNodeWithText(albumTest2.name).assertIsDisplayed()
     }
     @Test
-    fun test_caso_uso_2(){
+    fun test_2_uso_scroll_album(){
         composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
