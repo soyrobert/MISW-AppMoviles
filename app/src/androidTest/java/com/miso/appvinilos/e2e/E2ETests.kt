@@ -385,5 +385,108 @@ class E2ETests {
 
     }
 
+    @Test
+    fun test_3_consulta_artista_1() {
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithText("Artista").assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(artistTest2.name).assertIsDisplayed()
+    }
+
+    @Test
+    fun test_4_uso_scroll_artista() {
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("ArtistList").performScrollToIndex(7)
+        composeTestRule.onNodeWithText(artistTest8.name).performClick()
+        composeTestRule.onNodeWithText("Artista").assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest8.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+    }
+
+    @Test
+    fun test_5_ver_coleccionistas() {
+        composeTestRule.onNodeWithText("Collector").performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(collectorsTest[1].name).assertIsDisplayed()
+    }
+
+    @Test
+    fun test_6_uso_album_uso_artista() {
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(albumTest1.name).performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Home").performClick()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+    }
+
+    @Test
+    fun test_7_uso_completo_app() {
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(albumTest1.name).performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Collector").performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(collectorsTest[1].name).assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText("Collector").performClick()
+
+        composeTestRule.onNodeWithText("Home").performClick()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+    }
+
+    @Test
+    fun test_8_revision_stack_desde_album(){
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onNodeWithText("Albums").performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(albumTest1.name).performClick()
+        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+
+        //al hacer el back en el dispositivo se debe retornar al home
+        Espresso.pressBack()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+
+    }
+
+    @Test
+    fun test_9_revision_stack_desde_artista(){
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onNodeWithText("Artist").performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(artistTest1.name).performClick()
+        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("backButton").performClick()
+
+        //al hacer el back en el dispositivo se debe retornar al home
+        Espresso.pressBack()
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+
+    }
+
 
 }

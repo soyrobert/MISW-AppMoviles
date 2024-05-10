@@ -3,6 +3,11 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="Tests in 'com.miso.appvinilos'">
+
+        <State />
+      </entry>
+      <entry key="app">
+
         <State>
           <targetSelectedWithDropDown>
             <Target>
