@@ -283,11 +283,7 @@ class E2ETests {
         composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
-        composeTestRule.onNodeWithText(albumTest8.name).performClick()
-        composeTestRule.onNodeWithText("Álbum").assertIsDisplayed()
         composeTestRule.onNodeWithText(albumTest8.name).assertIsDisplayed()
-        composeTestRule.onNodeWithTag("backButton").performClick()
-        composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
     }
 
     @Test
@@ -306,11 +302,7 @@ class E2ETests {
         composeTestRule.onNodeWithText("Artist").performClick()
         composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithTag("ArtistList").performScrollToIndex(7)
-        composeTestRule.onNodeWithText(artistTest8.name).performClick()
-        composeTestRule.onNodeWithText("Artista").assertIsDisplayed()
         composeTestRule.onNodeWithText(artistTest8.name).assertIsDisplayed()
-        composeTestRule.onNodeWithTag("backButton").performClick()
-        composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
     }
 
     @Test

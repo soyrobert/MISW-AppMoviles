@@ -3,7 +3,20 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="Tests in 'com.miso.appvinilos'">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\dagam\.android\avd\Pixel_3_API_VanillaIceCream.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-09T23:53:44.738680300Z" />
+        </State>
       </entry>
       <entry key="app">
         <State>
@@ -21,11 +34,24 @@
           <timeTargetWasSelectedWithDropDown value="2024-05-08T23:32:06.550724500Z" />
         </State>
       </entry>
-      <entry key="test_6_uso_album_uso_artista()">
+      <entry key="test_2_uso_scroll_album()">
         <State />
       </entry>
-      <entry key="test_7_uso_completo_app()">
-        <State />
+      <entry key="test_4_uso_scroll_artista()">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\dagam\.android\avd\Pixel_8_Pro_API_VanillaIceCream.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-09T23:44:36.912626500Z" />
+        </State>
       </entry>
       <entry key="test_8_revision_stack_desde_album()">
         <State />
