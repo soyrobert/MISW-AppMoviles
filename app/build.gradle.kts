@@ -71,6 +71,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.2")
     implementation("com.squareup.retrofit2:converter-gson:2.3.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("com.andretietz.retrofit:cache-extension:1.0.0")
     implementation("junit:junit:4.+")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha04")

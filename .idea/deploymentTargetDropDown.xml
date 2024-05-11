@@ -2,7 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="Tests in 'com.miso.appvinilos'">
+      <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
         <State />
       </entry>
       <entry key="app">
@@ -20,18 +20,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-05-08T23:32:06.550724500Z" />
         </State>
-      </entry>
-      <entry key="test_6_uso_album_uso_artista()">
-        <State />
-      </entry>
-      <entry key="test_7_uso_completo_app()">
-        <State />
-      </entry>
-      <entry key="test_8_revision_stack_desde_album()">
-        <State />
-      </entry>
-      <entry key="test_8_revision_stack_desde_artista()">
-        <State />
       </entry>
     </value>
   </component>
