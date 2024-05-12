@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 @Suppress("unused")
 class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
-    private val collectorRepository = CollectorRepository()
+    private val collectorRepository = CollectorRepository(application)
     private val _collectors = MutableLiveData<List<Collector>>()
     val collectors: LiveData<List<Collector>>
         get() = _collectors
