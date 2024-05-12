@@ -1,8 +1,7 @@
 package com.miso.appvinilos.data.network
 import com.andretietz.retrofit.ResponseCache
-import com.miso.appvinilos.MainActivity
 import com.miso.appvinilos.data.model.Album
-
+import android.content.Context
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
@@ -18,11 +17,12 @@ interface NetworkServiceAdapterAlbums {
     suspend fun getAlbum(@Path("albumId") albumId: Int): Album
 }
 
-object AlbumsApi {
+class AlbumsApi(context: Context) {
 
-    private val retrofit = RetrofitFactory.createRetrofitWithCache(MainActivity.getContext())
+    //private val retrofit = RetrofitFactory.createRetrofitWithCache(MainActivity.getContext())
+    private val retrofit = RetrofitFactory.createRetrofitWithCache(context)
 
-    val albumsService : NetworkServiceAdapterAlbums by lazy {
+    val albumsService: NetworkServiceAdapterAlbums by lazy {
         retrofit.create(NetworkServiceAdapterAlbums::class.java)
     }
 }

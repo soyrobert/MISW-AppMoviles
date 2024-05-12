@@ -1,7 +1,7 @@
 package com.miso.appvinilos.data.network
 
+import android.content.Context
 import com.andretietz.retrofit.ResponseCache
-import com.miso.appvinilos.MainActivity
 import com.miso.appvinilos.data.model.Collector
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,8 +18,8 @@ interface NetworkServiceAdapterCollectors {
     suspend fun getCollector(@Path("id") id: Int): Collector
 }
 
-object CollectorsApi {
-    private val retrofit = RetrofitFactory.createRetrofitWithCache(MainActivity.getContext())
+class CollectorsApi(context: Context) {
+    private val retrofit = RetrofitFactory.createRetrofitWithCache(context)
 
     val collectorsService : NetworkServiceAdapterCollectors by lazy {
         retrofit.create(NetworkServiceAdapterCollectors::class.java)

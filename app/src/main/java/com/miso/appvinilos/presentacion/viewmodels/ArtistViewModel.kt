@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import android.util.Log
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
-    private val artistRepository = ArtistRepository()
+    private val artistRepository = ArtistRepository(application)
     private val _artists = MutableLiveData<List<Artist>>()
     val artists: LiveData<List<Artist>>
         get() = _artists

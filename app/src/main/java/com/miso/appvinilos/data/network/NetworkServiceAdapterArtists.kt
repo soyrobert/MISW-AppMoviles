@@ -1,6 +1,6 @@
 package com.miso.appvinilos.data.network
+import android.content.Context
 import com.andretietz.retrofit.ResponseCache
-import com.miso.appvinilos.MainActivity
 import com.miso.appvinilos.data.model.Artist
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,8 +17,8 @@ interface NetworkServiceAdapterArtists {
     suspend fun getArtist(@Path("id") id: Int): Artist
 }
 
-object ArtistsApi {
-    private val retrofit = RetrofitFactory.createRetrofitWithCache(MainActivity.getContext())
+class ArtistsApi(context : Context) {
+    private val retrofit = RetrofitFactory.createRetrofitWithCache(context)
 
     val artistService : NetworkServiceAdapterArtists by lazy {
         retrofit.create(NetworkServiceAdapterArtists::class.java) }
