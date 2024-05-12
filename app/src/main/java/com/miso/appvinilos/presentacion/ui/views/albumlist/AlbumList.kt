@@ -1,4 +1,4 @@
-package com.miso.appvinilos.albums.ui.views
+package com.miso.appvinilos.presentacion.ui.views.albumlist
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
+import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 
 
 @Composable

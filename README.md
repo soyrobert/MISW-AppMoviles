@@ -12,7 +12,7 @@ Repositorio Ingeniería de software para aplicaciones móviles - MISW 4203
 3. Actualizar dependiencias de gradle.
   ![image](https://github.com/soyrobert/MISW-AppMoviles/assets/17055234/5b779ade-d01e-432a-ab7a-b3f4f32255ec)
 
-5. Correr app.
+4. Correr app.
 ![image](https://github.com/soyrobert/MISW-AppMoviles/assets/17055234/0a77711d-0577-4d28-aa0d-2f03cf4459fb)
 
-6. También puede utilizar el archivo APK encontrado en la raiz del proyecto.
+5. También puede utilizar el archivo APK encontrado en la raiz del proyecto.

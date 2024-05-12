@@ -69,7 +69,7 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
 fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
     Column(modifier = Modifier.padding(5.dp)) {
         Header(navigationController)
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         ArtistPhotoScreen(artist.image)
         Spacer(modifier = Modifier.height(35.dp))
         TitleText(text = artist.name)
@@ -142,10 +142,10 @@ fun ArtistPhotoScreen(cover: String) {
                 color = Color.White,
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(1.dp)
-            .aspectRatio(16f/9f) // Maintain aspect ratio 16:9
-            .requiredWidthIn(max = 300.dp) // Set maximum width
-            .requiredHeightIn(max = 270.dp) // Set maximum height
+            .padding(3.dp)
+            .aspectRatio(14f/8f) // Maintain aspect ratio 16:9
+            .requiredWidthIn(max = 230.dp) // Set maximum width
+            .requiredHeightIn(max = 200.dp) // Set maximum height
     ) {
         GlideImage(
             imageModel = { cover },

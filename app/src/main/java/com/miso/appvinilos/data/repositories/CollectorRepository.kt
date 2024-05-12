@@ -1,8 +1,11 @@
+@file:Suppress("unused")
+
 package com.miso.appvinilos.data.repositories
 
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.network.CollectorsApi
 
+@Suppress("unused")
 class CollectorRepository {
     private val collectorService = CollectorsApi.collectorsService
 
