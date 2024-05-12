@@ -67,6 +67,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.converter.gson)
@@ -94,4 +95,5 @@ dependencies {
     implementation(libs.androidx.navigation.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx.v261)
+
 }

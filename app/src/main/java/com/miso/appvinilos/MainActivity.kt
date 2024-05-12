@@ -59,6 +59,11 @@ class MainActivity : ComponentActivity() {
     companion object {
         private lateinit var instance: MainActivity
 
+
+        fun getInstance(): MainActivity {
+            return instance
+        }
+
         fun getContext(): Context {
             return instance.applicationContext
         }
