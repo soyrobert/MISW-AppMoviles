@@ -1,4 +1,4 @@
-package com.miso.appvinilos.albums.ui.views
+package com.miso.appvinilos.presentacion.ui.views.albumdetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
+import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable

@@ -1,23 +1,19 @@
 package com.miso.appvinilos.pruebasunitarias
 
-import org.junit.Test
-
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.albums.ui.views.AlbumBasicDetail
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistBasicDetail
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 class ArtistDetalleTest {
 
-    val artistTest= Artist(
+    private val artistTest= Artist(
         id = 1,
         name = "Artist1",
         image = "image1",
@@ -35,7 +31,7 @@ class ArtistDetalleTest {
 
         composeTestRule.setContent {
 
-            var navigationController = rememberNavController()
+            val navigationController = rememberNavController()
 
             ArtistBasicDetail(artist=artistTest,navigationController=navigationController)
 

@@ -9,8 +9,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.collectors.ui.views.CollectorList
-import com.miso.appvinilos.collectors.viewmodels.CollectorViewModel
+import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
+import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector

@@ -9,12 +9,12 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.compose.rememberNavController
 import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.albums.ui.views.AlbumBasicDetail
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumBasicDetail
 import org.junit.Before
 import org.junit.Rule
 
-class detalleAlbumTest {
-    val albumTestNormal= Album(id = 1, name="Album1", cover="cover1", releaseDate="2021-01-01", description="description1", genre="genre1", recordLabel="recordLabel1")
+class DetalleAlbumTest {
+    private val albumTestNormal= Album(id = 1, name="Album1", cover="cover1", releaseDate="2021-01-01", description="description1", genre="genre1", recordLabel="recordLabel1")
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -26,7 +26,7 @@ class detalleAlbumTest {
 
         composeTestRule.setContent {
 
-            var navigationController = rememberNavController()
+            val navigationController = rememberNavController()
 
             AlbumBasicDetail(albumTestNormal,navigationController)
 

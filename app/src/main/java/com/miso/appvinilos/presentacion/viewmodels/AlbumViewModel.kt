@@ -1,4 +1,4 @@
-package com.miso.appvinilos.albums.viewmodels
+package com.miso.appvinilos.presentacion.viewmodels
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.repositories.AlbumRepository
 import android.app.Application

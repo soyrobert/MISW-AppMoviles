@@ -41,12 +41,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.albums.ui.theme.AppVinilosTheme
-import com.miso.appvinilos.albums.ui.views.AlbumCompleteDetail
-import com.miso.appvinilos.albums.ui.views.AlbumList
-import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
-import com.miso.appvinilos.collectors.ui.views.CollectorList
-import com.miso.appvinilos.collectors.viewmodels.CollectorViewModel
+import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
+import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
+import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
+import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
+import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
@@ -58,6 +58,7 @@ class MainActivity : ComponentActivity() {
     // Config for getting context in other classes
     companion object {
         private lateinit var instance: MainActivity
+
 
         fun getInstance(): MainActivity {
             return instance
@@ -124,10 +125,10 @@ fun MainScreen(
 }
 
 sealed class NavigationItem(var route: String, val title: String, val icon: Int) {
-    object Albums : NavigationItem("Albums", "Albums", R.drawable.ic_album)
-    object Artist : NavigationItem("Artist", "Artist", R.drawable.ic_artist)
-    object Collector : NavigationItem("Collector", "Collector", R.drawable.ic_collector)
-    object Home : NavigationItem("Home", "Home", R.drawable.ic_home)
+    data object Albums : NavigationItem("Albums", "Albums", R.drawable.ic_album)
+    data object Artist : NavigationItem("Artist", "Artist", R.drawable.ic_artist)
+    data object Collector : NavigationItem("Collector", "Collector", R.drawable.ic_collector)
+    data object Home : NavigationItem("Home", "Home", R.drawable.ic_home)
 }
 
 
@@ -210,7 +211,7 @@ fun Navigations(navController: NavHostController,
             CollectorListScreen(navController,collectorsTest=collectorsTest)
         }
         composable(NavigationItem.Home.route) {
-            HomeScreen(navController)
+            HomeScreen()
         }
     }
 }
@@ -227,14 +228,8 @@ fun CenterText(text: String) {
 }
 
 
-
 @Composable
-fun CollectorScreen(navigationController: NavHostController) {
-    CenterText(text = "Collectors")
-}
-
-@Composable
-fun HomeScreen(navigationController: NavHostController) {
+fun HomeScreen() {
     CenterText(text = "Home")
 }
 

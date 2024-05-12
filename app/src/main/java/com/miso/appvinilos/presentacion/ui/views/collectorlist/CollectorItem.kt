@@ -1,4 +1,4 @@
-package com.miso.appvinilos.collectors.ui.views
+package com.miso.appvinilos.presentacion.ui.views.collectorlist
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

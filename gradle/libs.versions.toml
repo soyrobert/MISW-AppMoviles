@@ -1,17 +1,60 @@
 [versions]
-agp = "8.3.0"
+activityComposeVersion = "1.9.0"
+agp = "8.3.2"
+coilCompose = "2.6.0"
+androidxNavigationCompose = "2.7.7"
+coreKtxVersion = "1.13.1"
+androidxRuntimeLivedata = "<version>"
+cacheExtension = "1.0.0"
+converterScalars = "2.9.0"
+converterGson = "2.3.0"
+gson = "2.10.1"
 kotlin = "1.9.0"
-coreKtx = "1.13.0"
+coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
+landscapistGlideVersion = "2.3.3"
+kotlinxCoroutinesCore = "<version>"
+landscapistGlide = "<latest_version>"
+kotlinxCoroutinesAndroid = "1.8.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.9.0"
-composeBom = "2023.08.00"
+composeBom = "2024.05.00"
 appcompat = "1.6.1"
+lifecycleRuntimeKtxVersion = "2.7.0"
+material3Version = "1.2.1"
+navigationComposeVersion = "2.7.7"
+uiToolingPreview = "1.6.7"
+material3 = "1.2.1"
+navigationCompose = "2.7.7"
+runtimeRxjava2 = "<version>"
+navigationUiKtx = "2.7.7"
+navigationFragmentKtx = "2.7.7"
+runtimeLivedataVersion = "1.6.7"
+lifecycleViewmodelCompose = "2.7.0"
+runtimeLivedata = "1.6.7"
+retrofit = "2.9.0"
 
 [libraries]
+androidx-compose-material3-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+androidx-compose-runtime-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidxRuntimeLivedata" }
+androidx-activity-compose-v140 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx-v261 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigationCompose" }
+androidx-core-ktx-v160 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-runtime-rxjava2 = { module = "androidx.compose.runtime:runtime-rxjava2", version.ref = "runtimeRxjava2" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
+cache-extension = { module = "com.andretietz.retrofit:cache-extension", version.ref = "cacheExtension" }
+converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -26,6 +69,15 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+skydoves-landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapistGlideVersion" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapistGlide" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -39,7 +39,7 @@ class ArtistListTest {
                 viewModel.fetchArtists(artistsTest=artistsTest)
             }
 
-            var navigationController = rememberNavController()
+            val navigationController = rememberNavController()
             ArtistList(viewModel,navigationController)
 
 

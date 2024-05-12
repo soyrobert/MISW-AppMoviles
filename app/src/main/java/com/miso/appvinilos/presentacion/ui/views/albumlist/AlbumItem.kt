@@ -1,6 +1,5 @@
-package com.miso.appvinilos.albums.ui.views
+package com.miso.appvinilos.presentacion.ui.views.albumlist
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
