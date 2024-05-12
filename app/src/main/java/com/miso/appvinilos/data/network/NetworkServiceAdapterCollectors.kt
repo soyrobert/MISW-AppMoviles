@@ -2,7 +2,6 @@ package com.miso.appvinilos.data.network
 
 import android.content.Context
 import com.andretietz.retrofit.ResponseCache
-import com.miso.appvinilos.MainActivity
 import com.miso.appvinilos.data.model.Collector
 import retrofit2.http.GET
 import retrofit2.http.Path

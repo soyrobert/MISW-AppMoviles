@@ -1,6 +1,5 @@
 package com.miso.appvinilos.data.repositories
 import android.content.Context
-import com.miso.appvinilos.MainActivity
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.network.AlbumsApi
 
