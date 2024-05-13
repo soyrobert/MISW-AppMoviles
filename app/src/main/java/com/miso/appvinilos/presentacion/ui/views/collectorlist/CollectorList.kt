@@ -1,4 +1,5 @@
-package com.miso.appvinilos.presentacion.ui.views.albumlist
+package com.miso.appvinilos.presentacion.ui.views.collectorlist
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,27 +14,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
-
+import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 
 @Composable
-fun AlbumList(viewModel: AlbumViewModel, navigationController: NavHostController) {
-    val albums by viewModel.albums.observeAsState(initial = listOf())
+fun CollectorList(viewModel: CollectorViewModel, navigationController: NavHostController) {
+    val collectors by viewModel.collectors.observeAsState(initial = listOf())
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(1),
         contentPadding = PaddingValues(16.dp),
         content = {
-            items(albums) { album ->
-
-                Box(modifier=Modifier.fillMaxSize().clickable {
-                    navigationController.navigate("AlbumCompleteDetail/" + album.id)
-                }){
-                    AlbumItem(album)
+            items(collectors) { collector ->
+                Box(modifier = Modifier.fillMaxSize().clickable {
+                    navigationController.navigate("CollectorDetail/" + collector.id)
+                }) {
+                    CollectorItem(collector)
                 }
-
             }
         },
-        modifier= Modifier.testTag("AlbumList")
+        modifier = Modifier.testTag("CollectorList")
     )
 }

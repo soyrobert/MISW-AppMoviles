@@ -1,4 +1,4 @@
-package com.miso.appvinilos.albums.viewmodels
+package com.miso.appvinilos.presentacion.viewmodels
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.repositories.AlbumRepository
 import android.app.Application
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import android.util.Log
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
-    private val albumRepository = AlbumRepository()
+    private val albumRepository = AlbumRepository(application.applicationContext)
     private val _albums = MutableLiveData<List<Album>>()
     val albums: LiveData<List<Album>>
         get() = _albums

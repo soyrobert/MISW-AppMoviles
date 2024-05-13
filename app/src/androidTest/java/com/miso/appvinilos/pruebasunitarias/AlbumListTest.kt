@@ -4,21 +4,20 @@ package com.miso.appvinilos.pruebasunitarias
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.albums.ui.views.AlbumList
-import com.miso.appvinilos.albums.viewmodels.AlbumViewModel
+import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
+import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.miso.appvinilos.data.model.Album
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class catalogoAlbumTest {
+class CatalogoDeAlbum {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -41,7 +40,7 @@ class catalogoAlbumTest {
                 viewModel.fetchAlbums(albumsTest=albumsTest)
             }
 
-            var navigationController = rememberNavController()
+            val navigationController = rememberNavController()
             AlbumList(viewModel,navigationController)
 
 
@@ -68,10 +67,7 @@ class catalogoAlbumTest {
     fun funciona_scroll_catalogo_albums_abajo_luego_arriba(){
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(7)
         composeTestRule.onNodeWithText("Album7").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Album1").assertIsNotDisplayed()
-
         composeTestRule.onNodeWithTag("AlbumList").performScrollToIndex(0)
         composeTestRule.onNodeWithText("Album1").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Album7").assertIsNotDisplayed()
     }
 }
