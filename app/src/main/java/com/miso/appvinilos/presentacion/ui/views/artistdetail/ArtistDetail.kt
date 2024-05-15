@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Artist
+import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.ArtistViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -83,56 +83,11 @@ fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
     }
 }
 
-@Composable
-fun TopBar(text: String, navigationController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        IconButton(onClick = { navigationController.popBackStack()},modifier= Modifier.testTag("backButton")) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
-        }
-        Title(text)
-    }
-}
 
 
-@Preview
-@Composable
-fun Title(text: String="Artista") {
-    Text(
-        text = text,
-        style = TextStyle(
-            color = Color(0xFF1B1C17),
-            textAlign = TextAlign.Start,
-            fontSize = 22.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight(400),
-        ),
-        modifier = Modifier.fillMaxWidth(0.8f)
-    )
-}
 
 
-@Composable
-fun Header(text:String,navigationController: NavHostController) {
-    Surface(
-        color = Color.White,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            TopBar(text,navigationController)
-        }
-    }
-}
+
 
 @Composable
 fun ArtistPhotoScreen(cover: String) {

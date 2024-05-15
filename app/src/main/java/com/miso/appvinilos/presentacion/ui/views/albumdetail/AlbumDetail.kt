@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -67,66 +68,20 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,al
 @Composable
 fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
     Column {
-        Header(navigationController)
+        Header(text="Álbum",navigationController = navigationController)
         AlbumDetail(album)
         AlbumDescription(album)
     }
 }
 
 
-@Composable
-fun TopBar(navigationController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        IconButton(onClick = {
-            navigationController.popBackStack()
-                             },modifier=Modifier.testTag("backButton")) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
-        }
-
-        Title()
-    }
-}
 
 
-@Composable
-fun Title() {
-    Text(
-        text = "Álbum",
-        style = TextStyle(
-            color = Color(0xFF1B1C17),
-            textAlign = TextAlign.Start,
-            fontSize = 22.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight(400),
-        ),
-        modifier = Modifier.fillMaxWidth(0.8f)
-    )
-
-}
 
 
-@Composable
-fun Header(navigationController: NavHostController) {
-    Surface(
-        color = Color.White,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            TopBar(navigationController)
-        }
-    }
-}
+
+
+
 
 
 @Composable
