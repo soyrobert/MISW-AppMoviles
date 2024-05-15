@@ -1,9 +1,11 @@
 package com.miso.appvinilos.presentacion.ui.views.collectordetail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -13,6 +15,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidthIn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -41,6 +46,7 @@ import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
+import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumItem
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistBasicDetail
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistPhotoScreen
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.CustomParagraph
@@ -79,7 +85,18 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
 
 @Composable
 fun CollectorBasicDetail(collectorAlbums: List<Album>, navigationController: NavHostController){
-    Column(modifier = Modifier.padding(5.dp)) {
-        Text(text = collectorAlbums[0].name)
-    }
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(16.dp),
+        content = {
+            items(collectorAlbums) { album ->
+
+                Box(modifier=Modifier.fillMaxSize()){
+                    AlbumItem(album)
+                }
+
+            }
+        },
+        modifier= Modifier.testTag("collectorAlbumsList")
+    )
 }
