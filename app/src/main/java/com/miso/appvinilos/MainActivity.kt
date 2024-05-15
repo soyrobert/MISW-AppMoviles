@@ -1,6 +1,6 @@
 package com.miso.appvinilos
 
-import android.content.Context
+
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -57,22 +57,9 @@ import com.miso.appvinilos.presentacion.ui.views.collectordetail.CollectorComple
 
 
 class MainActivity : ComponentActivity() {
-    // Config for getting context in other classes
-    companion object {
-        private lateinit var instance: MainActivity
-
-
-        fun getInstance(): MainActivity {
-            return instance
-        }
-
-        fun getContext(): Context {
-            return instance.applicationContext
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        instance = this
+
         super.onCreate(savedInstanceState)
 
         setContent {

@@ -2,7 +2,6 @@ package com.miso.appvinilos.data.network
 
 import android.content.Context
 import com.andretietz.retrofit.ResponseCache
-import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.CollectorAlbum
 import retrofit2.http.GET
