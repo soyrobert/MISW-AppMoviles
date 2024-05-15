@@ -3,7 +3,10 @@ import com.andretietz.retrofit.ResponseCache
 import com.miso.appvinilos.data.model.Album
 import android.content.Context
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Body
+import retrofit2.Call
 import java.util.concurrent.TimeUnit
 
 
@@ -15,6 +18,10 @@ interface NetworkServiceAdapterAlbums {
     @GET("albums/{albumId}")
     @ResponseCache(CachingConfig.ALBUMS_CACHE_TIME, unit = TimeUnit.HOURS)
     suspend fun getAlbum(@Path("albumId") albumId: Int): Album
+
+    @POST("albums")
+    @ResponseCache(CachingConfig.ALBUMS_CACHE_TIME, unit = TimeUnit.HOURS)
+    suspend fun postAlbum(@Body album: Album): Call<Album>
 }
 
 class AlbumsApi(context: Context) {

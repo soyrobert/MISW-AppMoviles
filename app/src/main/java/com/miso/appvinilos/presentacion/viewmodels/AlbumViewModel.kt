@@ -52,4 +52,29 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         }
     }
 
+//    fun createAlbum(album: Album) {
+//        viewModelScope.launch {
+//            try {
+//                albumRepository.postAlbum(album)
+//                Log.d("create Album", "CreateAlbum: $album")
+//            } catch (e: Exception) {
+//                // Handle error
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+    fun createAlbum(album: Album): Boolean {
+        var isError: Boolean = false
+        viewModelScope.launch {
+            try {
+                albumRepository.postAlbum(album)
+                Log.d("create Album", "CreateAlbum: $album")
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+                isError = true
+            }
+        }
+        return isError
+    }
 }

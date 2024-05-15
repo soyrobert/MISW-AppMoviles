@@ -45,6 +45,7 @@ import androidx.navigation.compose.rememberNavController
 import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
 import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
+import com.miso.appvinilos.presentacion.ui.views.albumCreate.AlbumCreate
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
 import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
@@ -90,7 +91,9 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = {
+                navController.navigate("createAlbum")
+            }) {
                 Icon(Icons.Filled.Add, "Add")
             }
         }
@@ -216,6 +219,9 @@ fun Navigations(
         composable(NavigationItem.Home.route) {
             HomeScreen()
         }
+        composable("CreateAlbum") {
+            CreateAlbumScreen(navController)
+        }
     }
 }
 
@@ -234,6 +240,14 @@ fun CenterText(text: String) {
 @Composable
 fun HomeScreen() {
     CenterText(text = "Home")
+}
+
+
+@Composable
+fun CreateAlbumScreen(navController: NavHostController) {
+    val viewModel: AlbumViewModel = viewModel()
+    AlbumCreate(viewModel)
+    // Your CreateAlbumScreen content here
 }
 
 @Composable

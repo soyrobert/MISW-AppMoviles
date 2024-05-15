@@ -15,4 +15,7 @@ class AlbumRepository(context: Context) {
     suspend fun getAlbum(albumId: Int): Album {
         return albumService.getAlbum(albumId)
     }
+
+    suspend fun postAlbum(album: Album) =
+        albumService.postAlbum(album)
 }
