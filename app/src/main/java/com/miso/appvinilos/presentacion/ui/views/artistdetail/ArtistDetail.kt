@@ -68,7 +68,7 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
 @Composable
 fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
     Column(modifier = Modifier.padding(5.dp)) {
-        Header(navigationController)
+        Header(text="Artista", navigationController)
         Spacer(modifier = Modifier.height(8.dp))
         ArtistPhotoScreen(artist.image)
         Spacer(modifier = Modifier.height(35.dp))
@@ -84,7 +84,7 @@ fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
 }
 
 @Composable
-fun TopBar(navigationController: NavHostController) {
+fun TopBar(text: String, navigationController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -96,16 +96,16 @@ fun TopBar(navigationController: NavHostController) {
         IconButton(onClick = { navigationController.popBackStack()},modifier= Modifier.testTag("backButton")) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
         }
-        Title()
+        Title(text)
     }
 }
 
 
 @Preview
 @Composable
-fun Title() {
+fun Title(text: String="Artista") {
     Text(
-        text = "Artista",
+        text = text,
         style = TextStyle(
             color = Color(0xFF1B1C17),
             textAlign = TextAlign.Start,
@@ -119,7 +119,7 @@ fun Title() {
 
 
 @Composable
-fun Header(navigationController: NavHostController) {
+fun Header(text:String,navigationController: NavHostController) {
     Surface(
         color = Color.White,
         modifier = Modifier
@@ -129,7 +129,7 @@ fun Header(navigationController: NavHostController) {
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            TopBar(navigationController)
+            TopBar(text,navigationController)
         }
     }
 }

@@ -78,7 +78,10 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
         Text(text = "prueba")
     }
     else{
-        CollectorBasicDetail(collectorAlbumsToShow, navigationController)
+        Column {
+            Header(text="Coleccionista",navigationController)
+            CollectorBasicDetail(collectorAlbumsToShow, navigationController)
+        }
     }
 
 }
