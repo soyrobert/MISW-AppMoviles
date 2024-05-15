@@ -1,7 +1,6 @@
 package com.miso.appvinilos.presentacion.ui.views.artistdetail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,31 +13,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Artist
+import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.ArtistViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -68,7 +60,7 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
 @Composable
 fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
     Column(modifier = Modifier.padding(5.dp)) {
-        Header(navigationController)
+        Header(text="Artista", navigationController)
         Spacer(modifier = Modifier.height(8.dp))
         ArtistPhotoScreen(artist.image)
         Spacer(modifier = Modifier.height(35.dp))
@@ -83,56 +75,11 @@ fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
     }
 }
 
-@Composable
-fun TopBar(navigationController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        IconButton(onClick = { navigationController.popBackStack()},modifier= Modifier.testTag("backButton")) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
-        }
-        Title()
-    }
-}
 
 
-@Preview
-@Composable
-fun Title() {
-    Text(
-        text = "Artista",
-        style = TextStyle(
-            color = Color(0xFF1B1C17),
-            textAlign = TextAlign.Start,
-            fontSize = 22.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight(400),
-        ),
-        modifier = Modifier.fillMaxWidth(0.8f)
-    )
-}
 
 
-@Composable
-fun Header(navigationController: NavHostController) {
-    Surface(
-        color = Color.White,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            TopBar(navigationController)
-        }
-    }
-}
+
 
 @Composable
 fun ArtistPhotoScreen(cover: String) {

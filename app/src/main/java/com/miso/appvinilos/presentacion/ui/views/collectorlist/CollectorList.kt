@@ -26,7 +26,7 @@ fun CollectorList(viewModel: CollectorViewModel, navigationController: NavHostCo
         content = {
             items(collectors) { collector ->
                 Box(modifier = Modifier.fillMaxSize().clickable {
-                    navigationController.navigate("CollectorDetail/" + collector.id)
+                    navigationController.navigate("CollectorCompleteDetail/" + collector.id)
                 }) {
                     CollectorItem(collector)
                 }
