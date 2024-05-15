@@ -2,6 +2,7 @@ package com.miso.appvinilos.data.network
 
 import android.content.Context
 import com.andretietz.retrofit.ResponseCache
+import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Collector
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,6 +17,12 @@ interface NetworkServiceAdapterCollectors {
     @GET("collectors/{id}")
     @ResponseCache(CachingConfig.COLLECTORS_CACHE_TIME, unit = TimeUnit.HOURS)
     suspend fun getCollector(@Path("id") id: Int): Collector
+
+    @GET("collectors/{id}/albums")
+    @ResponseCache(CachingConfig.COLLECTORS_CACHE_TIME, unit = TimeUnit.HOURS)
+    suspend fun getCollectorAlbums(@Path("id") id: Int): List<Album>
+
+
 }
 
 class CollectorsApi(context: Context) {
