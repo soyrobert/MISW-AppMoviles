@@ -1,4 +1,5 @@
 package com.miso.appvinilos
+
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -116,10 +117,12 @@ fun MainScreen(
                 )
             )
         ) {
-            Navigations(navController = navController,
-                        albumsTest = albumsTest,
-                        artistsTest = artistsTest,
-                        collectorsTest = collectorsTest)
+            Navigations(
+                navController = navController,
+                albumsTest = albumsTest,
+                artistsTest = artistsTest,
+                collectorsTest = collectorsTest
+            )
         }
     }
 }
@@ -183,33 +186,45 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 @Composable
-fun Navigations(navController: NavHostController,
-                albumsTest: List<Album> = emptyList(),
-                artistsTest: List<Artist> = emptyList(),
-                collectorsTest: List<Collector> = emptyList()
-                ) {
+fun Navigations(
+    navController: NavHostController,
+    albumsTest: List<Album> = emptyList(),
+    artistsTest: List<Artist> = emptyList(),
+    collectorsTest: List<Collector> = emptyList()
+) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Albums.route) {
-            AlbumListScreen(navController,albumsTest=albumsTest)}
-            composable("AlbumCompleteDetail/{albumId}"){ backStackEntry ->
+            AlbumListScreen(navController, albumsTest = albumsTest)
+        }
+        composable("AlbumCompleteDetail/{albumId}") { backStackEntry ->
 
-                val albumId=backStackEntry.arguments?.getString("albumId")
-                val albumIdInt= albumId?.toInt()?:0
+            val albumId = backStackEntry.arguments?.getString("albumId")
+            val albumIdInt = albumId?.toInt() ?: 0
 
-                AlbumCompleteDetail(albumIdInt, navController,albumsTest=albumsTest)
+            AlbumCompleteDetail(albumIdInt, navController, albumsTest = albumsTest)
         }
         composable(NavigationItem.Artist.route) {
-            ArtistListScreen(navController,artistTest=artistsTest)}
-            composable("ArtistCompleteDetail/{artistId}"){ backStackEntry ->
+            ArtistListScreen(navController, artistTest = artistsTest)
+        }
+        composable("ArtistCompleteDetail/{artistId}") { backStackEntry ->
 
-                val artistId=backStackEntry.arguments?.getString("artistId")
-                val artistIdInt= artistId?.toInt()?:0
+            val artistId = backStackEntry.arguments?.getString("artistId")
+            val artistIdInt = artistId?.toInt() ?: 0
 
-                ArtistCompleteDetail(artistIdInt, navController,artistTest=artistsTest)
+            ArtistCompleteDetail(artistIdInt, navController, artistTest = artistsTest)
         }
         composable(NavigationItem.Collector.route) {
-            CollectorListScreen(navController,collectorsTest=collectorsTest)
+            CollectorListScreen(navController, collectorsTest = collectorsTest)
         }
+
+        composable("CollectorCompleteDetail/{collectorId}") { backStackEntry ->
+
+            val collectorId = backStackEntry.arguments?.getString("collectorId")
+            val collectorIdInt = collectorId?.toInt() ?: 0
+
+            Text(text = collectorId?: "CollectorCompleteDetail")
+        }
+        
         composable(NavigationItem.Home.route) {
             HomeScreen()
         }
@@ -234,7 +249,10 @@ fun HomeScreen() {
 }
 
 @Composable
-fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
+fun AlbumListScreen(
+    navigationController: NavHostController,
+    albumsTest: List<Album> = emptyList()
+) {
 
     val viewModel: AlbumViewModel = viewModel()
 
@@ -242,8 +260,7 @@ fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Albu
         LaunchedEffect(key1 = true) {
             viewModel.fetchAlbums(albumsTest)
         }
-    }
-    else {
+    } else {
         LaunchedEffect(key1 = true) {
             viewModel.fetchAlbums()
         }
@@ -251,11 +268,14 @@ fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Albu
 
 
     Log.d("AlbumListScreen", "Loading albums")
-    AlbumList(viewModel,navigationController)
+    AlbumList(viewModel, navigationController)
 }
 
 @Composable
-fun CollectorListScreen(navigationController: NavHostController,collectorsTest:List<Collector> = emptyList()) {
+fun CollectorListScreen(
+    navigationController: NavHostController,
+    collectorsTest: List<Collector> = emptyList()
+) {
 
     val viewModel: CollectorViewModel = viewModel()
 
@@ -263,8 +283,7 @@ fun CollectorListScreen(navigationController: NavHostController,collectorsTest:L
         LaunchedEffect(key1 = true) {
             viewModel.fetchCollectors(collectorsTest)
         }
-    }
-    else {
+    } else {
         LaunchedEffect(key1 = true) {
             viewModel.fetchCollectors()
         }
@@ -272,5 +291,5 @@ fun CollectorListScreen(navigationController: NavHostController,collectorsTest:L
 
 
 
-    CollectorList(viewModel,navigationController)
+    CollectorList(viewModel, navigationController)
 }
