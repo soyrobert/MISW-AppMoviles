@@ -21,6 +21,6 @@ class CollectorRepository(context: Context) {
     }
 
     suspend fun getCollectorAlbums(id: Int): List<Album> {
-        return collectorService.getCollectorAlbums(id)
+        return collectorService.getCollectorAlbums(id).map { it.album }
     }
 }

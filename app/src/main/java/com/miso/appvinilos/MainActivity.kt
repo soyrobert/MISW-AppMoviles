@@ -53,6 +53,7 @@ import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
+import com.miso.appvinilos.presentacion.ui.views.collectordetail.CollectorCompleteDetail
 
 
 class MainActivity : ComponentActivity() {
@@ -222,7 +223,7 @@ fun Navigations(
             val collectorId = backStackEntry.arguments?.getString("collectorId")
             val collectorIdInt = collectorId?.toInt() ?: 0
 
-            Text(text = collectorId?: "CollectorCompleteDetail")
+            CollectorCompleteDetail(collectorIdInt, navController)
         }
         
         composable(NavigationItem.Home.route) {
