@@ -19,10 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.miso.appvinilos.R
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 
@@ -45,7 +43,7 @@ fun AlbumCreate(viewModel: AlbumViewModel) {
     ) {
 
         Text(
-            text = stringResource(id = R.string.createAlbum),
+            text = "",
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.displaySmall
         )
@@ -105,7 +103,9 @@ fun AlbumCreate(viewModel: AlbumViewModel) {
         val album = Album(
             name =name, cover =cover,
             releaseDate = "1984-08-01T00:00:00-05:00", description =description,
-            genre =genre, recordLabel =recordLabel)
+            genre =genre, recordLabel =recordLabel,
+            comments = emptyList()
+        )
         Log.d("Album", "Album: $album")
         Button(onClick = { viewModel.createAlbum(album) }) { Text("Create Album") }
     }

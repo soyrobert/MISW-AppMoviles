@@ -9,12 +9,12 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
-import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
+import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,8 +27,8 @@ class CollectorListTest {
     @Before
     fun setUp(){
         val commentsTest = listOf(
-            Comment(id = 1, content = "Great collection!"),
-            Comment(id = 2, content = "Impressive variety of albums.")
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 2),
         )
 
         val artistsTest = listOf(
@@ -50,8 +50,8 @@ class CollectorListTest {
 
 // Asumimos que también tienes un modelo de 'Album' adecuadamente definido.
         val albumsTest = listOf(
-            Album(id = 1, name = "Best of Ipsum", cover = "https://example.com/covers/ipsum.jpg", releaseDate = "2019-04-20", description = "The best hits of Ipsum.", genre = "Rock", recordLabel = "Universal"),
-            Album(id = 2, name = "Smooth Jazz", cover = "https://example.com/covers/jazz.jpg", releaseDate = "2020-10-05", description = "Smooth jazz from the best.", genre = "Jazz", recordLabel = "Jazz Records")
+            Album(id = 1, name = "Best of Ipsum", cover = "https://example.com/covers/ipsum.jpg", releaseDate = "2019-04-20", description = "The best hits of Ipsum.", genre = "Rock", recordLabel = "Universal", comments = commentsTest),
+            Album(id = 2, name = "Smooth Jazz", cover = "https://example.com/covers/jazz.jpg", releaseDate = "2020-10-05", description = "Smooth jazz from the best.", genre = "Jazz", recordLabel = "Jazz Records", comments = commentsTest)
         )
 
         val collectorsTest = listOf(
