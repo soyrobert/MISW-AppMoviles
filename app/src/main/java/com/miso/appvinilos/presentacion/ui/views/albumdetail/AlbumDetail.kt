@@ -52,21 +52,21 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,al
     val albumToShow by viewModel.album.observeAsState(initial = initialAlbum)
     val comments by viewModel.comments.observeAsState(initial = emptyList())
 
-    //if(albumsTest.isNotEmpty()){
-      //  val albumTest = albumsTest[albumId-1]
-      //  AlbumBasicDetail(albumTest, navigationController)
-    //}
-    //else{
-     //   AlbumBasicDetail(albumToShow, navigationController)
-    //}
-
-    Column {
-        AlbumBasicDetail(albumToShow, navigationController)
-        CommentList(comments)
-        Button(onClick = { navigationController.navigate("AddComment/$albumId") }) {
-            Text("Add Comment")
+    if(albumsTest.isNotEmpty()){
+        val albumTest = albumsTest[albumId-1]
+        AlbumBasicDetail(albumTest, navigationController)
+    }
+    else{
+        Column {
+            AlbumBasicDetail(albumToShow, navigationController)
+            CommentList(comments)
+            Button(onClick = { navigationController.navigate("AddComment/$albumId") }) {
+                Text("Add Comment")
+            }
         }
     }
+
+
 
 }
 
