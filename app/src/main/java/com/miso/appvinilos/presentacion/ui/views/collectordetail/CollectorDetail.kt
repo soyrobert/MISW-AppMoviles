@@ -46,9 +46,13 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
     )
     LaunchedEffect(key1 = true) {
         viewModel.fetchCollectorAlbums(collectorId)
+        viewModel.fetchCollector(collectorId)
     }
 
     val collectorAlbumsToShow by viewModel.collectorAlbums.observeAsState(initial = initialCollectorAlbums)
+
+    val initialColeccionista = Collector(0, "Nombre", "telefono", "email", emptyList(), emptyList(), emptyList())
+    val coleccionista by viewModel.collector.observeAsState(initial = initialColeccionista)
 
     if(collectorTest.isNotEmpty()){
         Text(text = "prueba")
@@ -56,7 +60,7 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
     else{
         Column {
             Header(text="Coleccionista",navigationController)
-            NombreColeccionista("Nombre Coleccionista" )
+            NombreColeccionista(coleccionista.name)
             SubtituloDetalleColeccionista( "Albumes favoritos")
             CollectorBasicDetail(collectorAlbumsToShow, navigationController)
         }

@@ -12,7 +12,20 @@
         <State />
       </entry>
       <entry key="app">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\dagam\.android\avd\Pixel_8_Pro_API_VanillaIceCream.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-16T22:31:32.381602Z" />
+        </State>
       </entry>
       <entry key="pantalla_albums_muestra_correctamente_6_albums() (1)">
         <State />
