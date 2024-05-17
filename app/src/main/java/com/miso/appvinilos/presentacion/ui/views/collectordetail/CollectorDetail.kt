@@ -58,18 +58,22 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
         Text(text = "prueba")
     }
     else{
-        Column {
-            Header(text="Coleccionista",navigationController)
-            NombreColeccionista(coleccionista.name)
-            SubtituloDetalleColeccionista( "Albumes favoritos")
-            CollectorBasicDetail(collectorAlbumsToShow, navigationController)
-        }
+        CollectorBasicDetail(coleccionista,collectorAlbumsToShow, navigationController)
     }
 
 }
+@Composable
+fun CollectorBasicDetail(coleccionista:Collector,collectorAlbums: List<Album>, navigationController: NavHostController) {
+    Column {
+        Header(text="Coleccionista",navigationController)
+        NombreColeccionista(coleccionista.name)
+        SubtituloDetalleColeccionista( "Albumes favoritos")
+        CollectorAlbums(collectorAlbums, navigationController)
+    }
+}
 
 @Composable
-fun CollectorBasicDetail(collectorAlbums: List<Album>, navigationController: NavHostController){
+fun CollectorAlbums(collectorAlbums: List<Album>, navigationController: NavHostController){
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
