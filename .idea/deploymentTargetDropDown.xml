@@ -5,30 +5,24 @@
       <entry key="E2ETests">
         <State />
       </entry>
-      <entry key="Tests in 'com.miso.appvinilos'">
-        <State />
-      </entry>
       <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
         <State />
       </entry>
       <entry key="app">
         <State>
-          <targetSelectedWithDropDown>
+          <multipleDevicesSelectedInDropDown value="true" />
+          <runningDeviceTargetsSelectedWithDialog>
             <Target>
-              <type value="QUICK_BOOT_TARGET" />
+              <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\dagam\.android\avd\Pixel_6_API_34.avd" />
+                  <type value="SERIAL_NUMBER" />
+                  <value value="RF8X10KBLDE" />
                 </Key>
               </deviceKey>
             </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-08T23:32:06.550724500Z" />
+          </runningDeviceTargetsSelectedWithDialog>
         </State>
-      </entry>
-      <entry key="pantalla_albums_muestra_correctamente_6_albums() (1)">
-        <State />
       </entry>
     </value>
   </component>
