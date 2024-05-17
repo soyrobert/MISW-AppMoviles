@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -87,7 +89,8 @@ fun TopBar(navigationController: NavHostController) {
         IconButton(onClick = {
             navigationController.popBackStack()
                              },modifier=Modifier.testTag("backButton")) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
+            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Boton para volver al listado de albums")
         }
 
         Title()
@@ -108,7 +111,6 @@ fun Title() {
         ),
         modifier = Modifier.fillMaxWidth(0.8f)
     )
-
 }
 
 
@@ -148,6 +150,9 @@ fun AlbumPhotoScreen(cover: String) {
                 .height(185.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
+                .semantics {
+                    contentDescription = "Album photo"
+                }
         )
     }
 }

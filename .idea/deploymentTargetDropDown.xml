@@ -10,18 +10,18 @@
       </entry>
       <entry key="app">
         <State>
-          <multipleDevicesSelectedInDropDown value="true" />
-          <runningDeviceTargetsSelectedWithDialog>
+          <runningDeviceTargetSelectedWithDropDown>
             <Target>
               <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="RF8X10KBLDE" />
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="$USER_HOME$/.android/avd/Pixel_8_Pro_API_31.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </runningDeviceTargetsSelectedWithDialog>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-17T03:12:03.672232Z" />
         </State>
       </entry>
     </value>

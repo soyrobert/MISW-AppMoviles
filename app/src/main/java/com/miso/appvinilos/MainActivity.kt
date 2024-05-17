@@ -164,7 +164,7 @@ fun BottomNavigationBar(navController: NavController) {
                     val imagePainter = painterResource(id = item.icon)
                     Image(
                         painter = imagePainter,
-                        contentDescription = null
+                        contentDescription = "Icono para la opción de menu " + item.title
                     )
                 },
                 label = { Text(item.title) },

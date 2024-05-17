@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.miso.appvinilos.data.model.Album
@@ -34,6 +36,9 @@ fun AlbumItem(album: Album) {
                 .height(185.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
+                .semantics {
+                    contentDescription = "Imágen para el album " + album.name
+                }
         )
         Text(
             text = album.name,
