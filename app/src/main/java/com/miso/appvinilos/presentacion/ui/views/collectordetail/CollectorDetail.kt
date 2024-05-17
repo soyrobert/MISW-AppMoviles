@@ -36,7 +36,12 @@ import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 
 
 @Composable
-fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostController, collectorTest:List<Collector> = emptyList()) {
+fun CollectorCompleteDetail(collectorId: Int,
+                            navigationController: NavHostController,
+                            collectorTest:Collector = Collector(),
+                            collectorAlbumsTest:List<Album> = emptyList()
+
+) {
     val viewModel: CollectorViewModel = viewModel()
 
 
@@ -54,8 +59,8 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
     val initialColeccionista = Collector(0, "Nombre", "telefono", "email", emptyList(), emptyList(), emptyList())
     val coleccionista by viewModel.collector.observeAsState(initial = initialColeccionista)
 
-    if(collectorTest.isNotEmpty()){
-        Text(text = "prueba")
+    if(collectorTest.id != 0 && collectorAlbumsTest.isNotEmpty()){
+        CollectorBasicDetail(collectorTest,collectorAlbumsTest, navigationController)
     }
     else{
         CollectorBasicDetail(coleccionista,collectorAlbumsToShow, navigationController)
