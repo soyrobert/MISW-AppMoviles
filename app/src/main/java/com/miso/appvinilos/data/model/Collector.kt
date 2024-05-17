@@ -13,6 +13,6 @@ data class Collector(
 data class Comment(
     val id: Int? = null,
     val description: String,
-    val rating: Int,
-    val collectorId: Int
+    val rating: Int = 0,
+    val collectorId: Int = 0
 )

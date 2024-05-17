@@ -20,8 +20,8 @@ import org.junit.Rule
 class CollectorDetalleTest {
 
     val commentsTest = listOf(
-        Comment(id = 1, content = "Great collection!"),
-        Comment(id = 2, content = "Impressive variety of albums.")
+        Comment(id = 1, description = "Great collection!"),
+        Comment(id = 2, description = "Impressive variety of albums.")
     )
 
     val albumsTest = listOf(
