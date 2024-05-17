@@ -11,6 +11,8 @@ data class Collector(
 )
 
 data class Comment(
-    val id: Int,
-    val content: String
+    val id: Int? = null,
+    val description: String,
+    val rating: Int,
+    val collectorId: Int
 )

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.data.model.Comment
 import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
@@ -39,25 +41,42 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,al
 
 
     val initialAlbum = Album(0, albumId.toString(), "cover", "releaseDate",
-        "descr","genre","record lab")
+        "descr","genre","record lab", emptyList())
 
     LaunchedEffect(key1 = true) {
         viewModel.fetchAlbum(albumId)
+        viewModel.fetchComments(albumId)
     }
 
 
     val albumToShow by viewModel.album.observeAsState(initial = initialAlbum)
+    val comments by viewModel.comments.observeAsState(initial = emptyList())
 
     if(albumsTest.isNotEmpty()){
         val albumTest = albumsTest[albumId-1]
         AlbumBasicDetail(albumTest, navigationController)
     }
     else{
-        AlbumBasicDetail(albumToShow, navigationController)
+        Column {
+            AlbumBasicDetail(albumToShow, navigationController)
+            CommentList(comments)
+            Button(onClick = { navigationController.navigate("AddComment/$albumId") }) {
+                Text("Add Comment")
+            }
+        }
     }
 
 
 
+}
+
+@Composable
+fun CommentList(comments: List<Comment>) {
+    Column {
+        comments.forEach { comment ->
+            Text(text = comment.description)
+        }
+    }
 }
 
 @Composable

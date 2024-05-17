@@ -42,18 +42,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
-import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
-import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
-import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
-import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
-import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
-import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.data.model.Collector
+import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
+import com.miso.appvinilos.presentacion.ui.views.albumCreate.AlbumCreate
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
+import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
+import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
 import com.miso.appvinilos.presentacion.ui.views.collectordetail.CollectorCompleteDetail
+import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
+import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
+import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -90,7 +92,9 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = {
+                navController.navigate("createAlbum")
+            }) {
                 Icon(Icons.Filled.Add, "Add")
             }
         }
@@ -216,6 +220,14 @@ fun Navigations(
         composable(NavigationItem.Home.route) {
             HomeScreen()
         }
+        composable("CreateAlbum") {
+            CreateAlbumScreen(navController)
+        }
+        composable("AddComment/{albumId}") { backStackEntry ->
+            val albumId = backStackEntry.arguments?.getString("albumId")?.toInt() ?: 0
+            AddCommentScreen(albumId = albumId, navigationController = navController)
+        }
+
     }
 }
 
@@ -234,6 +246,14 @@ fun CenterText(text: String) {
 @Composable
 fun HomeScreen() {
     CenterText(text = "Home")
+}
+
+
+@Composable
+fun CreateAlbumScreen(navController: NavHostController) {
+    val viewModel: AlbumViewModel = viewModel()
+    AlbumCreate(viewModel)
+    // Your CreateAlbumScreen content here
 }
 
 @Composable
