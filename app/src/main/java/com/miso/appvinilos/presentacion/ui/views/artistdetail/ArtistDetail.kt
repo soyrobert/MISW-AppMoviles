@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -95,7 +96,13 @@ fun TopBar(navigationController: NavHostController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconButton(onClick = { navigationController.popBackStack()},modifier= Modifier.testTag("backButton")) {
+        IconButton(
+            onClick = { navigationController.popBackStack()},
+            modifier = Modifier.testTag("backButton")
+                .semantics {
+                    stateDescription = "Este boton permite ir atras cuando es cliqueado."
+                })
+        {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Boton para volver al listado de artistas")
         }

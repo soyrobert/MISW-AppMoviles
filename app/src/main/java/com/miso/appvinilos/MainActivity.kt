@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -104,7 +105,9 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = {}, modifier = Modifier.semantics {
+                stateDescription = "Este boton agrega un nuevo elemento en la lista de datos"
+            }) {
                 Icon(Icons.Filled.Add, "Add")
             }
         }
