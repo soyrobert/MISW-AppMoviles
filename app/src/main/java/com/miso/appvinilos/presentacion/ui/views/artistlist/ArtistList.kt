@@ -81,6 +81,7 @@ fun ArtistItem(artist: Artist) {
             .padding(8.dp)
             .width(176.dp)
             .clipToBounds()
+            .semantics(mergeDescendants = true){}
     ) {
         GlideImage(
             imageModel = { artist.image },

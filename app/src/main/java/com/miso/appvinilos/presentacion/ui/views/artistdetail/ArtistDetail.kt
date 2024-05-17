@@ -69,7 +69,7 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
 
 @Composable
 fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
-    Column(modifier = Modifier.padding(5.dp)) {
+    Column(modifier = Modifier.padding(5.dp).semantics(mergeDescendants = true){}) {
         Header(navigationController)
         Spacer(modifier = Modifier.height(8.dp))
         ArtistPhotoScreen(artist.image)

@@ -28,6 +28,7 @@ fun AlbumItem(album: Album) {
             .padding(8.dp)
             .width(176.dp)
             .clipToBounds()
+            .semantics(mergeDescendants = true){}
     ) {
         GlideImage(
             imageModel = { album.cover },

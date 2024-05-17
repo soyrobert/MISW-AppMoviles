@@ -225,7 +225,7 @@ fun Navigations(navController: NavHostController,
 @Composable
 fun CenterText(text: String) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics(mergeDescendants = true){},
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

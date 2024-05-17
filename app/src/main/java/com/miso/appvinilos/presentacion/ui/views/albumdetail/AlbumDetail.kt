@@ -68,7 +68,7 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,al
 
 @Composable
 fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
-    Column {
+    Column(modifier = Modifier.semantics(mergeDescendants = true){}) {
         Header(navigationController)
         AlbumDetail(album)
         AlbumDescription(album)
@@ -167,7 +167,7 @@ fun AlbumBasicDescription(album: Album){
 
 @Composable
 fun DiscographyScreenField(album: Album) {
-    Column {
+    Column(modifier = Modifier.semantics(mergeDescendants = true){}) {
         LightText(text = "Discografía")
         DarkText(text = album.recordLabel)
     }
@@ -175,7 +175,7 @@ fun DiscographyScreenField(album: Album) {
 
 @Composable
 fun PublicationDateScreenField(album: Album) {
-    Column {
+    Column(modifier = Modifier.semantics(mergeDescendants = true){}) {
         LightText(text = "Fecha publicación")
         DarkText(text = album.releaseDate)
     }
@@ -226,7 +226,7 @@ fun CustomParagraph(text: String) {
 
 @Composable
 fun GenreScreenField(album: Album){
-    Column {
+    Column(modifier = Modifier.semantics(mergeDescendants = true){}) {
         LightText(text = "Género")
         DarkText(text = album.genre)
     }
@@ -257,6 +257,7 @@ fun AlbumDetail(album: Album) {
                 modifier = Modifier
                     .weight(1.5f)
                     .fillMaxWidth()
+                    .semantics(mergeDescendants = true){}
             ) {
                 AlbumPhotoScreen(album.cover)
             }
@@ -265,6 +266,7 @@ fun AlbumDetail(album: Album) {
                     .weight(1.5f)
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
+                    .semantics(mergeDescendants = true){}
             ) {
                 AlbumBasicDescription(album)
             }
@@ -288,7 +290,7 @@ fun AlbumDescription(album: Album) {
             )
             .padding(5.dp)
     ) {
-        Column {
+        Column (modifier = Modifier.semantics(mergeDescendants = true){}){
             Row {
                 DarkText(text = album.name)
             }
@@ -311,6 +313,7 @@ fun CustomWhiteSpace(){
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
             horizontalAlignment = Alignment.Start,
+            modifier = Modifier.semantics(mergeDescendants = true){}
         ) {}
     }
 }
