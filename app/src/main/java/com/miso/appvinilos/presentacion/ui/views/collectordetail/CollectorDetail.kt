@@ -31,7 +31,7 @@ fun CollectorCompleteDetail(collectorId: Int, navigationController: NavHostContr
 
     val initialCollectorAlbums = listOf(
         Album(0, "name", "cover", "releaseDate",
-        "descr","genre","record lab")
+        "descr","genre","record lab", emptyList() )
     )
     LaunchedEffect(key1 = true) {
         viewModel.fetchCollectorAlbums(collectorId)

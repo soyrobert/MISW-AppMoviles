@@ -1,12 +1,14 @@
 package com.miso.appvinilos.presentacion.viewmodels
-import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.data.repositories.AlbumRepository
 import android.app.Application
-import androidx.lifecycle.*
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.data.repositories.AlbumRepository
 import kotlinx.coroutines.launch
-import android.util.Log
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
     private val albumRepository = AlbumRepository(application.applicationContext)
@@ -76,5 +78,31 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
             }
         }
         return isError
+    }
+
+    private val _comments = MutableLiveData<List<Comment>>()
+    val comments: LiveData<List<Comment>>
+        get() = _comments
+
+    fun fetchComments(albumId: Int) {
+        viewModelScope.launch {
+            try {
+                val comments = albumRepository.getComments(albumId)
+                _comments.value = comments
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun postComment(albumId: Int, comment: Comment) {
+        viewModelScope.launch {
+            try {
+                albumRepository.postComment(albumId, comment)
+                fetchComments(albumId)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }

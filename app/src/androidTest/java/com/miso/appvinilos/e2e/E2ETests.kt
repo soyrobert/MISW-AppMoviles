@@ -1,7 +1,5 @@
 package com.miso.appvinilos.e2e
 
-import org.junit.Test
-
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -16,15 +14,16 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.navigation.compose.rememberNavController
+import androidx.test.espresso.Espresso
 import com.miso.appvinilos.MainScreen
 import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
 import org.junit.Before
 import org.junit.Rule
-import androidx.test.espresso.Espresso
+import org.junit.Test
 
 class E2ETests {
     private val albumTest1 = Album(
@@ -34,7 +33,12 @@ class E2ETests {
         releaseDate = "2021-01-01",
         description = "description1",
         genre = "genre1",
-        recordLabel = "recordLabel1"
+        recordLabel = "recordLabel1",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
+
     )
     private val albumTest2 = Album(
         id = 2,
@@ -43,7 +47,11 @@ class E2ETests {
         releaseDate = "2021-01-02",
         description = "description2",
         genre = "genre2",
-        recordLabel = "recordLabel2"
+        recordLabel = "recordLabel2",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest3 = Album(
         id = 3,
@@ -52,7 +60,11 @@ class E2ETests {
         releaseDate = "2021-01-03",
         description = "description3",
         genre = "genre3",
-        recordLabel = "recordLabel3"
+        recordLabel = "recordLabel3",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest4 = Album(
         id = 4,
@@ -61,7 +73,11 @@ class E2ETests {
         releaseDate = "2021-01-04",
         description = "description4",
         genre = "genre4",
-        recordLabel = "recordLabel4"
+        recordLabel = "recordLabel4",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest5 = Album(
         id = 5,
@@ -70,7 +86,11 @@ class E2ETests {
         releaseDate = "2021-01-05",
         description = "description5",
         genre = "genre5",
-        recordLabel = "recordLabel5"
+        recordLabel = "recordLabel5",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest6 = Album(
         id = 6,
@@ -79,7 +99,11 @@ class E2ETests {
         releaseDate = "2021-01-06",
         description = "description6",
         genre = "genre6",
-        recordLabel = "recordLabel6"
+        recordLabel = "recordLabel6",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest7 = Album(
         id = 7,
@@ -88,7 +112,11 @@ class E2ETests {
         releaseDate = "2021-01-07",
         description = "description7",
         genre = "genre7",
-        recordLabel = "recordLabel7"
+        recordLabel = "recordLabel7",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest8 = Album(
         id = 8,
@@ -97,7 +125,11 @@ class E2ETests {
         releaseDate = "2021-01-08",
         description = "description8",
         genre = "genre8",
-        recordLabel = "recordLabel8"
+        recordLabel = "recordLabel8",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumsTest = listOf(
         albumTest1,
@@ -178,8 +210,8 @@ class E2ETests {
     )
 
     private val commentsTest = listOf(
-        Comment(id = 1, content = "Great collection!"),
-        Comment(id = 2, content = "Impressive variety of albums.")
+        Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+        Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
     )
 
     private val collectorsTest = listOf(
