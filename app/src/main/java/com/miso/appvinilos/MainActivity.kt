@@ -1,6 +1,7 @@
 package com.miso.appvinilos
 
 
+import AddCommentScreen
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -47,7 +48,6 @@ import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.presentacion.ui.views.albumCreate.AlbumCreate
-import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
 import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
 import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
 import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
