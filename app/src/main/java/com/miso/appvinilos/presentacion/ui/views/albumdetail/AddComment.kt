@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -50,7 +51,10 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             (1..5).forEach { index ->
-                IconButton(onClick = { rating = index }) {
+                IconButton(
+                    onClick = { rating = index },
+                    modifier = Modifier.testTag("RatingButton$index")
+                ) {
                     Icon(
                         imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = null,
@@ -68,6 +72,7 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                 onValueChange = {
                     if (it.length <= 200) commentContent = it
                 },
+                modifier = Modifier.testTag("CommentInput"),
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier
@@ -102,7 +107,7 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
             colors = ButtonDefaults.buttonColors(
                 if (commentContent.isNotBlank() && rating > 0) MaterialTheme.colorScheme.primary else Color.Gray
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().testTag("SubmitCommentButton")
         ) {
             Text("Comentar")
         }
