@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,16 +31,24 @@ fun CollectorItem(collector: Collector) {
             Text(
                 text = collector.name,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold), fontSize = 20.sp,
+                modifier = Modifier.semantics {
+                    contentDescription = collector.name
+                }
             )
             Text(
                 text = "Artistas favoritos:",
                 style = MaterialTheme.typography.titleMedium, fontSize = 12.sp,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = 4.dp).semantics {
+                    contentDescription = "Artistas favoritos"
+                }
             )
             Text(
                 text = collector.favoritePerformers.joinToString { it.name },
                 style = MaterialTheme.typography.bodySmall, fontSize = 11.sp,
                 modifier = Modifier.padding(top = 2.dp)
+                    .semantics {
+                        contentDescription = "Nombre del artista favorito: "+ collector.favoritePerformers.joinToString { it.name }
+                    }
             )
         }
     }
