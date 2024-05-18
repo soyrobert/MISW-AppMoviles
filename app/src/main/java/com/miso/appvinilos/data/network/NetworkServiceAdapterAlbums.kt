@@ -3,7 +3,9 @@ import android.content.Context
 import com.andretietz.retrofit.ResponseCache
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.data.model.CommentRequest
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -28,7 +30,7 @@ interface NetworkServiceAdapterAlbums {
     suspend fun getComments(@Path("albumId") albumId: Int): List<Comment>
 
     @POST("albums/{albumId}/comments")
-    suspend fun postComment(@Path("albumId") albumId: Int, @Body comment: Comment): Call<Comment>
+    suspend fun postComment(@Path("albumId") albumId: Int, @Body comment: CommentRequest): Response<Comment>
 }
 
 class AlbumsApi(context: Context) {
