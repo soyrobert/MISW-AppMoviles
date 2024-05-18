@@ -1,10 +1,12 @@
 package com.miso.appvinilos
 
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -249,10 +251,11 @@ fun HomeScreen() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreateAlbumScreen(navController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
-    AlbumCreate(viewModel)
+    AlbumCreate(viewModel, navController)
     // Your CreateAlbumScreen content here
 }
 

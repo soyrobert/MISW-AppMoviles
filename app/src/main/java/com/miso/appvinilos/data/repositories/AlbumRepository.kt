@@ -2,7 +2,11 @@ package com.miso.appvinilos.data.repositories
 import android.content.Context
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.data.model.toAlbumPostDTO
 import com.miso.appvinilos.data.network.AlbumsApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class AlbumRepository(context: Context) {
 
@@ -17,8 +21,12 @@ class AlbumRepository(context: Context) {
         return albumService.getAlbum(albumId)
     }
 
-    suspend fun postAlbum(album: Album) =
-        albumService.postAlbum(album)
+    suspend fun postAlbum(album: Album): Response<Album> {
+        val albumPostDTO = album.toAlbumPostDTO()
+        return withContext(Dispatchers.IO) {
+            albumService.postAlbum(albumPostDTO)
+        }
+    }
 
     suspend fun getComments(albumId: Int): List<Comment> {
         return albumService.getComments(albumId)
