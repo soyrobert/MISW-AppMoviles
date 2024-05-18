@@ -327,7 +327,8 @@ class E2ETests {
         composeTestRule.onNodeWithTag("backButton").performClick()
         composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText("Home").performClick()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
     }
 
     @Test
@@ -353,12 +354,13 @@ class E2ETests {
         composeTestRule.onNodeWithText("Collector").performClick()
 
         composeTestRule.onNodeWithText("Home").performClick()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
     }
 
     @Test
     fun test_8_revision_stack_desde_album(){
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
         composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(albumTest1.name).performClick()
@@ -367,13 +369,14 @@ class E2ETests {
 
         //al hacer el back en el dispositivo se debe retornar al home
         Espresso.pressBack()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
 
     }
 
     @Test
     fun test_9_revision_stack_desde_artista(){
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
         composeTestRule.onNodeWithText("Artist").performClick()
         composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(artistTest1.name).performClick()
@@ -382,7 +385,7 @@ class E2ETests {
 
         //al hacer el back en el dispositivo se debe retornar al home
         Espresso.pressBack()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
 
     }
 

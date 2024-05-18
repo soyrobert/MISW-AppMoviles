@@ -247,7 +247,7 @@ fun CenterText(text: String) {
 
 @Composable
 fun HomeScreen() {
-    CenterText(text = "Home")
+    CenterText(text = "Bienvenido")
 }
 
 @Composable
