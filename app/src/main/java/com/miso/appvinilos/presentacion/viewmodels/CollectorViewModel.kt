@@ -22,8 +22,24 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
 
     private val _collector = MutableLiveData<Collector>()
 
+    val collector: LiveData<Collector>
+        get() = _collector
+
     val collectorAlbums: LiveData<List<Album>>
         get() = _collectorAlbums
+
+    fun fetchCollector(collectorId: Int) {
+        viewModelScope.launch {
+            try {
+                val foundCollector = collectorRepository.getCollector(collectorId)
+                Log.d("foundCollector", "foundCollector: $foundCollector")
+                _collector.value = foundCollector
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
+    }
 
     fun fetchCollectors(collectorsTest:List<Collector> = emptyList()){
         viewModelScope.launch {
