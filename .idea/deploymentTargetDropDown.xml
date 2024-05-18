@@ -2,19 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ArtistDetalleTest">
+      <entry key="AlbumAccesibilityTest">
         <State />
       </entry>
-      <entry key="ArtistListTest">
+      <entry key="AlbumDetailAccessibilityTest">
         <State />
       </entry>
-      <entry key="CatalogoDeAlbum">
+      <entry key="AlbumItemAccesibilityTest">
         <State />
       </entry>
-      <entry key="CollectorListTest">
-        <State />
-      </entry>
-      <entry key="DetalleAlbumTest">
+      <entry key="NavigationBarAccesibilityTest">
         <State />
       </entry>
       <entry key="app">
@@ -32,6 +29,9 @@
           </runningDeviceTargetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-05-17T03:12:03.672232Z" />
         </State>
+      </entry>
+      <entry key="test_accesibilidad_foto_del_album()">
+        <State />
       </entry>
     </value>
   </component>

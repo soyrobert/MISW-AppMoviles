@@ -238,6 +238,8 @@ fun CenterText(text: String) {
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.semantics {
                 heading()
+            }.semantics {
+                contentDescription = "Texto de bienvenida"
             },
             fontSize = 32.sp
         )

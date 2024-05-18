@@ -93,7 +93,7 @@ fun TopBar(navigationController: NavHostController) {
                              },
             modifier=Modifier.testTag("backButton")
                 .semantics {
-                    stateDescription = "Este boton permite ir al hoome cuando es cliqueado"
+                    stateDescription = "Este boton permite ir al home cuando es cliqueado"
                 }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Boton para volver al listado de albums")

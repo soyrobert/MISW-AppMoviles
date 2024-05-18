@@ -43,11 +43,17 @@ fun AlbumItem(album: Album) {
         )
         Text(
             text = album.name,
-            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            modifier = Modifier.semantics {
+                contentDescription = "Nombre del album"
+            }
         )
         Text(
             text = album.genre,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.semantics {
+                contentDescription = "Genero del album"
+            }
         )
     }
 }
