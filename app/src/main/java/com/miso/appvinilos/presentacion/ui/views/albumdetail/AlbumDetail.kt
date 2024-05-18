@@ -1,7 +1,5 @@
 package com.miso.appvinilos.presentacion.ui.views.albumdetail
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,8 +7,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,11 +37,15 @@ import com.miso.appvinilos.data.model.Comment
 import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 
 @Composable
 fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
     val viewModel: AlbumViewModel = viewModel()
-
 
     val initialAlbum = Album(0, albumId.toString(), "cover", "releaseDate",
         "descr","genre","record lab", emptyList())
@@ -57,30 +64,72 @@ fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,al
         AlbumBasicDetail(albumTest, navigationController)
     }
     else{
-        Column {
+
+        Column(modifier = Modifier.padding(16.dp) ) {
             AlbumBasicDetail(albumToShow, navigationController)
-            CommentList(comments)
-            Button(onClick = { navigationController.navigate("AddComment/$albumId") }) {
-                Text("Add Comment")
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 16.dp, start = 7.dp, end = 7.dp),
+
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Comentarios",
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFF45483C),
+                        letterSpacing = 0.4.sp,
+                    )
+                )
+                Button(
+                    onClick = { navigationController.navigate("AddComment/$albumId") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF5352ED),
+                        contentColor = Color.White
+                    ),
+                ) {
+                    Text("+ Agregar")
+                }
             }
+            CommentList(comments)
         }
     }
-
-
-
 }
 
 @Composable
 fun CommentList(comments: List<Comment>) {
-    Column {
+    Column(modifier = Modifier.padding(6.dp)) {
         comments.forEach { comment ->
-            Text(text = comment.description)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = comment.description)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = comment.rating.toString(),
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(end = 4.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = "Rating Star",
+                        tint = Color.Black,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
 fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
+
     Column {
         Header(text="Álbum",navigationController = navigationController)
         AlbumDetail(album)
@@ -90,31 +139,19 @@ fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
 
 
 
-
-
-
-
-
-
-
-
 @Composable
 fun AlbumPhotoScreen(cover: String) {
 
     Box(
         modifier = Modifier
             .fillMaxWidth(0.80f)
-            .background(
-                color = Color.White,
-            )
             .padding(1.dp)
     ) {
 
         GlideImage(
             imageModel = { cover },
-
             modifier = Modifier
-                .height(185.dp)
+                .height(170.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
         )
@@ -131,7 +168,7 @@ fun AlbumBasicDescription(album: Album){
 
 @Composable
 fun DiscographyScreenField(album: Album) {
-    Column {
+    Column(modifier = Modifier.padding(5.dp)) {
         LightText(text = "Discografía")
         DarkText(text = album.recordLabel)
     }
@@ -139,9 +176,14 @@ fun DiscographyScreenField(album: Album) {
 
 @Composable
 fun PublicationDateScreenField(album: Album) {
-    Column {
+    val formattedDate = try {
+        formatDate(album.releaseDate)
+    } catch (e: ParseException) {
+        album.releaseDate
+    }
+    Column(modifier = Modifier.padding(5.dp)) {
         LightText(text = "Fecha publicación")
-        DarkText(text = album.releaseDate)
+        DarkText(text = formattedDate)
     }
 }
 
@@ -190,7 +232,7 @@ fun CustomParagraph(text: String) {
 
 @Composable
 fun GenreScreenField(album: Album){
-    Column {
+    Column(modifier = Modifier.padding(5.dp)) {
         LightText(text = "Género")
         DarkText(text = album.genre)
     }
@@ -200,15 +242,7 @@ fun GenreScreenField(album: Album){
 @Composable
 fun AlbumDetail(album: Album) {
     Surface(
-        color = Color.White,
         modifier = Modifier
-            .border(
-                width = 1.dp,
-                color = Color.White
-            )
-            .background(
-                color = Color.White,
-            )
             .padding(5.dp)
     ) {
         Row(
@@ -241,15 +275,7 @@ fun AlbumDetail(album: Album) {
 @Composable
 fun AlbumDescription(album: Album) {
     Surface(
-        color = Color.White,
         modifier = Modifier
-            .border(
-                width = 1.dp,
-                color = Color.White
-            )
-            .background(
-                color = Color.White,
-            )
             .padding(5.dp)
     ) {
         Column {
@@ -278,3 +304,20 @@ fun CustomWhiteSpace(){
         ) {}
     }
 }
+
+data class Album(
+    val releaseDate: String
+)
+fun formatDate(dateString: String): String {
+    val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val date: Date = inputFormatter.parse(dateString)
+    return outputFormatter.format(date)
+}
+
+data class Comment(
+    val description: String,
+    val rating: Int
+)
+
+

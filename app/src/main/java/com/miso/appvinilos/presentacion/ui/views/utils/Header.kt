@@ -27,10 +27,10 @@ import androidx.navigation.NavHostController
 @Composable
 fun Header(text:String,navigationController: NavHostController) {
     Surface(
-        color = Color.White,
+
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 30.dp)
+
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
