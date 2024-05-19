@@ -3,6 +3,7 @@ import android.content.Context
 import android.util.Log
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.data.model.toAlbumPostDTO
 import com.miso.appvinilos.data.model.CommentRequest
 import com.miso.appvinilos.data.network.AlbumsApi
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +23,12 @@ class AlbumRepository(context: Context) {
         return albumService.getAlbum(albumId)
     }
 
-    suspend fun postAlbum(album: Album) =
-        albumService.postAlbum(album)
+    suspend fun postAlbum(album: Album): Response<Album> {
+        val albumPostDTO = album.toAlbumPostDTO()
+        return withContext(Dispatchers.IO) {
+            albumService.postAlbum(albumPostDTO)
+        }
+    }
 
     suspend fun getComments(albumId: Int): List<Comment> {
         Log.d("AlbumRepository", "Fetching comments for albumId: $albumId")

@@ -2,9 +2,9 @@ package com.miso.appvinilos.data.network
 import android.content.Context
 import com.andretietz.retrofit.ResponseCache
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.data.model.AlbumPostDTO
 import com.miso.appvinilos.data.model.Comment
 import com.miso.appvinilos.data.model.CommentRequest
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,8 +23,7 @@ interface NetworkServiceAdapterAlbums {
     suspend fun getAlbum(@Path("albumId") albumId: Int): Album
 
     @POST("albums")
-    @ResponseCache(CachingConfig.ALBUMS_CACHE_TIME, unit = TimeUnit.HOURS)
-    suspend fun postAlbum(@Body album: Album): Call<Album>
+    suspend fun postAlbum(@Body album: AlbumPostDTO): Response<Album>
 
     @GET("albums/{albumId}/comments")
     suspend fun getComments(@Path("albumId") albumId: Int): List<Comment>
@@ -34,8 +33,6 @@ interface NetworkServiceAdapterAlbums {
 }
 
 class AlbumsApi(context: Context) {
-
-    //private val retrofit = RetrofitFactory.createRetrofitWithCache(MainActivity.getContext())
     private val retrofit = RetrofitFactory.createRetrofitWithCache(context)
 
     val albumsService: NetworkServiceAdapterAlbums by lazy {

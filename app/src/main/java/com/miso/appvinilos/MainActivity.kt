@@ -1,7 +1,6 @@
 package com.miso.appvinilos
 
-
-import AddCommentScreen
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -237,7 +236,6 @@ fun Navigations(
             val albumId = backStackEntry.arguments?.getString("albumId")?.toInt() ?: 0
             AddCommentScreen(albumId = albumId, navigationController = navController)
         }
-
     }
 }
 
@@ -271,7 +269,7 @@ fun HomeScreen() {
 @Composable
 fun CreateAlbumScreen(navController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
-    AlbumCreate(viewModel)
+    AlbumCreate(viewModel, navController)
     // Your CreateAlbumScreen content here
 }
 

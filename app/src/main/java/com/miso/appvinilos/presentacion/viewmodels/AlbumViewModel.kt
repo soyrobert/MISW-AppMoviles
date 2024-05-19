@@ -15,6 +15,7 @@ import retrofit2.Response
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
     private val albumRepository = AlbumRepository(application.applicationContext)
     private val _albums = MutableLiveData<List<Album>>()
+
     val albums: LiveData<List<Album>>
         get() = _albums
 
@@ -60,30 +61,18 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         }
     }
 
-//    fun createAlbum(album: Album) {
-//        viewModelScope.launch {
-//            try {
-//                albumRepository.postAlbum(album)
-//                Log.d("create Album", "CreateAlbum: $album")
-//            } catch (e: Exception) {
-//                // Handle error
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-    fun createAlbum(album: Album): Boolean {
-        var isError: Boolean = false
+    private val _postAlbumResponse = MutableLiveData<Response<Album>>()
+    val postAlbumResponse: LiveData<Response<Album>> get() = _postAlbumResponse
+    fun createAlbum(album: Album) {
         viewModelScope.launch {
             try {
-                albumRepository.postAlbum(album)
-                Log.d("create Album", "CreateAlbum: $album")
+                val response: Response<Album> = albumRepository.postAlbum(album)
+                _postAlbumResponse.value = response
             } catch (e: Exception) {
-                // Handle error
                 e.printStackTrace()
-                isError = true
+                Log.e("AlbumViewModel", "Error posting comment", e)
             }
         }
-        return isError
     }
 
     private val _comments = MutableLiveData<List<Comment>>()
