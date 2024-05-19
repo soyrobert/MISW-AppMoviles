@@ -1,6 +1,6 @@
 package com.miso.appvinilos
 
-import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
+import AddCommentScreen
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
