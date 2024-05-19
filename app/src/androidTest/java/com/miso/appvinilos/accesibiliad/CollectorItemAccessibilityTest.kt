@@ -36,8 +36,8 @@ class CollectorItemAccessibilityTest {
             telephone = "123456789",
             email = "johndoe@example.com",
             comments = listOf(
-                Comment(id = 1, content = "Great collector!"),
-                Comment(id = 2, content = "Always prompt and professional.")
+                Comment(id = 1, description = "Great collector!"),
+                Comment(id = 2, description = "Always prompt and professional.")
             ),
             favoritePerformers = listOf(
                 Artist(

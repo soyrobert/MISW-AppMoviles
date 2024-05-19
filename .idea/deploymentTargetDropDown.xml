@@ -2,35 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ArtistItemAccessibilityTest">
+      <entry key="AlbumDetailAccessibilityTest">
         <State />
       </entry>
-      <entry key="ArtistListAccessibilityTest">
+      <entry key="E2ETests">
         <State />
       </entry>
-      <entry key="CollectorItemAccessibilityTest">
+      <entry key="Tests in 'com.miso.appvinilos.accesibiliad'">
         <State />
       </entry>
-      <entry key="CollectorListAccessibilityTest">
+      <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
+        <State />
+      </entry>
+      <entry key="TopBarAccessibilityTest">
         <State />
       </entry>
       <entry key="app">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="$USER_HOME$/.android/avd/Pixel_8_Pro_API_31.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-17T03:12:03.672232Z" />
-        </State>
-      </entry>
-      <entry key="collectorItem_accessibility()">
         <State />
       </entry>
     </value>

@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Artist
+import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.ArtistViewModel
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -71,8 +71,9 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
 
 @Composable
 fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
-    Column(modifier = Modifier.padding(5.dp).semantics(mergeDescendants = true){}) {
-        Header(navigationController)
+
+    Column(modifier = Modifier.padding(5.dp)) {
+        Header(text="Artista", navigationController)
         Spacer(modifier = Modifier.height(8.dp))
         ArtistPhotoScreen(artist.image)
         Spacer(modifier = Modifier.height(35.dp))
@@ -86,6 +87,7 @@ fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
         CustomParagraph(text = artist.description)
     }
 }
+
 
 @Composable
 fun TopBar(navigationController: NavHostController) {
@@ -130,22 +132,6 @@ fun Title() {
     )
 }
 
-
-@Composable
-fun Header(navigationController: NavHostController) {
-    Surface(
-        color = Color.White,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            TopBar(navigationController)
-        }
-    }
-}
 
 @Composable
 fun ArtistPhotoScreen(cover: String) {

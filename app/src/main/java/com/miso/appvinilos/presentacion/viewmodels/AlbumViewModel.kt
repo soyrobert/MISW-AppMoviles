@@ -1,12 +1,16 @@
 package com.miso.appvinilos.presentacion.viewmodels
-import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.data.repositories.AlbumRepository
 import android.app.Application
-import androidx.lifecycle.*
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.data.model.CommentRequest
+import com.miso.appvinilos.data.repositories.AlbumRepository
 import kotlinx.coroutines.launch
-import android.util.Log
+import retrofit2.Response
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
     private val albumRepository = AlbumRepository(application.applicationContext)
@@ -17,6 +21,10 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     private val _album = MutableLiveData<Album>()
     val album: LiveData<Album>
         get() = _album
+
+    private val _postCommentResponse = MutableLiveData<Response<Comment>>()
+    val postCommentResponse: LiveData<Response<Comment>> get() = _postCommentResponse
+
 
     fun fetchAlbums(albumsTest:List<Album> = emptyList()){
         viewModelScope.launch {
@@ -51,5 +59,61 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
             }
         }
     }
+
+//    fun createAlbum(album: Album) {
+//        viewModelScope.launch {
+//            try {
+//                albumRepository.postAlbum(album)
+//                Log.d("create Album", "CreateAlbum: $album")
+//            } catch (e: Exception) {
+//                // Handle error
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+    fun createAlbum(album: Album): Boolean {
+        var isError: Boolean = false
+        viewModelScope.launch {
+            try {
+                albumRepository.postAlbum(album)
+                Log.d("create Album", "CreateAlbum: $album")
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+                isError = true
+            }
+        }
+        return isError
+    }
+
+    private val _comments = MutableLiveData<List<Comment>>()
+    val comments: LiveData<List<Comment>>
+        get() = _comments
+
+    fun fetchComments(albumId: Int) {
+        viewModelScope.launch {
+            try {
+                val comments = albumRepository.getComments(albumId)
+                _comments.value = comments
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun postComment(albumId: Int, commentRequest: CommentRequest) {
+        viewModelScope.launch {
+            try {
+                Log.d("AlbumViewModel", "Posting comment: $commentRequest to albumId: $albumId")
+                val response = albumRepository.postComment(albumId, commentRequest)
+                _postCommentResponse.value = response
+                fetchComments(albumId) // Refresh comments after posting a new one
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.e("AlbumViewModel", "Error posting comment", e)
+            }
+        }
+    }
+
 
 }
