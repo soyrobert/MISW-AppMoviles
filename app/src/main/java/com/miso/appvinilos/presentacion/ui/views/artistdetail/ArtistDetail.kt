@@ -1,18 +1,14 @@
 package com.miso.appvinilos.presentacion.ui.views.artistdetail
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeightIn
-import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -45,6 +41,10 @@ import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.ArtistViewModel
 import com.skydoves.landscapist.glide.GlideImage
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 @Composable
@@ -80,8 +80,15 @@ fun ArtistBasicDetail(artist: Artist, navigationController: NavHostController){
         TitleText(text = artist.name)
         Spacer(modifier = Modifier.height(15.dp))
         Row {
+            val formattedDate = try {
+                formatDate(artist.birthDate)
+            } catch (e: ParseException) {
+                artist.birthDate
+            }
+
+            Spacer(modifier = Modifier.padding(8.dp, 0.dp, 16.dp, 0.dp))
             DarkText(text = "Nacimiento: ")
-            LightText(text = artist.birthDate)
+            LightText(text = formattedDate)
         }
         Spacer(modifier = Modifier.height(15.dp))
         CustomParagraph(text = artist.description)
@@ -137,19 +144,14 @@ fun Title() {
 fun ArtistPhotoScreen(cover: String) {
     Box(
         modifier = Modifier
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(8.dp)
-            )
             .padding(3.dp)
-            .aspectRatio(14f/8f) // Maintain aspect ratio 16:9
-            .requiredWidthIn(max = 230.dp) // Set maximum width
-            .requiredHeightIn(max = 200.dp) // Set maximum height
+            .fillMaxWidth()
+            .height(200.dp)
     ) {
         GlideImage(
             imageModel = { cover },
             modifier = Modifier
-                .fillMaxSize() // Ensure the image fills the Box
+                .fillMaxSize()
                 .clip(shape = RoundedCornerShape(8.dp))
                 .semantics {
                     contentDescription = "Foto del artista"
@@ -178,13 +180,14 @@ fun TitleText(text: String){
     Text(
         text = text,
         style = TextStyle(
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             textAlign = TextAlign.Center,
             lineHeight = 24.sp,
             fontFamily = FontFamily.Serif,
-            fontWeight = FontWeight(300),
-            color = Color(0xFF605D66),
-        ),
+            fontWeight = FontWeight(700),
+            color = Color(0xFF1B1C17),
+
+            ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp) // optional padding
@@ -210,6 +213,7 @@ fun DarkText(text: String){
 @Composable
 fun CustomParagraph(text: String) {
     Text(
+        modifier = Modifier.padding(16.dp),
         text = text,
         style = TextStyle(
             fontSize = 16.sp,
@@ -219,4 +223,11 @@ fun CustomParagraph(text: String) {
             letterSpacing = 0.4.sp,
         )
     )
+}
+
+fun formatDate(dateString: String): String {
+    val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val date: Date = inputFormatter.parse(dateString)
+    return outputFormatter.format(date)
 }
