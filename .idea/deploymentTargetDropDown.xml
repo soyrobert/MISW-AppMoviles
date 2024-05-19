@@ -2,19 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="AlbumDetailAccessibilityTest">
-        <State />
-      </entry>
       <entry key="E2ETests">
         <State />
       </entry>
-      <entry key="Tests in 'com.miso.appvinilos.accesibiliad'">
+      <entry key="Tests in 'com.miso.appvinilos'">
         <State />
       </entry>
       <entry key="Tests in 'com.miso.appvinilos.pruebasunitarias'">
-        <State />
-      </entry>
-      <entry key="TopBarAccessibilityTest">
         <State />
       </entry>
       <entry key="app">
