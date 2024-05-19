@@ -37,11 +37,12 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 fun validateAndConvertDate(dateString: String): String? {
     val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XXX")
+//    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XXX")
+    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XX")
+//    2011-08-01T00:00:00-05:00
     return try {
         val localDate = LocalDate.parse(dateString, inputFormatter)
         val zonedDateTime = localDate.atStartOfDay(ZoneId.of("UTC-05:00"))
@@ -55,7 +56,6 @@ fun validateUrl(url: String): Boolean {
     return Patterns.WEB_URL.matcher(url).matches()
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostController) {
     var name by rememberSaveable { mutableStateOf("") }
@@ -74,7 +74,7 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = "Crear ALbum",
+            text = "Crear Album",
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.displaySmall
         )
@@ -117,17 +117,30 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
 
         Spacer(modifier = Modifier.padding(2.dp))
 
-        var isGenreValid by remember { mutableStateOf(true) }
+        var isGenreError by remember { mutableStateOf(false) }
+        var genreErrorMessage by remember { mutableStateOf("") }
+        val validGenreLabels = listOf("Classical", "Salsa", "Rock", "Flok")
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = genre,
-            onValueChange = { genre = it
-                isGenreValid = genre.isNotEmpty() },
-            placeholder = { Text(text = "Género") },
+            onValueChange = {
+                genre = it
+                if (genre in validGenreLabels) {
+                    isGenreError = false
+                    genreErrorMessage = ""
+                } else {
+                    isGenreError = true
+                    genreErrorMessage = "Opciones validas: Classical, Salsa, Rock, Flok"
+                }
+            },
+            placeholder = { Text(text = "Compañía Discografica") },
+            isError = isGenreError
         )
-        if (!isGenreValid) {
-            Text(text = "El genero no debe estar vacio", color = Color.Red)
+
+        if (isGenreError) {
+            Text(genreErrorMessage, color = MaterialTheme.colorScheme.error)
         }
+
         Spacer(modifier = Modifier.padding(2.dp))
 
         var isDateValid by remember { mutableStateOf(true) }
@@ -135,7 +148,11 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             value = releaseDate,
             onValueChange = {
                 releaseDate = it
-                val formattedDate = validateAndConvertDate(releaseDate)
+                val formattedDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    validateAndConvertDate(releaseDate)
+                } else {
+                    TODO("VERSION.SDK_INT < O")
+                }
                 if (formattedDate != null) {
                     releaseDate = formattedDate
                     isDateValid = true
@@ -153,12 +170,29 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
 
         Spacer(modifier = Modifier.padding(2.dp))
 
+        var isRecordError by remember { mutableStateOf(false) }
+        var recordErrorMessage by remember { mutableStateOf("") }
+        val validLabels = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = recordLabel,
-            onValueChange = { recordLabel = it },
+            onValueChange = {
+                recordLabel = it
+                if (recordLabel in validLabels) {
+                    isRecordError = false
+                    recordErrorMessage = ""
+                } else {
+                    isRecordError = true
+                    recordErrorMessage = "Opciones validas: Sony Music, EMI, Discos Fuentes, Elektra, Fania Records"
+                }
+            },
             placeholder = { Text(text = "Compañía Discografica") },
+            isError = isRecordError
         )
+
+        if (isRecordError) {
+            Text(recordErrorMessage, color = MaterialTheme.colorScheme.error)
+        }
         Spacer(modifier = Modifier.padding(2.dp))
 
         TextField(
@@ -183,7 +217,7 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             if (response.isSuccessful) {
                 Text("Se creo el album correctamente!")
                 LaunchedEffect(Unit) {
-                    navigationController.popBackStack()
+                    navigationController.navigate("Albums")
                 }
             } else {
                 Text("Error al crear el album: ${response.message()}", color = Color.Red)

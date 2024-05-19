@@ -8,7 +8,7 @@ data class Album(
     val description:String,
     val genre:String,
     val recordLabel:String,
-    val comments: List<Comment>? = null
+    val comments: List<Comment>? = emptyList()
 )
 
 data class AlbumPostDTO(
