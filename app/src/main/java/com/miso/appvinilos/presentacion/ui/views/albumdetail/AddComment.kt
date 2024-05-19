@@ -27,6 +27,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -53,7 +55,7 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                 IconButton(onClick = { rating = index }) {
                     Icon(
                         imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                        contentDescription = null,
+                        contentDescription = "Boton para agregar comentario",
                         tint = if (index <= rating) Color.Red else Color.Gray
                     )
                 }
@@ -74,6 +76,9 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                             .height(100.dp)
                             .border(1.dp, Color.Gray)
                             .padding(8.dp)
+                            .semantics {
+                                contentDescription = "Campo para escribir el comentario"
+                            }
                     ) {
                         if (commentContent.isEmpty()) {
                             Text(text = "Escribe tu comentario aquí...", color = Color.Gray)
@@ -103,6 +108,9 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                 if (commentContent.isNotBlank() && rating > 0) MaterialTheme.colorScheme.primary else Color.Gray
             ),
             modifier = Modifier.fillMaxWidth()
+                .semantics {
+                    contentDescription = "Boton para publicar el comentario escrito."
+                }
         ) {
             Text("Comentar")
         }

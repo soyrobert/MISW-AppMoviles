@@ -12,6 +12,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
@@ -26,12 +28,14 @@ fun CollectorList(viewModel: CollectorViewModel, navigationController: NavHostCo
         content = {
             items(collectors) { collector ->
                 Box(modifier = Modifier.fillMaxSize().clickable {
-                    navigationController.navigate("CollectorCompleteDetail/" + collector.id)
+                    navigationController.navigate("CollectorDetail/" + collector.id)
                 }) {
                     CollectorItem(collector)
                 }
             }
         },
-        modifier = Modifier.testTag("CollectorList")
+        modifier = Modifier.testTag("CollectorList").semantics {
+            contentDescription = "Lista de coleccionistas"
+        }
     )
 }
