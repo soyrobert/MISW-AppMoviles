@@ -27,6 +27,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -79,6 +81,7 @@ fun ArtistItem(artist: Artist) {
             .padding(8.dp)
             .width(176.dp)
             .clipToBounds()
+            .semantics(mergeDescendants = true){}
     ) {
         GlideImage(
             imageModel = { artist.image },
@@ -87,6 +90,9 @@ fun ArtistItem(artist: Artist) {
                 .height(185.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
+                .semantics {
+                    contentDescription = "Imagen del artista llamado " + artist.name
+                }
         )
         Text(
             text = artist.name,
