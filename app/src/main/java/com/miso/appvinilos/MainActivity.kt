@@ -222,8 +222,7 @@ fun Navigations(
 
             val collectorId = backStackEntry.arguments?.getString("collectorId")
             val collectorIdInt = collectorId?.toInt() ?: 0
-
-            CollectorCompleteDetail(collectorIdInt, navController)
+            CollectorCompleteDetail(collectorIdInt, navController,collectorsTest = collectorsTest,collectorAlbumsTest = albumsTest)
         }
         
         composable(NavigationItem.Home.route) {
