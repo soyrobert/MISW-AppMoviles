@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +41,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.presentacion.ui.views.artistdetail.DarkText
+import com.miso.appvinilos.presentacion.ui.views.artistdetail.LightText
 import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.skydoves.landscapist.glide.GlideImage
@@ -108,18 +117,28 @@ fun CommentList(comments: List<Comment>) {
                     .padding(vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = comment.description)
+                Text(
+                    text = comment.description,
+                    modifier = Modifier.semantics {
+                        contentDescription = "Texto del comentario"
+                    })
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = comment.rating.toString(),
                         fontSize = 16.sp,
                         modifier = Modifier.padding(end = 4.dp)
+                            .semantics {
+                                contentDescription = "Rating del comentario"
+                            }
                     )
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = "Rating Star",
                         tint = Color.Black,
                         modifier = Modifier.size(16.dp)
+                            .semantics {
+                                contentDescription = "Icono de estrella del rating"
+                            }
                     )
                 }
             }
@@ -129,14 +148,73 @@ fun CommentList(comments: List<Comment>) {
 
 @Composable
 fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
-
-    Column {
+    Column(modifier = Modifier.semantics(mergeDescendants = true){}) {
         Header(text="Álbum",navigationController = navigationController)
         AlbumDetail(album)
         AlbumDescription(album)
     }
 }
 
+
+@Composable
+fun TopBar(navigationController: NavHostController) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        IconButton(onClick = {
+            navigationController.popBackStack()
+                             },
+            modifier=Modifier.testTag("backButton")
+                .semantics {
+                    stateDescription = "Este boton permite ir al home cuando es cliqueado"
+                }) {
+            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Boton para volver al listado de albums")
+        }
+
+        Title()
+    }
+}
+
+
+@Composable
+fun Title() {
+    Text(
+        text = "Álbum",
+        style = TextStyle(
+            color = Color(0xFF1B1C17),
+            textAlign = TextAlign.Start,
+            fontSize = 22.sp,
+            lineHeight = 28.sp,
+            fontWeight = FontWeight(400),
+        ),
+        modifier = Modifier.fillMaxWidth(0.8f).semantics {
+            heading()
+        }
+    )
+}
+
+
+@Composable
+fun Header(navigationController: NavHostController) {
+    Surface(
+        color = Color.White,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 30.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            TopBar(navigationController)
+        }
+    }
+}
 
 
 @Composable
@@ -154,6 +232,9 @@ fun AlbumPhotoScreen(cover: String) {
                 .height(170.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
+                .semantics {
+                    contentDescription = "Album photo"
+                }
         )
     }
 }
@@ -176,14 +257,16 @@ fun DiscographyScreenField(album: Album) {
 
 @Composable
 fun PublicationDateScreenField(album: Album) {
-    val formattedDate = try {
-        formatDate(album.releaseDate)
-    } catch (e: ParseException) {
-        album.releaseDate
-    }
-    Column(modifier = Modifier.padding(5.dp)) {
-        LightText(text = "Fecha publicación")
-        DarkText(text = formattedDate)
+    Column(modifier = Modifier.semantics(mergeDescendants = true) {}) {
+        val formattedDate = try {
+            formatDate(album.releaseDate)
+        } catch (e: ParseException) {
+            album.releaseDate
+        }
+        Column(modifier = Modifier.padding(5.dp)) {
+            LightText(text = "Fecha publicación")
+            DarkText(text = formattedDate)
+        }
     }
 }
 
@@ -255,6 +338,7 @@ fun AlbumDetail(album: Album) {
                 modifier = Modifier
                     .weight(1.5f)
                     .fillMaxWidth()
+                    .semantics(mergeDescendants = true){}
             ) {
                 AlbumPhotoScreen(album.cover)
             }
@@ -263,6 +347,7 @@ fun AlbumDetail(album: Album) {
                     .weight(1.5f)
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
+                    .semantics(mergeDescendants = true){}
             ) {
                 AlbumBasicDescription(album)
             }
@@ -278,7 +363,7 @@ fun AlbumDescription(album: Album) {
         modifier = Modifier
             .padding(5.dp)
     ) {
-        Column {
+        Column (modifier = Modifier.semantics(mergeDescendants = true){}){
             Row {
                 DarkText(text = album.name)
             }
@@ -301,6 +386,7 @@ fun CustomWhiteSpace(){
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
             horizontalAlignment = Alignment.Start,
+            modifier = Modifier.semantics(mergeDescendants = true){}
         ) {}
     }
 }

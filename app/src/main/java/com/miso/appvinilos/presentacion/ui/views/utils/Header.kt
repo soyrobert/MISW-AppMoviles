@@ -45,7 +45,7 @@ fun TopBar(text: String, navigationController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp),
+            .padding(0.dp, 16.dp, 0.dp, 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

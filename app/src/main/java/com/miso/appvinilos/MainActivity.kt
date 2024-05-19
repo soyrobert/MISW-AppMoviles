@@ -35,6 +35,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -94,8 +98,8 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                navController.navigate("createAlbum")
+            FloatingActionButton(onClick = {}, modifier = Modifier.semantics {
+                stateDescription = "Este boton agrega un nuevo elemento en la lista de datos"
             }) {
                 Icon(Icons.Filled.Add, "Add")
             }
@@ -121,11 +125,13 @@ fun MainScreen(
     }
 }
 
-sealed class NavigationItem(var route: String, val title: String, val icon: Int) {
-    data object Albums : NavigationItem("Albums", "Albums", R.drawable.ic_album)
-    data object Artist : NavigationItem("Artist", "Artist", R.drawable.ic_artist)
-    data object Collector : NavigationItem("Collector", "Collector", R.drawable.ic_collector)
-    data object Home : NavigationItem("Home", "Home", R.drawable.ic_home)
+
+sealed class NavigationItem(val route: String, val title: String, val contentDescription: String?, val icon: Int) {
+
+    object Albums : NavigationItem("Albums", "Albums", "Navigate to Albums", R.drawable.ic_album)  // No constructor needed
+    object Artist : NavigationItem("Artist", "Artist", "Navigate to Artists", R.drawable.ic_artist)
+    object Collector : NavigationItem("Collector", "Collector", "Navigate to Collector", R.drawable.ic_collector)
+    object Home : NavigationItem("Home", "Home", "Navigate to Home", R.drawable.ic_home)
 }
 
 
@@ -150,12 +156,13 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 alwaysShowLabel = true,
-                modifier = Modifier.testTag(item.title),
+                modifier = Modifier.testTag(item.title)
+                    .semantics { contentDescription = item.contentDescription.toString() },
                 icon = {
                     val imagePainter = painterResource(id = item.icon)
                     Image(
                         painter = imagePainter,
-                        contentDescription = null // Provide content description if needed
+                        contentDescription = "Icono para la opción de menu " + item.title
                     )
                 },
                 label = { Text(item.title) },
@@ -235,18 +242,27 @@ fun Navigations(
 @Composable
 fun CenterText(text: String) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics(mergeDescendants = true){},
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text, fontSize = 32.sp)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.semantics {
+                heading()
+            }.semantics {
+                contentDescription = "Texto de bienvenida"
+            },
+            fontSize = 32.sp
+        )
     }
 }
 
 
 @Composable
 fun HomeScreen() {
-    CenterText(text = "Home")
+    CenterText(text = "Bienvenido")
 }
 
 

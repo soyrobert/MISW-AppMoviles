@@ -1,5 +1,6 @@
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -42,81 +46,110 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
     var rating by remember { mutableStateOf(0) }
     val postCommentResponse by viewModel.postCommentResponse.observeAsState()
 
-    Column {
-        Header(text="Álbum",navigationController = navigationController)
-        Text(text = "Calificación", style = MaterialTheme.typography.bodyLarge)
+    Column(modifier = Modifier.padding(10.dp)) {
+        Header(text="Escribir comentario", navigationController = navigationController)
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Column(modifier = Modifier.padding(28.dp, 0.dp, 28.dp, 8.dp)) {
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            (1..5).forEach { index ->
-                IconButton(onClick = { rating = index }) {
-                    Icon(
-                        imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                        contentDescription = null,
-                        tint = if (index <= rating) Color.Red else Color.Gray
-                    )
-                }
-            }
-        }
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        Column {
-            BasicTextField(
-                value = commentContent,
-                onValueChange = {
-                    if (it.length <= 200) commentContent = it
-                },
-                decorationBox = { innerTextField ->
-                    Box(
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Text(
+                    text = "Calificación",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+
+                (1..5).forEach { index ->
+                    IconButton(
+                        onClick = { rating = index },
                         modifier = Modifier
-                            .height(100.dp)
-                            .border(1.dp, Color.Gray)
-                            .padding(8.dp)
+                            .testTag("RatingButton$index")
+                            .padding(0.dp)
+
                     ) {
-                        if (commentContent.isEmpty()) {
-                            Text(text = "Escribe tu comentario aquí...", color = Color.Gray)
-                        }
-                        innerTextField()
+                        Icon(
+                            imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                            contentDescription = null,
+                            tint = if (index <= rating) Color.Red else Color.Gray
+                        )
                     }
                 }
-            )
-            Text(text = "${commentContent.length} / 200", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
-        }
+            }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
-                if (commentContent.isNotBlank() && rating > 0) {
-                    val newCommentRequest = CommentRequest(
-                        description = commentContent,
-                        rating = rating,
-                        collector = CollectorId(id = 1)
-                    )
-                    viewModel.postComment(albumId, newCommentRequest)
+            Column {
+                BasicTextField(
+                    value = commentContent,
+                    onValueChange = {
+                        if (it.length <= 200) commentContent = it
+                    },
+                    modifier = Modifier
+                        .testTag("CommentInput")
+                        .fillMaxWidth(),
+                    decorationBox = { innerTextField ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(150.dp)
+                                .border(1.dp, Color.Gray)
+                                .padding(8.dp)
+                        ) {
+                            if (commentContent.isEmpty()) {
+                                Text(text = "Escribe tu comentario aquí...", color = Color.Gray)
+                            }
+                            innerTextField()
+                        }
+                    }
+                )
+                Text(
+                    text = "${commentContent.length} / 200",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = {
+                    if (commentContent.isNotBlank() && rating > 0) {
+                        val newCommentRequest = CommentRequest(
+                            description = commentContent,
+                            rating = rating,
+                            collector = CollectorId(id = 1)
+                        )
+                        viewModel.postComment(albumId, newCommentRequest)
+                    }
+                },
+                enabled = commentContent.isNotBlank() && rating > 0,
+                colors = ButtonDefaults.buttonColors(
+                    if (commentContent.isNotBlank() && rating > 0) MaterialTheme.colorScheme.primary else Color.Gray
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("SubmitCommentButton")
+            ) {
+                Text("Comentar")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            postCommentResponse?.let { response ->
+                if (response.isSuccessful) {
+                    Text("Comment posted successfully!")
+                    LaunchedEffect(Unit) {
+                        navigationController.popBackStack()
+                    }
+                } else {
+                    Text("Failed to post comment: ${response.message()}")
                 }
-            },
-            enabled = commentContent.isNotBlank() && rating > 0,
-            colors = ButtonDefaults.buttonColors(
-                if (commentContent.isNotBlank() && rating > 0) MaterialTheme.colorScheme.primary else Color.Gray
-            ),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Comentar")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        postCommentResponse?.let { response ->
-            if (response.isSuccessful) {
-                Text("Comment posted successfully!")
-                LaunchedEffect(Unit) {
-                    navigationController.popBackStack()
-                }
-            } else {
-                Text("Failed to post comment: ${response.message()}")
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.miso.appvinilos.pruebasunitarias
 
+import org.junit.Test
+
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
@@ -10,7 +12,6 @@ import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumBasicDetail
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 class DetalleAlbumTest {
     private val albumTestNormal= Album(id = 1, name="Album1", cover="cover1", releaseDate="2021-01-01", description="description1", genre="genre1", recordLabel="recordLabel1", comments= emptyList())
