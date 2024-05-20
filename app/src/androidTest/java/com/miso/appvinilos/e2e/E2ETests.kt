@@ -147,56 +147,64 @@ class E2ETests {
         name = "Artist1",
         image = "image1",
         description = "description1",
-        birthDate = "birthDate1"
+        birthDate = "birthDate1",
+        albums = emptyList()
     )
     private val artistTest2 = Artist(
         id = 2,
         name = "Artist2",
         image = "image2",
         description = "description2",
-        birthDate = "birthDate2"
+        birthDate = "birthDate2",
+        albums = emptyList()
     )
     private val artistTest3 = Artist(
         id = 3,
         name = "Artist3",
         image = "image3",
         description = "description3",
-        birthDate = "birthDate3"
+        birthDate = "birthDate3",
+        albums = emptyList()
     )
     private val artistTest4 = Artist(
         id = 4,
         name = "Artist4",
         image = "image4",
         description = "description4",
-        birthDate = "birthDate4"
+        birthDate = "birthDate4",
+        albums = emptyList()
     )
     private val artistTest5 = Artist(
         id = 5,
         name = "Artist5",
         image = "image5",
         description = "description5",
-        birthDate = "birthDate5"
+        birthDate = "birthDate5",
+        albums = emptyList()
     )
     private val artistTest6 = Artist(
         id = 6,
         name = "Artist6",
         image = "image6",
         description = "description6",
-        birthDate = "birthDate6"
+        birthDate = "birthDate6",
+        albums = emptyList()
     )
     private val artistTest7 = Artist(
         id = 7,
         name = "Artist7",
         image = "image7",
         description = "description7",
-        birthDate = "birthDate7"
+        birthDate = "birthDate7",
+        albums = emptyList()
     )
     private val artistTest8 = Artist(
         id = 8,
         name = "Artist8",
         image = "image8",
         description = "description8",
-        birthDate = "birthDate8"
+        birthDate = "birthDate8",
+        albums = emptyList()
     )
     private val artistsTest = listOf(
         artistTest1,
