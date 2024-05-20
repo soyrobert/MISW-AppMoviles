@@ -429,5 +429,12 @@ class E2ETests {
 
     }
 
+    @Test
+    fun test_10_uso_detalle_coleccionista(){
+        composeTestRule.onNodeWithText("Collector").performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+    }
 
 }
