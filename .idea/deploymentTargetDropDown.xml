@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="AddAlbum">
+        <State />
+      </entry>
       <entry key="E2ETests">
         <State />
       </entry>

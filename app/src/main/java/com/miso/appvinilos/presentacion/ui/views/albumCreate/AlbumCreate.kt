@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -133,7 +135,7 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
                     genreErrorMessage = "Opciones validas: Classical, Salsa, Rock, Flok"
                 }
             },
-            placeholder = { Text(text = "Compañía Discografica") },
+            placeholder = { Text(text = "Genero") },
             isError = isGenreError
         )
 
@@ -204,14 +206,24 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
         Spacer(modifier = Modifier.padding(2.dp))
 
         Button(onClick = {
-            val album = Album(
-                name = name, cover = cover,
-                releaseDate = releaseDate, description = description,
-                genre = genre, recordLabel = recordLabel
-            )
-            Log.d("Album", "Album: $album")
-            viewModel.createAlbum(album)
-        }) { Text("Create Album") }
+            if (isNameValid && isCoverValid && releaseDate.isNotBlank()
+                && description.isNotBlank() && !isGenreError && !isRecordError){
+                val album = Album(
+                    name = name, cover = cover,
+                    releaseDate = releaseDate, description = description,
+                    genre = genre, recordLabel = recordLabel
+                )
+                Log.d("Album", "Album: $album")
+                viewModel.createAlbum(album) }
+                         },
+            enabled = (isNameValid && isCoverValid && releaseDate.isNotBlank()
+                    && description.isNotBlank() && !isGenreError && !isRecordError),
+            colors = ButtonDefaults.buttonColors(
+                if (isNameValid && isCoverValid && releaseDate.isNotBlank() && description.isNotBlank() && !isGenreError && !isRecordError) MaterialTheme.colorScheme.primary else Color.Gray
+            ),
+            modifier = Modifier
+                .testTag("SubmitAlbumButton")
+            ) { Text("Create Album") }
 
         albumCreationResponse?.let { response ->
             if (response.isSuccessful) {
