@@ -60,6 +60,7 @@ import com.miso.appvinilos.presentacion.ui.views.collectordetail.CollectorComple
 import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 
 class MainActivity : ComponentActivity() {
@@ -91,6 +92,10 @@ fun MainScreen(
     artistsTest: List<Artist> = emptyList(),
     collectorsTest: List<Collector> = emptyList()
 ) {
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val route = backStackEntry?.destination?.route
+    Log.d("CURRENT_ROUTE", "Ruta $backStackEntry")
+    Log.d("CURRENT_ROUTE", "Ruta $route")
     Scaffold(
         bottomBar = {
             BottomAppBar(modifier = Modifier) {
@@ -98,10 +103,12 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}, modifier = Modifier.semantics {
-                stateDescription = "Este boton agrega un nuevo elemento en la lista de datos"
-            }) {
-                Icon(Icons.Filled.Add, "Add")
+            if (route == "Albums") {
+                FloatingActionButton(onClick = { navController.navigate("createAlbum") }, modifier = Modifier.semantics {
+                    stateDescription = "Este boton agrega un nuevo elemento en la lista de datos"
+                }) {
+                    Icon(Icons.Filled.Add, "Add")
+                }
             }
         }
     ) { innerPadding ->
@@ -177,8 +184,6 @@ fun BottomNavigationBar(navController: NavController) {
                                 saveState = true
                             }
                         }
-                        var launchSingleTop = true
-                        var restoreState = true
                     }
                 }
             )
@@ -222,8 +227,7 @@ fun Navigations(
 
             val collectorId = backStackEntry.arguments?.getString("collectorId")
             val collectorIdInt = collectorId?.toInt() ?: 0
-
-            CollectorCompleteDetail(collectorIdInt, navController)
+            CollectorCompleteDetail(collectorIdInt, navController,collectorsTest = collectorsTest,collectorAlbumsTest = albumsTest)
         }
         
         composable(NavigationItem.Home.route) {
@@ -270,7 +274,6 @@ fun HomeScreen() {
 fun CreateAlbumScreen(navController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
     AlbumCreate(viewModel, navController)
-    // Your CreateAlbumScreen content here
 }
 
 @Composable

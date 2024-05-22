@@ -1,6 +1,5 @@
 package com.miso.appvinilos.pruebasunitarias
 
-import AddCommentScreen
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -15,6 +14,7 @@ import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+
 
 class AddAlbum {
 
@@ -33,29 +33,32 @@ class AddAlbum {
         }
     }
 
+//    @Test
+//    fun testAddAlbumSuccessfully() {
+//        composeTestRule.onNodeWithText("Nombre").performTextInput("Test Album")
+//        composeTestRule.onNodeWithText("URL").performTextInput("http://example.com/cover.jpg")
+//        composeTestRule.onNodeWithText("Compañía Discografica").performTextInput("Sony Music")
+//        composeTestRule.onNodeWithText("Release Date").performTextInput("2024-05-19")
+//        composeTestRule.onNodeWithText("Descripción").performTextInput("This is a test album.")
+//        composeTestRule.onNodeWithText("Genero").performTextInput("Rock")
+//
+//        // Click the "Create Album" button
+//        composeTestRule.onNodeWithText("Create Album").performClick()
+//        composeTestRule.onNodeWithText("Test Album").assertIsDisplayed()
+//    }
     @Test
     fun testAddAlbumSuccessfully() {
         composeTestRule.onNodeWithText("Nombre").performTextInput("Test Album")
         composeTestRule.onNodeWithText("URL").performTextInput("http://example.com/cover.jpg")
-        composeTestRule.onNodeWithText("Compañía Discografica").performTextInput("Sony Music")
-        composeTestRule.onNodeWithText("Release Date").performTextInput("2024-05-19")
         composeTestRule.onNodeWithText("Descripción").performTextInput("This is a test album.")
-        composeTestRule.onNodeWithText("Genero").performTextInput("Rock")
-
-        // Click the "Create Album" button
         composeTestRule.onNodeWithText("Create Album").performClick()
         composeTestRule.onNodeWithText("Test Album").assertIsDisplayed()
     }
 
     @Test
-    fun add_wrong_genre() {
-        composeTestRule.onNodeWithText("Nombre").performTextInput("Test Wrong Album")
+    fun add_empty_name() {
         composeTestRule.onNodeWithText("URL").performTextInput("http://example.com/cover.jpg")
-        composeTestRule.onNodeWithText("Compañía Discografica").performTextInput("Sony Music")
-        composeTestRule.onNodeWithText("Release Date").performTextInput("2024-05-19")
         composeTestRule.onNodeWithText("Descripción").performTextInput("This is a test album.")
-        composeTestRule.onNodeWithText("Genero").performTextInput("Genero incorrecto")
         composeTestRule.onNodeWithTag("SubmitAlbumButton").assertIsNotEnabled()
-
     }
 }
