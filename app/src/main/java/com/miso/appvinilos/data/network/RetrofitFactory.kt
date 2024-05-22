@@ -12,22 +12,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 object RetrofitFactory {
-    private const val BASE_URL = NetworkConfig.BASE_URL
-    private const val CACHE_SIZE = 50L * 1024L * 1024L // 50 MB
-    private const val MAX_STALE = 60 * 60 * 24 * 7 // 1 week
+    private const val MAX_STALE = 60 * 60  // 1 hour
 
     @Volatile
     private var retrofit: Retrofit? = null
+     @RequiresApi(Build.VERSION_CODES.M)
      fun createRetrofitWithCache(context: Context): Retrofit {
          return retrofit ?: synchronized(this) {
              retrofit ?: buildRetrofit(context).also { retrofit = it }
          }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun buildRetrofit(context: Context): Retrofit {
         // Directorio y tamaño de caché
         val cacheDir = File(context.cacheDir, "http-cache")
-        val cache = Cache(cacheDir, CACHE_SIZE)
+        val cache = Cache(cacheDir, CachingConfig.CACHE_SIZE)
 
         // Interceptor para manejar el caché
         val cacheInterceptor = Interceptor { chain ->
@@ -48,7 +48,7 @@ object RetrofitFactory {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(NetworkConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
