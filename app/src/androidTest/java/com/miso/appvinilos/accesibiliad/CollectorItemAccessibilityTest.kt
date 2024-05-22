@@ -45,14 +45,16 @@ class CollectorItemAccessibilityTest {
                     name = "Artist1",
                     image = "image1",
                     description = "description1",
-                    birthDate = "birthDate1"
+                    birthDate = "birthDate1",
+                    albums = emptyList()
                 ),
                 Artist(
                     id = 1,
                     name = "Artist2",
                     image = "image2",
                     description = "description2",
-                    birthDate = "birthDate2"
+                    birthDate = "birthDate2",
+                    albums = emptyList()
                 )
             ),
             collectorAlbums = listOf(

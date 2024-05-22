@@ -4,7 +4,7 @@ import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.network.ArtistsApi
 
 class ArtistRepository(context: Context) {
-    private val artistApi=ArtistsApi(context)
+    private val artistApi = ArtistsApi(context)
     private val artistService = artistApi.artistService
 
     suspend fun getArtists(): List<Artist> {

@@ -1,10 +1,7 @@
 package com.miso.appvinilos.pruebasunitarias
 
-import org.junit.Test
-
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.compose.rememberNavController
@@ -12,10 +9,10 @@ import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.Comment
-import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumBasicDetail
 import com.miso.appvinilos.presentacion.ui.views.collectordetail.CollectorBasicDetail
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 class CollectorDetalleTest {
 
@@ -35,14 +32,16 @@ class CollectorDetalleTest {
             name = "Lorem Ipsum",
             image = "https://example.com/images/lorem.jpg",
             description = "A popular figure in contemporary pop music.",
-            birthDate = "1980-01-15"
+            birthDate = "1980-01-15",
+            albums = albumsTest
         ),
         Artist(
             id = 2,
             name = "Ipsum",
             image = "https://example.com/images/ipsum.jpg",
             description = "Known for energetic rock performances.",
-            birthDate = "1975-05-30"
+            birthDate = "1975-05-30",
+            albums = albumsTest
         )
     )
 

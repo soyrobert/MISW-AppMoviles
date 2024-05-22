@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.compose.rememberNavController
 import com.miso.appvinilos.data.model.Artist
-import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistBasicDetail
+import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistDetailContent
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -18,7 +18,8 @@ class ArtistDetalleTest {
         name = "Artist1",
         image = "image1",
         description = "description1",
-        birthDate = "birthDate1"
+        birthDate = "birthDate1",
+        albums = emptyList()
     )
 
     @get:Rule
@@ -33,7 +34,7 @@ class ArtistDetalleTest {
 
             val navigationController = rememberNavController()
 
-            ArtistBasicDetail(artist=artistTest,navigationController=navigationController)
+            ArtistDetailContent(artist=artistTest,navigationController=navigationController)
 
 
         }

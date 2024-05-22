@@ -24,6 +24,11 @@ class CollectorListTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    val albumsTest = listOf(
+        Album(id = 1, name = "Best of Ipsum", cover = "https://example.com/covers/ipsum.jpg", releaseDate = "2019-04-20", description = "The best hits of Ipsum.", genre = "Rock", recordLabel = "Universal"),
+        Album(id = 2, name = "Smooth Jazz", cover = "https://example.com/covers/jazz.jpg", releaseDate = "2020-10-05", description = "Smooth jazz from the best.", genre = "Jazz", recordLabel = "Jazz Records")
+    )
+
     @Before
     fun setUp(){
         val commentsTest = listOf(
@@ -37,14 +42,18 @@ class CollectorListTest {
                 name = "Lorem Ipsum",
                 image = "https://example.com/images/lorem.jpg",
                 description = "A popular figure in contemporary pop music.",
-                birthDate = "1980-01-15"
+                birthDate = "1980-01-15",
+                albums = albumsTest
+
+
             ),
             Artist(
                 id = 2,
                 name = "Ipsum",
                 image = "https://example.com/images/ipsum.jpg",
                 description = "Known for energetic rock performances.",
-                birthDate = "1975-05-30"
+                birthDate = "1975-05-30",
+                albums = albumsTest
             )
         )
 

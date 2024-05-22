@@ -1,10 +1,12 @@
 package com.miso.appvinilos.presentacion.ui.views.albumCreate
-
+import androidx.navigation.NavHostController
 import android.os.Build
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,20 +33,29 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.Icon
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun validateAndConvertDate(dateString: String): String? {
     val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-//    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XXX")
     val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XX")
-//    2011-08-01T00:00:00-05:00
     return try {
         val localDate = LocalDate.parse(dateString, inputFormatter)
         val zonedDateTime = localDate.atStartOfDay(ZoneId.of("UTC-05:00"))
@@ -58,6 +69,7 @@ fun validateUrl(url: String): Boolean {
     return Patterns.WEB_URL.matcher(url).matches()
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostController) {
     var name by rememberSaveable { mutableStateOf("") }
@@ -145,29 +157,9 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
 
         Spacer(modifier = Modifier.padding(2.dp))
 
-        var isDateValid by remember { mutableStateOf(true) }
-        TextField(
-            value = releaseDate,
-            onValueChange = {
-                releaseDate = it
-                val formattedDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    validateAndConvertDate(releaseDate)
-                } else {
-                    TODO("VERSION.SDK_INT < O")
-                }
-                if (formattedDate != null) {
-                    releaseDate = formattedDate
-                    isDateValid = true
-                } else {
-                    isDateValid = false
-                }
-            },
-            label = { Text("Release Date") },
-            isError = !isDateValid
-        )
-
-        if (!isDateValid) {
-            Text("Agregar un formato valido de fecha yyyy-MM-dd", color = MaterialTheme.colorScheme.error)
+        ReleaseDateTextField { releaseDate = it }
+        if (releaseDate == null) {
+            releaseDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XX"))
         }
 
         Spacer(modifier = Modifier.padding(2.dp))
@@ -235,5 +227,71 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
                 Text("Error al crear el album: ${response.message()}", color = Color.Red)
             }
         }
+    }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun ReleaseDateTextField(releaseDate: (String) -> Unit) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+
+    val currentDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE)
+    var selectedDate by rememberSaveable { mutableStateOf(currentDate) }
+
+    val context = LocalContext.current
+
+    val calendar = Calendar.getInstance()
+    val year: Int = calendar.get(Calendar.YEAR)
+    val month: Int = calendar.get(Calendar.MONTH)
+    val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+    Date().also { calendar.time = it }
+
+    val datePickerDialog =
+        DatePickerDialog(context, { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+            val localDate = LocalDate.of(year, month + 1, dayOfMonth)
+            selectedDate = localDate.format(DateTimeFormatter.ISO_DATE)
+            val formattedDate = validateAndConvertDate(selectedDate)
+            if (formattedDate != null) {
+                releaseDate(formattedDate)
+            }
+        }, year, month, day)
+
+    var isDateValid by remember { mutableStateOf(true) }
+
+    TextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics { contentDescription = "Release Date TextField" },
+        readOnly = true,
+        value = selectedDate,
+        onValueChange = {
+            selectedDate = it // Update selected date
+            val formattedDate = validateAndConvertDate(it)
+            Log.d("Formatted", "Formatted Date: $formattedDate")
+            if (formattedDate != null) {
+                releaseDate(formattedDate)
+                isDateValid = true
+            } else {
+                isDateValid = false
+            }
+        },
+        trailingIcon = {
+            Icon(
+                Icons.Default.DateRange,
+                contentDescription = "Date Range Icon",
+                modifier = Modifier.semantics { contentDescription = "Date Range Icon" }
+            )
+        },
+        interactionSource = interactionSource
+    )
+
+    if (!isDateValid) {
+        Text("Please enter a valid date", color = MaterialTheme.colorScheme.error)
+    }
+
+    if (isPressed) {
+        datePickerDialog.show()
     }
 }
