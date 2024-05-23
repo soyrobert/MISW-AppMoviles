@@ -33,25 +33,14 @@ class AddAlbum {
         }
     }
 
-//    @Test
-//    fun testAddAlbumSuccessfully() {
-//        composeTestRule.onNodeWithText("Nombre").performTextInput("Test Album")
-//        composeTestRule.onNodeWithText("URL").performTextInput("http://example.com/cover.jpg")
-//        composeTestRule.onNodeWithText("Compañía Discografica").performTextInput("Sony Music")
-//        composeTestRule.onNodeWithText("Release Date").performTextInput("2024-05-19")
-//        composeTestRule.onNodeWithText("Descripción").performTextInput("This is a test album.")
-//        composeTestRule.onNodeWithText("Genero").performTextInput("Rock")
-//
-//        // Click the "Create Album" button
-//        composeTestRule.onNodeWithText("Create Album").performClick()
-//        composeTestRule.onNodeWithText("Test Album").assertIsDisplayed()
-//    }
     @Test
     fun testAddAlbumSuccessfully() {
         composeTestRule.onNodeWithText("Nombre").performTextInput("Test Album")
         composeTestRule.onNodeWithText("URL").performTextInput("http://example.com/cover.jpg")
         composeTestRule.onNodeWithText("Descripción").performTextInput("This is a test album.")
         composeTestRule.onNodeWithText("Create Album").performClick()
+
+        // Verify the album creation
         composeTestRule.onNodeWithText("Test Album").assertIsDisplayed()
     }
 

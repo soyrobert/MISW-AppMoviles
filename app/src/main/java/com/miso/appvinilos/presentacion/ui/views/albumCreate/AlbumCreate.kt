@@ -138,15 +138,12 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
 
         Spacer(modifier = Modifier.padding(2.dp))
 
-        ReleaseDateTextField { releaseDate = it }
-        if (releaseDate == null) {
-            releaseDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'00:00:00XX"))
-        }
+        RecordLabelDropdownMenuBox { recordLabel = it}
+        Log.d("OPCION", "RECORD: $recordLabel")
 
         Spacer(modifier = Modifier.padding(2.dp))
 
-        RecordLabelDropdownMenuBox { recordLabel = it}
-        Log.d("OPCION", "RECORD: $recordLabel")
+        ReleaseDateTextField { releaseDate = it }
 
         Spacer(modifier = Modifier.padding(2.dp))
 
@@ -231,11 +228,11 @@ fun ReleaseDateTextField(releaseDate: (String) -> Unit) {
             selectedDate = it // Update selected date
             val formattedDate = validateAndConvertDate(it)
             Log.d("Formatted", "Formatted Date: $formattedDate")
-            if (formattedDate != null) {
+            isDateValid = if (formattedDate != null) {
                 releaseDate(formattedDate)
-                isDateValid = true
+                true
             } else {
-                isDateValid = false
+                false
             }
         },
         trailingIcon = {
