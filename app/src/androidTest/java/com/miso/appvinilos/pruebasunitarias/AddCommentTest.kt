@@ -1,6 +1,6 @@
 package com.miso.appvinilos.pruebasunitarias
 
-import AddCommentScreen
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled

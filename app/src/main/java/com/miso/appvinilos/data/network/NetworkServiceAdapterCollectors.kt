@@ -1,6 +1,8 @@
 package com.miso.appvinilos.data.network
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.andretietz.retrofit.ResponseCache
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.CollectorAlbum
@@ -25,7 +27,9 @@ interface NetworkServiceAdapterCollectors {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 class CollectorsApi(context: Context) {
+    @RequiresApi(Build.VERSION_CODES.M)
     private val retrofit = RetrofitFactory.createRetrofitWithCache(context)
 
     val collectorsService : NetworkServiceAdapterCollectors by lazy {

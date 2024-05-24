@@ -1,8 +1,8 @@
-@file:Suppress("unused")
-
 package com.miso.appvinilos.presentacion.viewmodels
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,6 @@ import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.repositories.CollectorRepository
 import kotlinx.coroutines.launch
 
-@Suppress("unused")
 class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
     private val collectorRepository = CollectorRepository(application)
     private val _collectors = MutableLiveData<List<Collector>>()
@@ -28,6 +27,7 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
     val collectorAlbums: LiveData<List<Album>>
         get() = _collectorAlbums
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun fetchCollector(collectorId: Int) {
         viewModelScope.launch {
             try {
@@ -41,6 +41,7 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun fetchCollectors(collectorsTest:List<Collector> = emptyList()){
         viewModelScope.launch {
             try {
@@ -61,6 +62,7 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun fetchCollectorAlbums(collectorId: Int) {
         viewModelScope.launch {
             try {

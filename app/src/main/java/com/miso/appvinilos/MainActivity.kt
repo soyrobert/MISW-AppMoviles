@@ -1,10 +1,12 @@
 package com.miso.appvinilos
 
-import AddCommentScreen
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -65,6 +67,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 class MainActivity : ComponentActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -85,6 +88,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
     navController: NavHostController,
@@ -135,10 +139,10 @@ fun MainScreen(
 
 sealed class NavigationItem(val route: String, val title: String, val contentDescription: String?, val icon: Int) {
 
-    object Albums : NavigationItem("Albums", "Albums", "Navigate to Albums", R.drawable.ic_album)  // No constructor needed
-    object Artist : NavigationItem("Artist", "Artist", "Navigate to Artists", R.drawable.ic_artist)
-    object Collector : NavigationItem("Collector", "Collector", "Navigate to Collector", R.drawable.ic_collector)
-    object Home : NavigationItem("Home", "Home", "Navigate to Home", R.drawable.ic_home)
+    data object Albums : NavigationItem("Albums", "Albums", "Navigate to Albums", R.drawable.ic_album)  // No constructor needed
+    data object Artist : NavigationItem("Artist", "Artist", "Navigate to Artists", R.drawable.ic_artist)
+    data object Collector : NavigationItem("Collector", "Collector", "Navigate to Collector", R.drawable.ic_collector)
+    data object Home : NavigationItem("Home", "Home", "Navigate to Home", R.drawable.ic_home)
 }
 
 
@@ -191,6 +195,7 @@ fun BottomNavigationBar(navController: NavController) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigations(
     navController: NavHostController,
@@ -270,12 +275,14 @@ fun HomeScreen() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreateAlbumScreen(navController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
     AlbumCreate(viewModel, navController)
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun AlbumListScreen(
     navigationController: NavHostController,
@@ -299,6 +306,7 @@ fun AlbumListScreen(
     AlbumList(viewModel, navigationController)
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun CollectorListScreen(
     navigationController: NavHostController,

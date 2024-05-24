@@ -25,11 +25,11 @@ class ArtistItemAccessibilityTest {
 
     @Test
     fun test_elemento_artista_es_accesible_con_content_description() {
-        val content_description = "Imagen del artista llamado Artist1"
+        val contentDescription = "Imagen del artista llamado Artist1"
 
-        composeTestRule.onNodeWithContentDescription(content_description)
+        composeTestRule.onNodeWithContentDescription(contentDescription)
             .assertExists()
-            .assert(hasContentDescription(content_description))
+            .assert(hasContentDescription(contentDescription))
     }
 
     private fun mockArtistTest(): Artist {

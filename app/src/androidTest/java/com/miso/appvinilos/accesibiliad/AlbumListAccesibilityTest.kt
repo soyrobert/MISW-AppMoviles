@@ -113,7 +113,7 @@ class AlbumListAccesibilityTest {
             recordLabel = "recordLabel8"
         )
 
-        val albumsTest = listOf(
+        return listOf(
             albumTest1,
             albumTest2,
             albumTest3,
@@ -123,7 +123,6 @@ class AlbumListAccesibilityTest {
             albumTest7,
             albumTest8
         )
-        return albumsTest
     }
 
 }

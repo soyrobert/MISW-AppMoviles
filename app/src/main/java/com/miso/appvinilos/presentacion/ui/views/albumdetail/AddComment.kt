@@ -1,4 +1,6 @@
-
+package com.miso.appvinilos.presentacion.ui.views.albumdetail
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -22,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -29,8 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -39,11 +41,12 @@ import com.miso.appvinilos.data.model.CommentRequest
 import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
     val viewModel: AlbumViewModel = viewModel()
     var commentContent by remember { mutableStateOf("") }
-    var rating by remember { mutableStateOf(0) }
+    var rating by remember { mutableIntStateOf(0) }
     val postCommentResponse by viewModel.postCommentResponse.observeAsState()
 
     Column(modifier = Modifier.padding(10.dp)) {
@@ -71,6 +74,7 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                         modifier = Modifier
                             .testTag("RatingButton$index")
                             .padding(0.dp)
+                            .size(48.dp)
 
                     ) {
                         Icon(
@@ -98,11 +102,11 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(150.dp)
-                                .border(1.dp, Color.Gray)
+                                .border(1.dp, Color.DarkGray)
                                 .padding(8.dp)
                         ) {
                             if (commentContent.isEmpty()) {
-                                Text(text = "Escribe tu comentario aquí...", color = Color.Gray)
+                                Text(text = "Escribe tu comentario aquí...", color = Color.DarkGray)
                             }
                             innerTextField()
                         }
@@ -111,7 +115,7 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                 Text(
                     text = "${commentContent.length} / 200",
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
+                    color = Color.DarkGray
                 )
             }
 

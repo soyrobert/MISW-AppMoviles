@@ -16,17 +16,17 @@ import org.junit.Test
 
 class CollectorDetalleTest {
 
-    val commentsTest = listOf(
+    private val commentsTest = listOf(
         Comment(id = 1, description = "Great collection!"),
         Comment(id = 2, description = "Impressive variety of albums.")
     )
 
-    val albumsTest = listOf(
+    private val albumsTest = listOf(
         Album(id = 1, name = "Best of Ipsum", cover = "https://example.com/covers/ipsum.jpg", releaseDate = "2019-04-20", description = "The best hits of Ipsum.", genre = "Rock", recordLabel = "Universal"),
         Album(id = 2, name = "Smooth Jazz", cover = "https://example.com/covers/jazz.jpg", releaseDate = "2020-10-05", description = "Smooth jazz from the best.", genre = "Jazz", recordLabel = "Jazz Records")
     )
 
-    val artistsTest = listOf(
+    private val artistsTest = listOf(
         Artist(
             id = 1,
             name = "Lorem Ipsum",
@@ -45,7 +45,7 @@ class CollectorDetalleTest {
         )
     )
 
-    val collectorTest= Collector(
+    private val collectorTest= Collector(
         id = 1,
         name = "Noemi Murillo",
         telephone = "123456789",

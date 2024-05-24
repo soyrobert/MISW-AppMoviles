@@ -42,10 +42,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.data.model.Album
+import com.miso.appvinilos.presentacion.ui.views.utils.Header
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
 import java.time.LocalDate
 import java.time.ZoneId
@@ -89,16 +89,13 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(
-            text = "Crear Album",
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.displaySmall
-        )
+        Header(text="Crear Nuevo Album", navigationController = navigationController)
         Spacer(modifier = Modifier.padding(8.dp))
 
         var isNameValid by remember { mutableStateOf(true) }
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .semantics { contentDescription = "Campo para el nombre del album" },
             value = name,
             onValueChange = {
                 name = it
@@ -115,7 +112,8 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
         var isCoverValid by remember { mutableStateOf(true) }
 
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .semantics { contentDescription = "Campo para el url la portada del album" },
             value = cover,
             onValueChange = {
                 cover = it
@@ -133,7 +131,7 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
 
         Spacer(modifier = Modifier.padding(2.dp))
 
-        GenreDropdownMenuBox{ genre = it}
+        GenreDropdownMenuBox{ genre = it }
         Log.d("OPCION", "Opcion: $genre")
 
         Spacer(modifier = Modifier.padding(2.dp))
@@ -148,7 +146,8 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
         Spacer(modifier = Modifier.padding(2.dp))
 
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .semantics { contentDescription = "Campo para la descripcion del album" },
             value = description,
             onValueChange = { description = it },
             placeholder = { Text(text = "Descripción") },
@@ -169,11 +168,12 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             enabled = (isNameValid && isCoverValid && releaseDate.isNotBlank()
                     && description.isNotBlank() && genre.isNotBlank() && recordLabel.isNotBlank()),
             colors = ButtonDefaults.buttonColors(
-                if (isNameValid && isCoverValid && releaseDate.isNotBlank() && description.isNotBlank() && genre.isNotBlank() && recordLabel.isNotBlank()) MaterialTheme.colorScheme.primary else Color.Gray
+                if (isNameValid && isCoverValid && releaseDate.isNotBlank() && description.isNotBlank() && genre.isNotBlank() && recordLabel.isNotBlank()) MaterialTheme.colorScheme.primary else Color.DarkGray
             ),
             modifier = Modifier
                 .testTag("SubmitAlbumButton")
-            ) { Text("Create Album") }
+                .semantics { contentDescription = "Boton para guardar el album" }
+            ) { Text("Crear Album") }
 
         albumCreationResponse?.let { response ->
             if (response.isSuccessful) {
@@ -221,7 +221,7 @@ fun ReleaseDateTextField(releaseDate: (String) -> Unit) {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .semantics { contentDescription = "Release Date TextField" },
+            .semantics { contentDescription = "Calendario para seleccionar la fecha de lanzamiento" },
         readOnly = true,
         value = selectedDate,
         onValueChange = {
@@ -246,7 +246,7 @@ fun ReleaseDateTextField(releaseDate: (String) -> Unit) {
     )
 
     if (!isDateValid) {
-        Text("Please enter a valid date", color = MaterialTheme.colorScheme.error)
+        Text("Porfavor ingresar una fecha valida", color = MaterialTheme.colorScheme.error)
     }
 
     if (isPressed) {
@@ -279,7 +279,7 @@ fun GenreDropdownMenuBox(genre: (String) -> Unit) {
                 label = { Text(text = "Seleccione un genero") },
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                modifier = Modifier.menuAnchor()
+                modifier = Modifier.menuAnchor().semantics { contentDescription = "Opciones de genero" }
             )
 
             ExposedDropdownMenu(
@@ -327,7 +327,7 @@ fun RecordLabelDropdownMenuBox(recordLabel: (String) -> Unit) {
                 label = { Text(text = "Seleccione una compañía discografica") },
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                modifier = Modifier.menuAnchor()
+                modifier = Modifier.menuAnchor().semantics { contentDescription = "Opciones de compañía discografica" }
             )
 
             ExposedDropdownMenu(

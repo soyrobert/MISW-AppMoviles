@@ -36,7 +36,7 @@ class ArtistListAccessibilityTest {
             composeTestRule.onNodeWithTag("ArtistList").assertIsDisplayed()
     }
 
-    fun mockArtistsTest(): List<Artist> {
+    private fun mockArtistsTest(): List<Artist> {
         val artistTest1 = Artist(
             id = 1,
             name = "Artist1",

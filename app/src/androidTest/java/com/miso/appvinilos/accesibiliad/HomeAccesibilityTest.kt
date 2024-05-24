@@ -25,11 +25,11 @@ class HomeAccesibilityTest {
 
     @Test
     fun test_pantalla_inicio_contiene_texto_de_bienvenida_y_es_accesible() {
-        val content_description = "Texto de bienvenida"
+        val contentDescription = "Texto de bienvenida"
 
-        composeTestRule.onNodeWithContentDescription(content_description)
+        composeTestRule.onNodeWithContentDescription(contentDescription)
             .assertExists()
-            .assert(hasContentDescription(content_description))
+            .assert(hasContentDescription(contentDescription))
 
     }
 

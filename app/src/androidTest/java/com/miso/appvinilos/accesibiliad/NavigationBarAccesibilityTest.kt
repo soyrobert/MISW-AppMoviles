@@ -27,10 +27,10 @@ class NavigationBarAccesibilityTest {
 
     @Test
     fun test_menu_albums_contiene_content_description() {
-        val content_description = "Navigate to Albums"
-        composeTestRule.onNodeWithContentDescription(content_description)
+        val contentDescription = "Navigate to Albums"
+        composeTestRule.onNodeWithContentDescription(contentDescription)
             .assertExists()
-            .assert(hasContentDescription(content_description))
+            .assert(hasContentDescription(contentDescription))
     }
 
     @Test
@@ -42,10 +42,10 @@ class NavigationBarAccesibilityTest {
 
     @Test
     fun test_menu_artist_contiene_content_description() {
-        val content_description = "Navigate to Artists"
-        composeTestRule.onNodeWithContentDescription(content_description)
+        val contentDescription = "Navigate to Artists"
+        composeTestRule.onNodeWithContentDescription(contentDescription)
             .assertExists()
-            .assert(hasContentDescription(content_description))
+            .assert(hasContentDescription(contentDescription))
     }
 
     @Test
@@ -57,10 +57,10 @@ class NavigationBarAccesibilityTest {
 
     @Test
     fun test_menu_collector_contiene_content_description() {
-        val content_description = "Navigate to Collector"
-        composeTestRule.onNodeWithContentDescription(content_description)
+        val contentDescription = "Navigate to Collector"
+        composeTestRule.onNodeWithContentDescription(contentDescription)
             .assertExists()
-            .assert(hasContentDescription(content_description))
+            .assert(hasContentDescription(contentDescription))
     }
 
     @Test
@@ -72,10 +72,10 @@ class NavigationBarAccesibilityTest {
 
     @Test
     fun test_menu_volver_a_home_contiene_content_description() {
-        val content_description = "Navigate to Home"
-        composeTestRule.onNodeWithContentDescription(content_description)
+        val contentDescription = "Navigate to Home"
+        composeTestRule.onNodeWithContentDescription(contentDescription)
             .assertExists()
-            .assert(hasContentDescription(content_description))
+            .assert(hasContentDescription(contentDescription))
     }
 
 

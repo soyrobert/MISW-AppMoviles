@@ -1,4 +1,6 @@
 package com.miso.appvinilos.presentacion.ui.views.artistlist
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +34,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import com.skydoves.landscapist.glide.GlideImage
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun ArtistListScreen(navigationController: NavHostController,artistTest:List<Artist> = emptyList()) {
     val viewModel: ArtistViewModel = viewModel()

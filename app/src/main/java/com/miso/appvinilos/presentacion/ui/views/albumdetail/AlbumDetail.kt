@@ -1,5 +1,7 @@
 package com.miso.appvinilos.presentacion.ui.views.albumdetail
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,12 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,15 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -52,6 +48,7 @@ import java.util.Date
 import java.util.Locale
 
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
     val viewModel: AlbumViewModel = viewModel()
@@ -157,67 +154,6 @@ fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
 
 
 @Composable
-fun TopBar(navigationController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        IconButton(onClick = {
-            navigationController.popBackStack()
-                             },
-            modifier=Modifier.testTag("backButton")
-                .semantics {
-                    stateDescription = "Este boton permite ir al home cuando es cliqueado"
-                }) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Boton para volver al listado de albums")
-        }
-
-        Title()
-    }
-}
-
-
-@Composable
-fun Title() {
-    Text(
-        text = "Álbum",
-        style = TextStyle(
-            color = Color(0xFF1B1C17),
-            textAlign = TextAlign.Start,
-            fontSize = 22.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight(400),
-        ),
-        modifier = Modifier.fillMaxWidth(0.8f).semantics {
-            heading()
-        }
-    )
-}
-
-
-@Composable
-fun Header(navigationController: NavHostController) {
-    Surface(
-        color = Color.White,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            TopBar(navigationController)
-        }
-    }
-}
-
-
-@Composable
 fun AlbumPhotoScreen(cover: String) {
 
     Box(
@@ -268,35 +204,6 @@ fun PublicationDateScreenField(album: Album) {
             DarkText(text = formattedDate)
         }
     }
-}
-
-@Composable
-fun LightText(text: String){
-    Text(
-        text = text,
-        style = TextStyle(
-            fontSize = 14.sp,
-            lineHeight = 24.sp,
-            fontFamily = FontFamily.Serif,
-            fontWeight = FontWeight(300),
-            color = Color(0xFF605D66),
-        )
-    )
-}
-
-@Composable
-fun DarkText(text: String){
-    Text(
-        text = text,
-        style = TextStyle(
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight(300),
-            fontFamily = FontFamily.Serif,
-            fontSize = 18.sp,
-            lineHeight = 24.sp
-        )
-    )
 }
 
 @Composable

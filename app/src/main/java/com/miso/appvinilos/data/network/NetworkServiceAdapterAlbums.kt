@@ -1,5 +1,7 @@
 package com.miso.appvinilos.data.network
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.andretietz.retrofit.ResponseCache
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.AlbumPostDTO
@@ -32,7 +34,9 @@ interface NetworkServiceAdapterAlbums {
     suspend fun postComment(@Path("albumId") albumId: Int, @Body comment: CommentRequest): Response<Comment>
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 class AlbumsApi(context: Context) {
+    @RequiresApi(Build.VERSION_CODES.M)
     private val retrofit = RetrofitFactory.createRetrofitWithCache(context)
 
     val albumsService: NetworkServiceAdapterAlbums by lazy {

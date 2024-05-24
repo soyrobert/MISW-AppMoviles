@@ -1,6 +1,8 @@
 package com.miso.appvinilos.presentacion.viewmodels
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +21,7 @@ class ArtistViewModel(application: Application) : AndroidViewModel(application) 
     val artist: LiveData<Artist>
         get() = _artist
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun fetchArtists(artistsTest: List<Artist> = emptyList()) {
         viewModelScope.launch {
             try {
@@ -37,6 +40,7 @@ class ArtistViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun fetchArtist(id: Int) {
         viewModelScope.launch {
             try {

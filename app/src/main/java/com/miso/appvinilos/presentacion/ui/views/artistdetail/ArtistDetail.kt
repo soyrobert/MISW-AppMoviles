@@ -1,6 +1,7 @@
 package com.miso.appvinilos.presentacion.ui.views.artistdetail
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController, artistTest: List<Artist> = emptyList()) {
     val viewModel: ArtistViewModel = viewModel()
@@ -68,7 +70,6 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ArtistDetailContent(artist: Artist, navigationController: NavHostController) {
     val formattedDate = formatDate(artist.birthDate)
