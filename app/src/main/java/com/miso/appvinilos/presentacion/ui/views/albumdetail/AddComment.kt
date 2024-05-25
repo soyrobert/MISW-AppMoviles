@@ -81,7 +81,8 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                         Icon(
                             imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                             contentDescription = null,
-                            tint = if (index <= rating) Color.Red else Color.Gray
+                            tint = if (index <= rating) Color.Red else Color.Gray,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 }
@@ -127,7 +128,7 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                         color = Color.DarkGray,
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
-                            .padding(end = 8.dp, bottom = 8.dp) // Ajusta el padding si es necesario
+                            .padding(end = 8.dp, bottom = 8.dp)
                     )
                 }
             }
