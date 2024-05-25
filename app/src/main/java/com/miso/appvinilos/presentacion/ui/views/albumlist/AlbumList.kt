@@ -11,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
@@ -28,7 +30,11 @@ fun AlbumList(viewModel: AlbumViewModel, navigationController: NavHostController
 
                 Box(modifier=Modifier.fillMaxSize().clickable {
                     navigationController.navigate("AlbumCompleteDetail/" + album.id)
-                }){
+                }
+                    .semantics {
+                        contentDescription = "Album: ${album.name}"
+                    }
+                ){
                     AlbumItem(album)
                 }
 

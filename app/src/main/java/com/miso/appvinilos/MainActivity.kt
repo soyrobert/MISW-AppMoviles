@@ -1,10 +1,14 @@
 package com.miso.appvinilos
-import android.content.Context
+
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AddCommentScreen
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +37,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -41,44 +49,37 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
-import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
-import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
-import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
-import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
-import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
-import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.data.model.Collector
+import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
+import com.miso.appvinilos.presentacion.ui.views.albumCreate.AlbumCreate
+import com.miso.appvinilos.presentacion.ui.views.albumdetail.AlbumCompleteDetail
+import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
+import com.miso.appvinilos.presentacion.ui.views.artistdetail.ArtistCompleteDetail
 import com.miso.appvinilos.presentacion.ui.views.artistlist.ArtistListScreen
+import com.miso.appvinilos.presentacion.ui.views.collectordetail.CollectorCompleteDetail
+import com.miso.appvinilos.presentacion.ui.views.collectorlist.CollectorList
+import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
+import com.miso.appvinilos.presentacion.viewmodels.CollectorViewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 
 class MainActivity : ComponentActivity() {
-    // Config for getting context in other classes
-    companion object {
-        private lateinit var instance: MainActivity
 
-
-        fun getInstance(): MainActivity {
-            return instance
-        }
-
-        fun getContext(): Context {
-            return instance.applicationContext
-        }
-    }
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        instance = this
+
         super.onCreate(savedInstanceState)
 
         setContent {
             val navController = rememberNavController()
             AppVinilosTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
                     color = MaterialTheme.colorScheme.background
+
+
                 ) {
                     MainScreen(navController = navController)
                 }
@@ -87,6 +88,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
     navController: NavHostController,
@@ -94,6 +96,10 @@ fun MainScreen(
     artistsTest: List<Artist> = emptyList(),
     collectorsTest: List<Collector> = emptyList()
 ) {
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val route = backStackEntry?.destination?.route
+    Log.d("CURRENT_ROUTE", "Ruta $backStackEntry")
+    Log.d("CURRENT_ROUTE", "Ruta $route")
     Scaffold(
         bottomBar = {
             BottomAppBar(modifier = Modifier) {
@@ -101,8 +107,12 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Add, "Add")
+            if (route == "Albums") {
+                FloatingActionButton(onClick = { navController.navigate("createAlbum") }, modifier = Modifier.semantics {
+                    stateDescription = "Este boton agrega un nuevo elemento en la lista de datos"
+                }) {
+                    Icon(Icons.Filled.Add, "Add")
+                }
             }
         }
     ) { innerPadding ->
@@ -116,19 +126,23 @@ fun MainScreen(
                 )
             )
         ) {
-            Navigations(navController = navController,
-                        albumsTest = albumsTest,
-                        artistsTest = artistsTest,
-                        collectorsTest = collectorsTest)
+            Navigations(
+                navController = navController,
+                albumsTest = albumsTest,
+                artistsTest = artistsTest,
+                collectorsTest = collectorsTest
+            )
         }
     }
 }
 
-sealed class NavigationItem(var route: String, val title: String, val icon: Int) {
-    data object Albums : NavigationItem("Albums", "Albums", R.drawable.ic_album)
-    data object Artist : NavigationItem("Artist", "Artist", R.drawable.ic_artist)
-    data object Collector : NavigationItem("Collector", "Collector", R.drawable.ic_collector)
-    data object Home : NavigationItem("Home", "Home", R.drawable.ic_home)
+
+sealed class NavigationItem(val route: String, val title: String, val contentDescription: String?, val icon: Int) {
+
+    data object Albums : NavigationItem("Albums", "Albums", "Navigate to Albums", R.drawable.ic_album)  // No constructor needed
+    data object Artist : NavigationItem("Artist", "Artist", "Navigate to Artists", R.drawable.ic_artist)
+    data object Collector : NavigationItem("Collector", "Collector", "Navigate to Collector", R.drawable.ic_collector)
+    data object Home : NavigationItem("Home", "Home", "Navigate to Home", R.drawable.ic_home)
 }
 
 
@@ -153,12 +167,13 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 alwaysShowLabel = true,
-                modifier = Modifier.testTag(item.title),
+                modifier = Modifier.testTag(item.title)
+                    .semantics { contentDescription = item.contentDescription.toString() },
                 icon = {
                     val imagePainter = painterResource(id = item.icon)
                     Image(
                         painter = imagePainter,
-                        contentDescription = null // Provide content description if needed
+                        contentDescription = "Icono para la opción de menu " + item.title
                     )
                 },
                 label = { Text(item.title) },
@@ -173,8 +188,6 @@ fun BottomNavigationBar(navController: NavController) {
                                 saveState = true
                             }
                         }
-                        var launchSingleTop = true
-                        var restoreState = true
                     }
                 }
             )
@@ -182,36 +195,55 @@ fun BottomNavigationBar(navController: NavController) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Navigations(navController: NavHostController,
-                albumsTest: List<Album> = emptyList(),
-                artistsTest: List<Artist> = emptyList(),
-                collectorsTest: List<Collector> = emptyList()
-                ) {
+fun Navigations(
+    navController: NavHostController,
+    albumsTest: List<Album> = emptyList(),
+    artistsTest: List<Artist> = emptyList(),
+    collectorsTest: List<Collector> = emptyList()
+) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Albums.route) {
-            AlbumListScreen(navController,albumsTest=albumsTest)}
-            composable("AlbumCompleteDetail/{albumId}"){ backStackEntry ->
+            AlbumListScreen(navController, albumsTest = albumsTest)
+        }
+        composable("AlbumCompleteDetail/{albumId}") { backStackEntry ->
 
-                val albumId=backStackEntry.arguments?.getString("albumId")
-                val albumIdInt= albumId?.toInt()?:0
+            val albumId = backStackEntry.arguments?.getString("albumId")
+            val albumIdInt = albumId?.toInt() ?: 0
 
-                AlbumCompleteDetail(albumIdInt, navController,albumsTest=albumsTest)
+            AlbumCompleteDetail(albumIdInt, navController, albumsTest = albumsTest)
         }
         composable(NavigationItem.Artist.route) {
-            ArtistListScreen(navController,artistTest=artistsTest)}
-            composable("ArtistCompleteDetail/{artistId}"){ backStackEntry ->
+            ArtistListScreen(navController, artistTest = artistsTest)
+        }
+        composable("ArtistCompleteDetail/{artistId}") { backStackEntry ->
 
-                val artistId=backStackEntry.arguments?.getString("artistId")
-                val artistIdInt= artistId?.toInt()?:0
+            val artistId = backStackEntry.arguments?.getString("artistId")
+            val artistIdInt = artistId?.toInt() ?: 0
 
-                ArtistCompleteDetail(artistIdInt, navController,artistTest=artistsTest)
+            ArtistCompleteDetail(artistIdInt, navController, artistTest = artistsTest)
         }
         composable(NavigationItem.Collector.route) {
-            CollectorListScreen(navController,collectorsTest=collectorsTest)
+            CollectorListScreen(navController, collectorsTest = collectorsTest)
         }
+
+        composable("CollectorCompleteDetail/{collectorId}") { backStackEntry ->
+
+            val collectorId = backStackEntry.arguments?.getString("collectorId")
+            val collectorIdInt = collectorId?.toInt() ?: 0
+            CollectorCompleteDetail(collectorIdInt, navController,collectorsTest = collectorsTest,collectorAlbumsTest = albumsTest)
+        }
+        
         composable(NavigationItem.Home.route) {
             HomeScreen()
+        }
+        composable("CreateAlbum") {
+            CreateAlbumScreen(navController)
+        }
+        composable("AddComment/{albumId}") { backStackEntry ->
+            val albumId = backStackEntry.arguments?.getString("albumId")?.toInt() ?: 0
+            AddCommentScreen(albumId = albumId, navigationController = navController)
         }
     }
 }
@@ -219,22 +251,43 @@ fun Navigations(navController: NavHostController,
 @Composable
 fun CenterText(text: String) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics(mergeDescendants = true){},
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text, fontSize = 32.sp)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.semantics {
+                heading()
+            }.semantics {
+                contentDescription = "Texto de bienvenida"
+            },
+            fontSize = 32.sp
+        )
     }
 }
 
 
 @Composable
 fun HomeScreen() {
-    CenterText(text = "Home")
+    CenterText(text = "Bienvenido")
 }
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
+fun CreateAlbumScreen(navController: NavHostController) {
+    val viewModel: AlbumViewModel = viewModel()
+    AlbumCreate(viewModel, navController)
+}
+
+@RequiresApi(Build.VERSION_CODES.M)
+@Composable
+fun AlbumListScreen(
+    navigationController: NavHostController,
+    albumsTest: List<Album> = emptyList()
+) {
 
     val viewModel: AlbumViewModel = viewModel()
 
@@ -242,8 +295,7 @@ fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Albu
         LaunchedEffect(key1 = true) {
             viewModel.fetchAlbums(albumsTest)
         }
-    }
-    else {
+    } else {
         LaunchedEffect(key1 = true) {
             viewModel.fetchAlbums()
         }
@@ -251,11 +303,15 @@ fun AlbumListScreen(navigationController: NavHostController,albumsTest:List<Albu
 
 
     Log.d("AlbumListScreen", "Loading albums")
-    AlbumList(viewModel,navigationController)
+    AlbumList(viewModel, navigationController)
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun CollectorListScreen(navigationController: NavHostController,collectorsTest:List<Collector> = emptyList()) {
+fun CollectorListScreen(
+    navigationController: NavHostController,
+    collectorsTest: List<Collector> = emptyList()
+) {
 
     val viewModel: CollectorViewModel = viewModel()
 
@@ -263,8 +319,7 @@ fun CollectorListScreen(navigationController: NavHostController,collectorsTest:L
         LaunchedEffect(key1 = true) {
             viewModel.fetchCollectors(collectorsTest)
         }
-    }
-    else {
+    } else {
         LaunchedEffect(key1 = true) {
             viewModel.fetchCollectors()
         }
@@ -272,5 +327,5 @@ fun CollectorListScreen(navigationController: NavHostController,collectorsTest:L
 
 
 
-    CollectorList(viewModel,navigationController)
+    CollectorList(viewModel, navigationController)
 }

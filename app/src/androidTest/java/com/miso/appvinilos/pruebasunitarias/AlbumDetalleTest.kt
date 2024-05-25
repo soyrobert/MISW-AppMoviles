@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Rule
 
 class DetalleAlbumTest {
-    private val albumTestNormal= Album(id = 1, name="Album1", cover="cover1", releaseDate="2021-01-01", description="description1", genre="genre1", recordLabel="recordLabel1")
+    private val albumTestNormal= Album(id = 1, name="Album1", cover="cover1", releaseDate="2021-01-01", description="description1", genre="genre1", recordLabel="recordLabel1", comments= emptyList())
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()

@@ -10,9 +10,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.presentacion.ui.views.albumlist.AlbumList
 import com.miso.appvinilos.presentacion.viewmodels.AlbumViewModel
-import com.miso.appvinilos.data.model.Album
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

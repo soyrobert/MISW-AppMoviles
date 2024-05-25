@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="AddAlbum">
+        <State />
+      </entry>
       <entry key="E2ETests">
         <State />
       </entry>
@@ -19,15 +22,15 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\dagam\.android\avd\Pixel_6_API_34.avd" />
+                  <value value="C:\Users\dagam\.android\avd\Pixel_8_Pro_API_VanillaIceCream.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-08T23:32:06.550724500Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-19T23:01:17.024682Z" />
         </State>
       </entry>
-      <entry key="pantalla_albums_muestra_correctamente_6_albums() (1)">
+      <entry key="test_10_uso_detalle_coleccionista()">
         <State />
       </entry>
     </value>

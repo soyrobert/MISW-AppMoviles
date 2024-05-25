@@ -1,7 +1,5 @@
 package com.miso.appvinilos.e2e
 
-import org.junit.Test
-
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -16,15 +14,16 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.navigation.compose.rememberNavController
+import androidx.test.espresso.Espresso
 import com.miso.appvinilos.MainScreen
 import com.miso.appvinilos.data.model.Album
-import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
 import com.miso.appvinilos.data.model.Artist
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.model.Comment
+import com.miso.appvinilos.presentacion.ui.theme.AppVinilosTheme
 import org.junit.Before
 import org.junit.Rule
-import androidx.test.espresso.Espresso
+import org.junit.Test
 
 class E2ETests {
     private val albumTest1 = Album(
@@ -34,7 +33,12 @@ class E2ETests {
         releaseDate = "2021-01-01",
         description = "description1",
         genre = "genre1",
-        recordLabel = "recordLabel1"
+        recordLabel = "recordLabel1",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
+
     )
     private val albumTest2 = Album(
         id = 2,
@@ -43,7 +47,11 @@ class E2ETests {
         releaseDate = "2021-01-02",
         description = "description2",
         genre = "genre2",
-        recordLabel = "recordLabel2"
+        recordLabel = "recordLabel2",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest3 = Album(
         id = 3,
@@ -52,7 +60,11 @@ class E2ETests {
         releaseDate = "2021-01-03",
         description = "description3",
         genre = "genre3",
-        recordLabel = "recordLabel3"
+        recordLabel = "recordLabel3",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest4 = Album(
         id = 4,
@@ -61,7 +73,11 @@ class E2ETests {
         releaseDate = "2021-01-04",
         description = "description4",
         genre = "genre4",
-        recordLabel = "recordLabel4"
+        recordLabel = "recordLabel4",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest5 = Album(
         id = 5,
@@ -70,7 +86,11 @@ class E2ETests {
         releaseDate = "2021-01-05",
         description = "description5",
         genre = "genre5",
-        recordLabel = "recordLabel5"
+        recordLabel = "recordLabel5",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest6 = Album(
         id = 6,
@@ -79,7 +99,11 @@ class E2ETests {
         releaseDate = "2021-01-06",
         description = "description6",
         genre = "genre6",
-        recordLabel = "recordLabel6"
+        recordLabel = "recordLabel6",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest7 = Album(
         id = 7,
@@ -88,7 +112,11 @@ class E2ETests {
         releaseDate = "2021-01-07",
         description = "description7",
         genre = "genre7",
-        recordLabel = "recordLabel7"
+        recordLabel = "recordLabel7",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumTest8 = Album(
         id = 8,
@@ -97,7 +125,11 @@ class E2ETests {
         releaseDate = "2021-01-08",
         description = "description8",
         genre = "genre8",
-        recordLabel = "recordLabel8"
+        recordLabel = "recordLabel8",
+        comments = listOf(
+            Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+            Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
+        )
     )
     private val albumsTest = listOf(
         albumTest1,
@@ -115,56 +147,64 @@ class E2ETests {
         name = "Artist1",
         image = "image1",
         description = "description1",
-        birthDate = "birthDate1"
+        birthDate = "birthDate1",
+        albums = emptyList()
     )
     private val artistTest2 = Artist(
         id = 2,
         name = "Artist2",
         image = "image2",
         description = "description2",
-        birthDate = "birthDate2"
+        birthDate = "birthDate2",
+        albums = emptyList()
     )
     private val artistTest3 = Artist(
         id = 3,
         name = "Artist3",
         image = "image3",
         description = "description3",
-        birthDate = "birthDate3"
+        birthDate = "birthDate3",
+        albums = emptyList()
     )
     private val artistTest4 = Artist(
         id = 4,
         name = "Artist4",
         image = "image4",
         description = "description4",
-        birthDate = "birthDate4"
+        birthDate = "birthDate4",
+        albums = emptyList()
     )
     private val artistTest5 = Artist(
         id = 5,
         name = "Artist5",
         image = "image5",
         description = "description5",
-        birthDate = "birthDate5"
+        birthDate = "birthDate5",
+        albums = emptyList()
     )
     private val artistTest6 = Artist(
         id = 6,
         name = "Artist6",
         image = "image6",
         description = "description6",
-        birthDate = "birthDate6"
+        birthDate = "birthDate6",
+        albums = emptyList()
     )
     private val artistTest7 = Artist(
         id = 7,
         name = "Artist7",
         image = "image7",
         description = "description7",
-        birthDate = "birthDate7"
+        birthDate = "birthDate7",
+        albums = emptyList()
     )
     private val artistTest8 = Artist(
         id = 8,
         name = "Artist8",
         image = "image8",
         description = "description8",
-        birthDate = "birthDate8"
+        birthDate = "birthDate8",
+        albums = emptyList()
     )
     private val artistsTest = listOf(
         artistTest1,
@@ -178,8 +218,8 @@ class E2ETests {
     )
 
     private val commentsTest = listOf(
-        Comment(id = 1, content = "Great collection!"),
-        Comment(id = 2, content = "Impressive variety of albums.")
+        Comment(id = 1, description = "Great collection!", rating = 5, collectorId = 1),
+        Comment(id = 2, description = "Impressive variety of albums.", rating = 4, collectorId = 1)
     )
 
     private val collectorsTest = listOf(
@@ -327,7 +367,8 @@ class E2ETests {
         composeTestRule.onNodeWithTag("backButton").performClick()
         composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText("Home").performClick()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
     }
 
     @Test
@@ -353,12 +394,13 @@ class E2ETests {
         composeTestRule.onNodeWithText("Collector").performClick()
 
         composeTestRule.onNodeWithText("Home").performClick()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
     }
 
     @Test
     fun test_8_revision_stack_desde_album(){
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
         composeTestRule.onNodeWithText("Albums").performClick()
         composeTestRule.onNodeWithText(albumTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(albumTest1.name).performClick()
@@ -367,13 +409,14 @@ class E2ETests {
 
         //al hacer el back en el dispositivo se debe retornar al home
         Espresso.pressBack()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
 
     }
 
     @Test
     fun test_9_revision_stack_desde_artista(){
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
+        composeTestRule.onAllNodesWithText("Bienvenido").assertCountEquals(1)
         composeTestRule.onNodeWithText("Artist").performClick()
         composeTestRule.onNodeWithText(artistTest1.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(artistTest1.name).performClick()
@@ -382,9 +425,16 @@ class E2ETests {
 
         //al hacer el back en el dispositivo se debe retornar al home
         Espresso.pressBack()
-        composeTestRule.onAllNodesWithText("Home").assertCountEquals(2)
+        composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
 
     }
 
+    @Test
+    fun test_10_uso_detalle_coleccionista(){
+        composeTestRule.onNodeWithText("Collector").performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).performClick()
+        composeTestRule.onNodeWithText(collectorsTest[0].name).assertIsDisplayed()
+    }
 
 }
