@@ -38,7 +38,7 @@ class AddAlbum {
         composeTestRule.onNodeWithText("Nombre").performTextInput("Test Album")
         composeTestRule.onNodeWithText("URL imagen portada").performTextInput("http://example.com/cover.jpg")
         composeTestRule.onNodeWithText("Descripción").performTextInput("This is a test album.")
-        composeTestRule.onNodeWithText("Crear Album").performClick()
+        composeTestRule.onNodeWithText("Agregar").performClick()
 
         // Verify the album creation
         composeTestRule.onNodeWithText("Test Album").assertIsDisplayed()
