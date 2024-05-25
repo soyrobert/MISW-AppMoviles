@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
@@ -47,36 +49,35 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController,albumsTest:List<Album> = emptyList()) {
+fun AlbumCompleteDetail(albumId: Int, navigationController: NavHostController, albumsTest: List<Album> = emptyList()) {
     val viewModel: AlbumViewModel = viewModel()
 
-    val initialAlbum = Album(0, albumId.toString(), "cover", "releaseDate",
-        "descr","genre","record lab", emptyList())
+    val initialAlbum = Album(0, albumId.toString(), "cover", "releaseDate", "descr", "genre", "record lab", emptyList())
 
     LaunchedEffect(key1 = true) {
         viewModel.fetchAlbum(albumId)
         viewModel.fetchComments(albumId)
     }
 
-
     val albumToShow by viewModel.album.observeAsState(initial = initialAlbum)
     val comments by viewModel.comments.observeAsState(initial = emptyList())
 
-    if(albumsTest.isNotEmpty()){
-        val albumTest = albumsTest[albumId-1]
+    if (albumsTest.isNotEmpty()) {
+        val albumTest = albumsTest[albumId - 1]
         AlbumBasicDetail(albumTest, navigationController)
-    }
-    else{
-
-        Column(modifier = Modifier.padding(16.dp) ) {
+    } else {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             AlbumBasicDetail(albumToShow, navigationController)
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 16.dp, start = 7.dp, end = 7.dp),
-
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -118,12 +119,14 @@ fun CommentList(comments: List<Comment>) {
                     text = comment.description,
                     modifier = Modifier.semantics {
                         contentDescription = "Texto del comentario"
-                    })
+                    }
+                )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = comment.rating.toString(),
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(end = 4.dp)
+                        modifier = Modifier
+                            .padding(end = 4.dp)
                             .semantics {
                                 contentDescription = "Rating del comentario"
                             }
@@ -132,7 +135,8 @@ fun CommentList(comments: List<Comment>) {
                         imageVector = Icons.Default.Star,
                         contentDescription = "Rating Star",
                         tint = Color.Black,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier
+                            .size(16.dp)
                             .semantics {
                                 contentDescription = "Icono de estrella del rating"
                             }
@@ -144,24 +148,21 @@ fun CommentList(comments: List<Comment>) {
 }
 
 @Composable
-fun AlbumBasicDetail(album: Album, navigationController: NavHostController){
-    Column(modifier = Modifier.semantics(mergeDescendants = true){}) {
-        Header(text="Álbum",navigationController = navigationController)
+fun AlbumBasicDetail(album: Album, navigationController: NavHostController) {
+    Column(modifier = Modifier.semantics(mergeDescendants = true) {}) {
+        Header(text = "Álbum", navigationController = navigationController)
         AlbumDetail(album)
         AlbumDescription(album)
     }
 }
 
-
 @Composable
 fun AlbumPhotoScreen(cover: String) {
-
     Box(
         modifier = Modifier
             .fillMaxWidth(0.80f)
             .padding(1.dp)
     ) {
-
         GlideImage(
             imageModel = { cover },
             modifier = Modifier
@@ -175,9 +176,8 @@ fun AlbumPhotoScreen(cover: String) {
     }
 }
 
-
 @Composable
-fun AlbumBasicDescription(album: Album){
+fun AlbumBasicDescription(album: Album) {
     GenreScreenField(album)
     DiscographyScreenField(album)
     PublicationDateScreenField(album)
@@ -221,13 +221,12 @@ fun CustomParagraph(text: String) {
 }
 
 @Composable
-fun GenreScreenField(album: Album){
+fun GenreScreenField(album: Album) {
     Column(modifier = Modifier.padding(5.dp)) {
         LightText(text = "Género")
         DarkText(text = album.genre)
     }
 }
-
 
 @Composable
 fun AlbumDetail(album: Album) {
@@ -245,7 +244,7 @@ fun AlbumDetail(album: Album) {
                 modifier = Modifier
                     .weight(1.5f)
                     .fillMaxWidth()
-                    .semantics(mergeDescendants = true){}
+                    .semantics(mergeDescendants = true) {}
             ) {
                 AlbumPhotoScreen(album.cover)
             }
@@ -254,13 +253,11 @@ fun AlbumDetail(album: Album) {
                     .weight(1.5f)
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
-                    .semantics(mergeDescendants = true){}
+                    .semantics(mergeDescendants = true) {}
             ) {
                 AlbumBasicDescription(album)
             }
-
         }
-
     }
 }
 
@@ -270,7 +267,7 @@ fun AlbumDescription(album: Album) {
         modifier = Modifier
             .padding(5.dp)
     ) {
-        Column (modifier = Modifier.semantics(mergeDescendants = true){}){
+        Column(modifier = Modifier.semantics(mergeDescendants = true) {}) {
             Row {
                 DarkText(text = album.name)
             }
@@ -280,20 +277,19 @@ fun AlbumDescription(album: Album) {
             }
         }
     }
-
 }
 
 @Composable
-fun CustomWhiteSpace(){
-    Surface (
+fun CustomWhiteSpace() {
+    Surface(
         Modifier
             .height(20.dp)
             .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 96.dp)
-    ){
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.semantics(mergeDescendants = true){}
+            modifier = Modifier.semantics(mergeDescendants = true) {}
         ) {}
     }
 }
@@ -301,16 +297,28 @@ fun CustomWhiteSpace(){
 data class Album(
     val releaseDate: String
 )
+
 fun formatDate(dateString: String): String {
-    val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-    val outputFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val date: Date = inputFormatter.parse(dateString)
-    return outputFormatter.format(date)
+    return try {
+        val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val outputFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date: Date? = inputFormatter.parse(dateString)
+        if (date != null) {
+            outputFormatter.format(date)
+        } else {
+            dateString
+        }
+    } catch (e: ParseException) {
+        dateString
+    }
 }
+
 
 data class Comment(
     val description: String,
     val rating: Int
 )
+
+
 
 
