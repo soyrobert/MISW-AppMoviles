@@ -10,7 +10,9 @@ import androidx.lifecycle.viewModelScope
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Collector
 import com.miso.appvinilos.data.repositories.CollectorRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
     private val collectorRepository = CollectorRepository(application)
@@ -29,11 +31,14 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun fetchCollector(collectorId: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val foundCollector = collectorRepository.getCollector(collectorId)
                 Log.d("foundCollector", "foundCollector: $foundCollector")
-                _collector.value = foundCollector
+
+                withContext(Dispatchers.Main) {
+                    _collector.value = foundCollector
+                }
             } catch (e: Exception) {
                 // Handle error
                 e.printStackTrace()
@@ -43,15 +48,22 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun fetchCollectors(collectorsTest:List<Collector> = emptyList()){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 if(collectorsTest.isEmpty()){
                     val collectors = collectorRepository.getCollectors()
                     Log.d("CollectorViewModel", "Fetched collectors: ${collectors.joinToString { it.name }}")
-                    _collectors.value = collectors}
+
+                    withContext(Dispatchers.Main) {
+                        _collectors.value = collectors
+                    }
+                }
                 else{
                     Log.d("CollectorViewModel", "Fetched test collectors: ${collectorsTest.joinToString { it.name }}")
-                    _collectors.value = collectorsTest
+
+                    withContext(Dispatchers.Main) {
+                        _collectors.value = collectorsTest
+                    }
                 }
 
             } catch (e: Exception) {
@@ -64,11 +76,14 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun fetchCollectorAlbums(collectorId: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO)  {
             try {
                 val foundCollectorAlbums = collectorRepository.getCollectorAlbums(collectorId)
                 Log.d("foundCollectorAlbums", "foundCollectorAlbums: $foundCollectorAlbums")
-                _collectorAlbums.value = foundCollectorAlbums
+
+                withContext(Dispatchers.Main) {
+                    _collectorAlbums.value = foundCollectorAlbums
+                }
             } catch (e: Exception) {
                 // Handle error
                 e.printStackTrace()
