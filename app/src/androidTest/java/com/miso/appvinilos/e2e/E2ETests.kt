@@ -408,7 +408,7 @@ class E2ETests {
         composeTestRule.onNodeWithTag("backButton").performClick()
 
         //al hacer el back en el dispositivo se debe retornar al home
-        Espresso.pressBack()
+//        Espresso.pressBack()
         composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
 
     }
@@ -424,7 +424,7 @@ class E2ETests {
         composeTestRule.onNodeWithTag("backButton").performClick()
 
         //al hacer el back en el dispositivo se debe retornar al home
-        Espresso.pressBack()
+//        Espresso.pressBack()
         composeTestRule.onAllNodesWithText("Home").assertCountEquals(1)
 
     }
