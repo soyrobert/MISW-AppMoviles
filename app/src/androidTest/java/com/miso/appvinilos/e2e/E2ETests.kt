@@ -14,7 +14,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.navigation.compose.rememberNavController
-import androidx.test.espresso.Espresso
 import com.miso.appvinilos.MainScreen
 import com.miso.appvinilos.data.model.Album
 import com.miso.appvinilos.data.model.Artist
