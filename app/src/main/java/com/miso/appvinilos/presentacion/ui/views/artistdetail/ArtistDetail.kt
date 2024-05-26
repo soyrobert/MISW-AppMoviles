@@ -63,8 +63,8 @@ fun ArtistCompleteDetail(artistId: Int, navigationController: NavHostController,
     val artistToShow by viewModel.artist.observeAsState(initial = initialArtist)
 
     if (artistTest.isNotEmpty()) {
-        val artistTest = artistTest[artistId - 1]
-        ArtistDetailContent(artist = artistTest, navigationController = navigationController)
+        val selectedArtist = artistTest[artistId - 1]
+        ArtistDetailContent(artist = selectedArtist, navigationController = navigationController)
     } else {
         ArtistDetailContent(artist = artistToShow, navigationController = navigationController)
     }
@@ -100,7 +100,10 @@ fun ArtistDetailContent(artist: Artist, navigationController: NavHostController)
         item {
             Text(
                 text = "Álbumes",
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold, fontSize = 20.sp
+                ),
+                modifier = Modifier.padding( 16.dp, 0.dp, 8.dp, 8.dp)
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -108,6 +111,7 @@ fun ArtistDetailContent(artist: Artist, navigationController: NavHostController)
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxWidth()
+                    .padding( 8.dp, 0.dp, 8.dp, 8.dp)
             ) {
                 rowAlbums.forEach { album ->
                     AlbumItem(album = album, Modifier.weight(1f))
@@ -234,8 +238,12 @@ fun formatDate(dateString: String): String {
     return try {
         val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
         val outputFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date: Date = inputFormatter.parse(dateString)
-        outputFormatter.format(date)
+        val date: Date? = inputFormatter.parse(dateString)
+        if (date != null) {
+            outputFormatter.format(date)
+        } else {
+            dateString
+        }
     } catch (e: ParseException) {
         dateString
     }

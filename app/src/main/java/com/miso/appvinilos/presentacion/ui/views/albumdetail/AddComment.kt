@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -60,28 +61,41 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = "Calificación",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-
-                (1..5).forEach { index ->
-                    IconButton(
-                        onClick = { rating = index },
-                        modifier = Modifier
-                            .testTag("RatingButton$index")
-                            .padding(0.dp)
-                            .size(48.dp)
-
-                    ) {
-                        Icon(
-                            imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = null,
-                            tint = if (index <= rating) Color.Red else Color.Gray
-                        )
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Text(
+                        text = "Calificación",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    Row {
+                        (1..5).forEach { index ->
+                            IconButton(
+                                onClick = { rating = index },
+                                modifier = Modifier
+                                    .testTag("RatingButton$index")
+                                    .padding(0.dp)
+                                    .size(30.dp)
+                            ) {
+                                Icon(
+                                    imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                    contentDescription = null,
+                                    tint = if (index <= rating) Color.Red else Color.Gray,
+                                    modifier = Modifier
+                                        .padding(0.dp)
+                                        .size(28.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -102,7 +116,11 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(150.dp)
-                                .border(1.dp, Color.DarkGray)
+                                .border(
+                                    width = 1.dp,
+                                    color = Color.DarkGray,
+                                    shape = RoundedCornerShape(5.dp)
+                                )
                                 .padding(8.dp)
                         ) {
                             if (commentContent.isEmpty()) {
@@ -112,12 +130,21 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
                         }
                     }
                 )
-                Text(
-                    text = "${commentContent.length} / 200",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.DarkGray
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "${commentContent.length} / 200",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.DarkGray,
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = 8.dp, bottom = 8.dp)
+                    )
+                }
             }
+
 
             Spacer(modifier = Modifier.height(16.dp))
 

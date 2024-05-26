@@ -6,6 +6,8 @@ import android.util.Patterns
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -13,8 +15,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -37,6 +41,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -89,13 +94,18 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Header(text="Crear Nuevo Album", navigationController = navigationController)
-        Spacer(modifier = Modifier.padding(8.dp))
+        Header(text="Agregar álbum", navigationController = navigationController)
+        Spacer(modifier = Modifier.padding(2.dp))
 
         var isNameValid by remember { mutableStateOf(true) }
         TextField(
-            modifier = Modifier.fillMaxWidth()
-                .semantics { contentDescription = "Campo para el nombre del album" },
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { contentDescription = "Campo para el nombre del album" }
+                .fillMaxWidth()
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
+                .border(2.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp)),
             value = name,
             onValueChange = {
                 name = it
@@ -103,17 +113,21 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             },
             label = { Text("Nombre") }
         )
+        Spacer(modifier = Modifier.height(16.dp))
         if (!isNameValid) {
-            Text(text = "El nombre no debe estar vacio", color = Color.Red)
+            Text(text = "El nombre no debe estar vacío", color = Color.Red)
         }
-
-        Spacer(modifier = Modifier.padding(2.dp))
 
         var isCoverValid by remember { mutableStateOf(true) }
 
         TextField(
-            modifier = Modifier.fillMaxWidth()
-                .semantics { contentDescription = "Campo para el url la portada del album" },
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { contentDescription = "Campo para el url la portada del album" }
+                .fillMaxWidth()
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
+                .border(2.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp)),
             value = cover,
             onValueChange = {
                 cover = it
@@ -122,32 +136,37 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
                     Toast.makeText(context, "URL invalido", Toast.LENGTH_LONG).show()
                 }
             },
-            label = { Text("URL") },
+            label = { Text("URL imagen portada") },
             isError = !isCoverValid
         )
+        Spacer(modifier = Modifier.padding(1.dp))
         if (!isCoverValid) {
             Text("Ingrese un formato URL valido.", color = MaterialTheme.colorScheme.error)
         }
 
-        Spacer(modifier = Modifier.padding(2.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         GenreDropdownMenuBox{ genre = it }
         Log.d("OPCION", "Opcion: $genre")
 
-        Spacer(modifier = Modifier.padding(2.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ReleaseDateTextField { releaseDate = it }
+        Spacer(modifier = Modifier.height(16.dp))
 
         RecordLabelDropdownMenuBox { recordLabel = it}
         Log.d("OPCION", "RECORD: $recordLabel")
 
-        Spacer(modifier = Modifier.padding(2.dp))
-
-        ReleaseDateTextField { releaseDate = it }
-
-        Spacer(modifier = Modifier.padding(2.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            modifier = Modifier.fillMaxWidth()
-                .semantics { contentDescription = "Campo para la descripcion del album" },
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { contentDescription = "Campo para la descripcion del album" }
+                .fillMaxWidth()
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
+                .border(2.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp)),
             value = description,
             onValueChange = { description = it },
             placeholder = { Text(text = "Descripción") },
@@ -173,7 +192,7 @@ fun AlbumCreate(viewModel: AlbumViewModel, navigationController: NavHostControll
             modifier = Modifier
                 .testTag("SubmitAlbumButton")
                 .semantics { contentDescription = "Boton para guardar el album" }
-            ) { Text("Crear Album") }
+            ) { Text("Agregar") }
 
         albumCreationResponse?.let { response ->
             if (response.isSuccessful) {
@@ -221,7 +240,13 @@ fun ReleaseDateTextField(releaseDate: (String) -> Unit) {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .semantics { contentDescription = "Calendario para seleccionar la fecha de lanzamiento" },
+            .semantics {
+                contentDescription = "Calendario para seleccionar la fecha de lanzamiento"
+            }
+            .fillMaxWidth()
+            .background(Color.White, shape = RoundedCornerShape(8.dp))
+            .border(2.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(8.dp)),
         readOnly = true,
         value = selectedDate,
         onValueChange = {
@@ -276,10 +301,16 @@ fun GenreDropdownMenuBox(genre: (String) -> Unit) {
             TextField(
                 value = genre,
                 onValueChange = {},
-                label = { Text(text = "Seleccione un genero") },
+                label = { Text(text = "Seleccione un género") },
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                modifier = Modifier.menuAnchor().semantics { contentDescription = "Opciones de genero" }
+                modifier = Modifier
+                    .menuAnchor()
+                    .semantics { contentDescription = "Opciones de genero" }
+                    .fillMaxWidth()
+                    .background(Color.White, shape = RoundedCornerShape(8.dp))
+                    .border(2.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(8.dp)),
             )
 
             ExposedDropdownMenu(
@@ -324,10 +355,16 @@ fun RecordLabelDropdownMenuBox(recordLabel: (String) -> Unit) {
             TextField(
                 value = recordLabel,
                 onValueChange = {},
-                label = { Text(text = "Seleccione una compañía discografica") },
+                label = { Text(text = "Seleccione una compañía discográfica") },
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                modifier = Modifier.menuAnchor().semantics { contentDescription = "Opciones de compañía discografica" }
+                modifier = Modifier
+                    .menuAnchor()
+                    .semantics { contentDescription = "Opciones de compañía discografica" }
+                    .fillMaxWidth()
+                    .background(Color.White, shape = RoundedCornerShape(8.dp))
+                    .border(2.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(8.dp)),
             )
 
             ExposedDropdownMenu(
