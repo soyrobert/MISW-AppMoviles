@@ -61,29 +61,41 @@ fun AddCommentScreen(albumId: Int, navigationController: NavHostController) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = "Calificación",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-
-                (1..5).forEach { index ->
-                    IconButton(
-                        onClick = { rating = index },
-                        modifier = Modifier
-                            .testTag("RatingButton$index")
-                            .padding(0.dp)
-                            .size(48.dp)
-
-                    ) {
-                        Icon(
-                            imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = null,
-                            tint = if (index <= rating) Color.Red else Color.Gray,
-                            modifier = Modifier.size(24.dp)
-                        )
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Text(
+                        text = "Calificación",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    Row {
+                        (1..5).forEach { index ->
+                            IconButton(
+                                onClick = { rating = index },
+                                modifier = Modifier
+                                    .testTag("RatingButton$index")
+                                    .padding(0.dp)
+                                    .size(30.dp)
+                            ) {
+                                Icon(
+                                    imageVector = if (index <= rating) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                    contentDescription = null,
+                                    tint = if (index <= rating) Color.Red else Color.Gray,
+                                    modifier = Modifier
+                                        .padding(0.dp)
+                                        .size(28.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
